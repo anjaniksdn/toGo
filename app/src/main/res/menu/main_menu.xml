@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item android:id="@+id/menu_settings"
+        android:icon="@drawable/menu_ic_settings"
+        android:title="@string/menu_settings"
+        app:showAsAction="ifRoom|withText" />
+
+    <item android:id="@+id/menu_information"
+        android:icon="@drawable/menu_ic_info"
+        android:title="@string/menu_information"
+        app:showAsAction="ifRoom|withText" />
+
+    <item android:id="@+id/menu_secure_network"
+        android:icon="@drawable/menu_ic_lock_unlock"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/menu_signal_strenth"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+
+</menu>

@@ -1,0 +1,192 @@
+<resources>
+    <string name="app_name">toGo</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Login Screen -->
+    <string name="logoContentDescription">Splash Logo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="btn_signIn">Sign In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="btn_signup">Sign Up</string>
+    <string name="EmailErrorMessage">Please enter email</string>
+    <string name="PasswordErrorMessage">Please enter password</string>
+    <string name="invalid_email">Please enter valid email address</string>
+    <string name="missing_email">Email is missing</string>
+    <string name="missing_password">Password is missing</string>
+    <string name="invalid_email_password">Entered email or password are not in correct format</string>
+    <string name="incorrect_email_password">Either email or password is incorrect</string>
+
+
+    <!--  Register Screen String starts here  -->
+    <string name="registerScreenTitle">Register</string>
+    <string name="fnameHint">First Name</string>
+    <string name="lnameHint">Last Name</string>
+    <string name="emailHint">Email</string>
+    <string name="phoneHint">Phone No.</string>
+    <string name="dobHint">Date Of Birth</string>
+    <string name="passwordHint">Password</string>
+    <string name="cpasswordHint">Confirm Password</string>
+    <string name="register">Register</string>
+
+    <!-- Network String Starts here -->
+    <string name="network_service_message_title">Network Services</string>
+    <string name="network_service_message">Network not available</string>
+
+    <!-- ShowAlertDialog String Starts here -->
+    <string name="Ok">OK</string>
+
+
+    <!-- Application Error Message -->
+    <string name="invalid_message">Oops! something went wrong. Please try again</string>
+    <string name="no_data_received">Could not get any data from the web server</string>
+    <string name="invalid_json_format">Invalid JSON format</string>
+    <string name="unauthorized_access">Unauthorized Access</string>
+
+    <!-- Facebook Settings -->
+    <string name="facebook_app_id">1634906070093280</string>
+    <string name="sing_in_with_fd">Login With Facebook</string>
+    
+    <!-- Google Map Settings -->
+      <string name="title_activity_maps">Map</string>
+      <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve"></string>
+      <string name="location_service_message_title">Location Services</string>
+      <string name="location_service_message">Kindly enable location services</string>
+    
+        <!-- Media Settings -->
+    <string name='title_activity_choose_photo'>ChoosePhotoActivity</string>
+    <string name='from_camera'>Camera</string>
+    <string name='from_gallery'>Gallery</string>
+    <string name='record_video'>Record Video</string>
+    <string name='preview_image'>Preview Image</string>
+    <string name='preview_video'>Preview Video</string>
+    <string name='upload'>Upload</string>
+    <string name='resizeImage'>Resize Image</string>
+    <string name='rotateImage'>Rotate Image</string>
+    <string name='deleteImage'>Delete Image</string>
+    <string name='deleteVideo'>Delete Video</string>
+    <string name='image_capture_cancelled'>User cancelled image capture</string>
+    <string name='failed_capture_image'>Sorry! Failed to capture image</string>
+    <string name='video_capture_cancelled'>User cancelled video capture</string>
+    <string name='failed_capture_video'>Sorry! Failed to capture video</string>
+    <string name='incorrect_file_format'>Incorrect File Format</string>
+    <string name='file_does_not_exists'>File does not exists</string>
+    <string name='view_gallery'>View Gallery</string>
+    <string name='view_images_only'>View Images Only</string>
+    <string name='view_videos_only'>View Videos Only</string>
+    <string name='view_both_only'>View Both</string>
+    <string name='streaming_video'>Streaming Video</string>
+    <string name='buffering_video'>Buffering...</string>
+    
+    <!-- GooglePlayService Strings -->
+    <string name="device_not_supported">This device is not supported</string>
+    <string name="invalid_google_play_service_found">No valid Google Play Services APK found</string>
+    
+    <!-- GCM Strings -->
+    <string name='gcm_send_message'>Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>
+    <string name='token_error_message'>An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server. Please try running the sample again.</string>
+    
+    <!-- SwipeList String -->
+    <string name="basic_action_1">Action_1</string>
+    <string name="basic_action_2">Action_2</string>
+    <string name="basic_del">Delete</string>
+    <string name="str_orange">#fe7b27</string>
+    <string name="str_green">#3cac69</string>     
+    <string name="str_red">#FF4444</string>
+    <string name="str_yellow">#FFBB33</string>
+    <string name="str_sky_blue">#33B5E5</string>
+
+
+    <!--  Forgot Password Screen String starts here  -->
+
+    <string name="forgotScreenTitle">Reset Password</string>
+    <string name="forgotTxt">To reset your password, Please enter your registered email id.</string>
+    <string name="forgotemailHint">Enter your Email ID</string>
+     <string name="submit">Submit</string>
+
+    // ooVoo Strings
+    <string name="username_label">Username:</string>
+    <string name="login_title">Log in</string>
+    <string name="conference_id_label">Conference ID:</string>
+    <string name="display_name_label">Display Name:</string>
+    <string name="join_title">Join</string>
+    <string name="menu_settings">Settings</string>
+    <string name="settings_base_url">Base URL:</string>
+    <string name="app_id">App ID:</string>
+    <string name="app_token">App Token:</string>
+    <string name="log_level">SDK Log Level:</string>
+    <string name="sdk_version">SDK Version:</string>
+    <string name="authorizing">Authorizing</string>
+    <string name="logging_in">Logging in</string>
+    <string name="joining_av_chat">Joining AV chat</string>
+    <string name="me">Me</string>
+    <string name="front_camera">Front camera</string>
+    <string name="back_camera">Back camera</string>
+    <string name="mute_camera">Mute camera</string>
+    <string name="change_camera">Change camera</string>
+    <string name="resolution">Resolution</string>
+    <string name="audio_routes">Audio Routes</string>
+    <string name="filters">Filters</string>
+    <string name="enter_session_id">Enter conference id</string>
+    <string name="enter_display_name">Enter display name</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_conference_id_and_display_name">Please enter conference id and display name</string>
+    <string name="enter_username_toast">Please enter username</string>
+    <string name="no_internet">No Internet Connection. Please check your internet connection or try again later.</string>
+    <string name="enter_conference_id">Enter conference ID</string>
+    <string name="wrong_conference_id">Conference ID is not valid</string>
+    <string name="enter_conference_display_name">Please enter display name</string>
+    <string name="session_id">Session ID</string>
+    <string name="info_participants">Participants info</string>
+    <string name="menu_information">Information</string>
+    <string name="join_session">Join Session</string>
+    <string name="display_name_too_long">Display name is too long</string>
+    <string name="wrong_username_id">Username is not valid</string>
+    <string name="video_cannot_be_viewed">Video cannot be viewed!</string>
+    <string name="device_is_not_supported">Device is not supported!</string>
+    <string name="start_call_title">Call</string>
+    <string name="call_receiver_label">Call receiver Id:</string>
+    <string name="enter_receiver_id">Enter receiver Id</string>
+    <string name="enter_call_receiver">Enter call receiver</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_title">Add</string>
+    <string name="call_receivers">Call receivers:</string>
+    <string name="calling">Calling</string>
+    <string name="answer">Answer</string>
+    <string name="decline">Decline</string>
+    <string name="no_receivers">Please add or enable up to 4 receivers!</string>
+    <string name="room_title">Room</string>
+    <string name="make_call_title">Make call</string>
+    <string name="use_custom_render">Use custom video render</string>
+    <string name="min_username_length">username must contain at least 6 characters</string>
+<!--	<string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>-->
+    <string name="registering_message">Generating InstanceID token...</string>
+   <!-- <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>-->
+    <string name="push_title">Push</string>
+    <string name="send_title">Send</string>
+    <string name="enter_push_receiver">Enter push receiver</string>
+    <string name="push_receivers">Push notification receivers:</string>
+    <string name="enter_text_push">Enter text to push</string>
+    <string name="all_receivers_offline">All receivers offline</string>
+    <string name="fail_to_send_message">Sending of message fail</string>
+    <string name="push_notification_sent">Push notification sent</string>
+    <string name="push_notification_error">Error sending push notification</string>
+    <string name="unknown">Unknown camera</string>
+    <string name="unsubscribe_title">Unsubscribe</string>
+    <string name="user_unsubscribed">User unsubscribed</string>
+    <string name="user_unsubscribe_error">Error to unsubscribe</string>
+    <string name="no_token_to_unsubscribe">There is no token to unsubscribe</string>
+    <string name="characters_missing">Characters missing</string>
+    <string name="user_offline">User %s is offline</string>
+    <string name="title_activity_to_go">ToGoActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login_with_linked_in">LoginWithLinkedInActivity</string>
+
+
+</resources>

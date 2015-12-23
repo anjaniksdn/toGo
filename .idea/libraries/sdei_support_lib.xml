@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sdei-support-lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/sdei-support-lib.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "togo-1161",
+    "project_number": "506861358610",
+    "name": "toGo"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506861358610:android:b591dcb4d4a6ca73",
+        "client_id": "android:com.smartdatainc.toGo",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.smartdatainc.toGo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506861358610-9paf54qlusg1f4tv2moa495910r2jffi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartdatainc.toGo",
+            "certificate_hash": "A9E8177A7B27BCEFF464D5B330C040B7F0CC512F"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
