@@ -22,6 +22,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.helpers.FacebookSSO;
@@ -32,8 +34,12 @@ import com.smartdatainc.toGo.R;
 import com.smartdatainc.utils.Constants;
 import com.smartdatainc.utils.Constants.SocailNewtork;
 import com.smartdatainc.utils.Utility;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 /**
  * Created by Anjani Kumar
@@ -49,7 +55,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     private ConnectionResult mConnectionResult;
     private ProgressDialog mProgressDialog;
     private SignInButton btnSignIn;
-
+   // private TwitterAuthClient authClient;
 
     private EditText passwordObj;
     private Button btnLoginObj;
@@ -64,10 +70,12 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     private LoginManager loginManagerObj;
     private boolean mIntentInProgress;
     private LinearLayout fb_login_llObj;
+   private TwitterLoginButton twitterLoginButton;
     FacebookSSO facebookssoObj;
     private boolean mSignInClicked;
     FacebookTaskCompleted onFacebookTaskCompletedObj;
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_TWITTER_SIGN_IN = 140;
 
 
 
@@ -88,8 +96,9 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-
+        // authClient = new TwitterAuthClient();
+       // TwitterAuthConfig authConfig =  new TwitterAuthConfig("consumerKey", "consumerSecret");
+        //Fabric.with(this, new Twitter(authConfig));
         //signIn();
 
 
@@ -203,9 +212,11 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         userObj = new User();
         loginManagerObj = new LoginManager(this, this);
         fb_login_llObj = (LinearLayout) findViewById(R.id.fb_login_ll);
-
+      twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twlogin_button);
 
     }
+
+
 
     /**
      * Binds the UI controls
@@ -256,6 +267,8 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 startActivity(intentObj);
             }
         });
+
+
        /* linkedInLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -273,7 +286,32 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 facebookssoObj.startFacebookLogin(LoginActivity.this);
             }
         });
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // Do something with result, which provides a TwitterSession for making API calls
+                TwitterAuthClient authClient = new TwitterAuthClient();
+                authClient.requestEmail(result.data, new Callback<String>() {
+                    @Override
+                    public void success(Result<String> result) {
+                        String email = result.data;
+                        Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
+                        // Do something with the result, which provides the email address
+                    }
 
+                    @Override
+                    public void failure(TwitterException exception) {
+                        // Do something on failure
+                        Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                // Do something on failure
+            }
+        });
 
         //ForgotPassword
         mtextForgtPass.setOnClickListener(new View.OnClickListener() {
@@ -337,6 +375,9 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+        else if(requestCode == RC_TWITTER_SIGN_IN){
+            twitterLoginButton.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 
@@ -359,7 +400,9 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             startActivity(intentObj);
         }
     }
+    public void onSuccessRedirection(int taskID,String jsonMesseage) {
 
+    }
     /**
      * The interface method implemented in the java files
      * @param errorMessage the error message to be displayed

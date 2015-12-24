@@ -9,6 +9,7 @@ public interface ServiceRedirection {
 	 */
 	
 	void onSuccessRedirection(int taskID);
+    void onSuccessRedirection(int taskID,String jsonData);
     //void onSuccessRedirection(int taskID,Object  parseString);
   
   /**

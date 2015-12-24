@@ -15,7 +15,6 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.smartdatainc.activities.DashboardActivity;
 import com.smartdatainc.activities.ForgotPasswordActivity;
-import com.smartdatainc.activities.SignUp;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.helpers.FacebookSSO;
 import com.smartdatainc.interfaces.FacebookTaskCompleted;
@@ -71,7 +70,7 @@ public class LoginFragment extends BaseFragment implements ServiceRedirection, F
 		emailObj = (EditText) view.findViewById(R.id.email);
 		passwordObj = (EditText) view.findViewById(R.id.password);
 		btnLoginObj = (Button) view.findViewById(R.id.btnSignIn);
-		btnSignUpObj = (Button) view.findViewById(R.id.btnSignup);
+		//btnSignUpObj = (Button) view.findViewById(R.id.btnSignup);
 		textViewObj = (TextView) view.findViewById(R.id.errorMessage);
 		mtextForgtPass = (TextView) view.findViewById(R.id.forgotPassword);
 		utilObj = new Utility(getActivity());
@@ -198,13 +197,13 @@ public class LoginFragment extends BaseFragment implements ServiceRedirection, F
 		});
 
 		//SignUp
-		btnSignUpObj.setOnClickListener(new View.OnClickListener() {
+		/*btnSignUpObj.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intentObj = new Intent(getActivity(), SignUp.class);
 				startActivity(intentObj);
 			}
-		});
+		});*/
 
 
 		//facebook login
@@ -326,5 +325,8 @@ public class LoginFragment extends BaseFragment implements ServiceRedirection, F
 	{
 		this.getActivity().finish();
 		return false ;
+	}
+	public void onSuccessRedirection(int taskID,String jsonMesseage) {
+
 	}
 }

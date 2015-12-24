@@ -20,16 +20,16 @@ import com.smartdatainc.utils.Utility;
  * The activity will handle the SignUp screens actions 
  */
 public class SignUp extends AppActivity implements ServiceRedirection {
-    private String fname;
+    private String uname;
     private String lname;
     private String password;
     private String cpassword;
     private String email;
     private String dob;
-    private EditText fnameObj;
-    private EditText lnameObj;
+    private EditText unameObj;
+   // private EditText lnameObj;
     private EditText emailObj;
-    private EditText dobObj;
+    //private EditText dobObj;
     private EditText passwordObj;
     private EditText cpasswordObj;
     private  TextView textViewObj;
@@ -52,9 +52,9 @@ public class SignUp extends AppActivity implements ServiceRedirection {
     public void initData() {
         emailObj = (EditText) findViewById(R.id.email);
         passwordObj = (EditText) findViewById(R.id.password);
-        fnameObj=(EditText)findViewById(R.id.fname);
-        lnameObj=(EditText)findViewById(R.id.lname);
-        dobObj=(EditText)findViewById(R.id.dob);
+        unameObj=(EditText)findViewById(R.id.uname);
+       // lnameObj=(EditText)findViewById(R.id.lname);
+       // dobObj=(EditText)findViewById(R.id.dob);
         cpasswordObj=(EditText)findViewById(R.id.cpassword);
 
         btnRegisterObj = (Button) findViewById(R.id.btnRegister);
@@ -74,25 +74,26 @@ public class SignUp extends AppActivity implements ServiceRedirection {
             @Override
             public void onClick(View v) {
 
-                fname=fnameObj.getText().toString();
-                lname=lnameObj.getText().toString();
+                uname=unameObj.getText().toString();
+               // lname=lnameObj.getText().toString();
                 password=passwordObj.getText().toString();
                 cpassword=cpasswordObj.getText().toString();
-                dob=dobObj.getText().toString();
+             //   dob=dobObj.getText().toString();
                 email = emailObj.getText().toString();
 
 
                 if (validatingRequired()) {
 
-                   // utilObj.startLoader(SignUp.this, R.drawable.image_for_rotation);
+                    utilObj.startLoader(SignUp.this, R.drawable.image_for_rotation);
 
                     //assigning the data to the user object
-                    userObj.firstName = fname;
-                    userObj.lastName = lname;
-                    userObj.email=email;
-                    userObj.password=password;
-                    userObj.cpassword=cpassword;
-                    userObj.dob=dob;
+                   // userObj.firstName = fname;
+                   // userObj.lastName = lname;
+                    userObj.username = uname;
+                    userObj.email= email;
+                    userObj.password = password;
+                   // userObj.cpassword=cpassword;
+                   // userObj.dob=dob;
                     loginManagerObj.signUp(userObj);
                 }
 
@@ -148,17 +149,20 @@ public class SignUp extends AppActivity implements ServiceRedirection {
 
 
     @Override
-    public void onSuccessRedirection(int taskID) {
+    public void onSuccessRedirection(int taskID,String messeage) {
         utilObj.stopLoader();
 
         if(taskID == Constants.TaskID.SIGNUP_TASK_ID) {
             //call the intent for the next activity
+            utilObj.showToast(this, messeage, 0);
             Intent intentObj = new Intent(this, LoginActivity.class);
             startActivity(intentObj);
         }
 
     }
+    public void onSuccessRedirection(int taskID) {
 
+    }
     @Override
     public void onFailureRedirection(String errorMessage) {
         utilObj.stopLoader();

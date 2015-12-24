@@ -157,4 +157,7 @@ public class ShowMediaGalleryActivity extends ActionBarActivity implements Servi
     public void onFailureRedirection(String errorMessage) {
 
     }
+    public void onSuccessRedirection(int taskID,String jsonMesseage) {
+
+    }
 }

@@ -1,8 +1,8 @@
 package com.smartdatainc.activities;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -11,6 +11,10 @@ import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.dataobject.AppInstance;
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.utils.Constants;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Anurag Sethi
@@ -19,17 +23,24 @@ import com.smartdatainc.utils.Constants;
  */
 public class MainActivity extends AppActivity {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "JlGF9bsbxiTtJad60TY4rRBG2";
+    private static final String TWITTER_SECRET = "fa28p5Pmjp0ynswMLri3hA9YWczpVjfCCINKaSBJg0ixAyyN7m";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
 
 
         //initializing the data
         initData();
-
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig));
         //handler to close the splash activity after the set time
         new Handler().postDelayed(new Runnable() {
             @Override

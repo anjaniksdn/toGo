@@ -146,6 +146,9 @@
             android:name="com.smartdatainc.activities.ToGoActivity"
             android:label="@string/title_activity_to_go" >
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e1bdd121e120bdc31eaac02cc63c81006dc2e487" />
     </application>
 
 </manifest>

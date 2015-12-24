@@ -163,9 +163,12 @@ public class ForgotPasswordActivity extends AppActivity implements ServiceRedire
         textViewObj.setVisibility(View.GONE);
         Toast.makeText(this, errorMessage.toString(), Toast.LENGTH_SHORT).show();
     }
-   /* @Override
+
     public void onSuccessRedirection(int taskID, Object parseString) {
 
-    }*/
+    }
+    public void onSuccessRedirection(int taskID,String jsonMesseage) {
+
+    }
 
 }

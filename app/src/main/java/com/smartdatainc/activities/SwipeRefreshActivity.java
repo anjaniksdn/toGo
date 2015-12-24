@@ -120,4 +120,7 @@ public class SwipeRefreshActivity extends AppActivity implements SwipeRefreshLay
     public void onFailureRedirection(String errorMessage) {
 
     }
+    public void onSuccessRedirection(int taskID,String jsonMesseage) {
+
+    }
 }

@@ -21,6 +21,7 @@
     <!--  Register Screen String starts here  -->
     <string name="registerScreenTitle">Register</string>
     <string name="fnameHint">First Name</string>
+    <string name="unameHint">User Name</string>
     <string name="lnameHint">Last Name</string>
     <string name="emailHint">Email</string>
     <string name="phoneHint">Phone No.</string>

@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'sonar-runner'
 
 android {
@@ -11,6 +26,7 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -26,12 +42,15 @@ dependencies {
     compile files('libs/HockeySDK-3.5.0.jar')
     compile files('libs/oovoosdk.jar')
     compile files('libs/sdei-support-lib.jar')
+
     compile files('libs/gson-2.2.4.jar')
-    compile files('libs/splunk-mint-4.0.8.jar')
+    compile 'com.android.support:multidex:1.0.0'
     compile project(':facebook')
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.google.android.gms:play-services:8.4.0'
-    compile('com.twitter.sdk.android:twitter-core:1.3.1@aar') { transitive = true; }
+  compile('com.twitter.sdk.android:twitter-core:1.3.1@aar') { transitive = true;
+        exclude module: 'gson';
+    }
     // compile 'com.google.android.gms:play-services-auth:8.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

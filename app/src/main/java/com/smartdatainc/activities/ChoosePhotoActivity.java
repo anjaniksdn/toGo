@@ -345,4 +345,7 @@ public class ChoosePhotoActivity extends AppActivity implements ServiceRedirecti
         utilObj.stopLoader();
         utilObj.showToast(this, errorMessage, 1);
     }
+    public void onSuccessRedirection(int taskID,String jsonMesseage) {
+
+    }
 }

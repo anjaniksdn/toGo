@@ -1,6 +1,7 @@
 package com.smartdatainc.managers;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.interfaces.CallBack;
@@ -87,6 +88,7 @@ public class LoginManager implements CallBack{
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
+                Log.v("Json response:",data);
                 int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
 
                //
@@ -202,13 +204,16 @@ public class LoginManager implements CallBack{
 
         else if(tasksID == Constants.TaskID.SIGNUP_TASK_ID) {
             if(data != null) {
-
+                Log.v("Json response:",data);
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
-                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE_ID));
+                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
+              //utilObj.showToast(this.context, jsonParsedData, 0);
+               // int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE_ID));
 
                 //
-                switch(messageID) {
+              /*  switch(messageID) {
 
                     case ResponseCodes.Success:
                         String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_RESULT);
@@ -245,12 +250,12 @@ public class LoginManager implements CallBack{
                     default:
                         errorMessage = context.getResources().getString(R.string.invalid_message);
                         break;
-                }
+                }*/
 
-                if(!errorMessage.isEmpty()) {
+               /* if(!errorMessage.isEmpty()) {
                     serviceRedirectionObj.onFailureRedirection(errorMessage);
                 }
-
+*/
             }
             else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);

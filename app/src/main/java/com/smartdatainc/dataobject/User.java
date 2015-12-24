@@ -15,6 +15,10 @@ public class User {
      * LastName of the user
      */
     public String lastName;
+    /**
+     * username
+     */
+    public String username;
 
     /**
      * UserID
@@ -68,6 +72,11 @@ public class User {
      * User's xmpp_password
      */
     public String xmpp_password;
+
+    /**
+     * User's Type
+     */
+    public String type;
 
 
 }
