@@ -26,7 +26,7 @@ public class MainActivity extends AppActivity {
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "JlGF9bsbxiTtJad60TY4rRBG2";
     private static final String TWITTER_SECRET = "fa28p5Pmjp0ynswMLri3hA9YWczpVjfCCINKaSBJg0ixAyyN7m";
-
+    //fa28p5Pmjp0ynswMLri3hA9YWczpVjfCCINKaSBJg0ixAyyN7m
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppActivity {
 
 
         setContentView(R.layout.activity_main);
-
+      //  setActionBar("ToGo");
 
         //initializing the data
         initData();
@@ -65,6 +65,7 @@ public class MainActivity extends AppActivity {
         app().reautorize();
         AppInstance.getAppInstance();
     }
+
     ooVooSdkSampleShowApp app(){
         return ((ooVooSdkSampleShowApp) getApplication()) ;
     }

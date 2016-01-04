@@ -64,11 +64,14 @@ public static class SocailNewtork{
 //http://172.10.55.110:3000/signup
         //public static String WS_BASE_URL = "http://192.155.246.146:9175";
         public static String WS_BASE_URL = "http://172.10.55.110:3000";
-        public static String WS_USER_AUTHENTICATION = WS_BASE_URL + "/WebServices/signIn";
+        //public static String WS_USER_AUTHENTICATION = WS_BASE_URL + "/WebServices/signIn";
+        public static String WS_USER_AUTHENTICATION = WS_BASE_URL + "/authenticate";
 
         //public static String WS_USER_SIGNUP = WS_BASE_URL + "/WebServices/signUp";
         public static String WS_USER_SIGNUP = WS_BASE_URL + "/signUp";
-        public static String WS_USER_FORGOTPASS = WS_BASE_URL + "/WebServices/forgotPassword";
+        /*public static String WS_USER_FORGOTPASS = WS_BASE_URL + "/WebServices/forgotPassword";*/
+        public static String WS_USER_FORGOTPASS = WS_BASE_URL + "/forgot";
+
 
         public static String WS_PUBLIC_EVENTLIST = WS_BASE_URL + "/WebServices/publicEventList";
 

@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="activity_padding">16dp</dimen>
+    <dimen name="sixtyDp">60dp</dimen>
+
     <dimen name="vc_surface_text_height">26dp</dimen>
     <dimen name="vc_surface_margin">5dp</dimen>
     <dimen name="vc_controller_height">55dip</dimen>

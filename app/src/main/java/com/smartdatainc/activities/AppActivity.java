@@ -3,7 +3,6 @@ package com.smartdatainc.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
 import com.smartdatainc.helpers.TransparentProgressDialog;
 
@@ -19,9 +18,9 @@ public class AppActivity extends AppCompatActivity {
     TransparentProgressDialog progressDialogObj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
+        //setActionBar("ToGo");
     }
 
     /**

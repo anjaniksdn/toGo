@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/sixtyDp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/orange"
+        android:padding="@dimen/activity_padding">
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/bt_share" />
+
+        <TextView
+            android:id="@+id/textView_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/accept"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/home"
+            android:layout_toEndOf="@+id/home"
+            android:layout_marginLeft="@dimen/activity_padding"
+            />
+
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black_overlay"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/textView_add"
+            android:layout_toLeftOf="@+id/textViewSave"
+            android:layout_toStartOf="@+id/textViewSave" />
+
+
+        <TextView
+            android:id="@+id/textViewSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_padding"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/light_red"
+            android:textStyle="bold"
+            android:text="@string/add_title"
+            android:layout_margin="@dimen/activity_padding"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/android_icon"
+            android:layout_margin="@dimen/activity_padding"
+            android:visibility="invisible"
+            />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

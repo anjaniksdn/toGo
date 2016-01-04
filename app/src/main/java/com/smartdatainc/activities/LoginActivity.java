@@ -1,8 +1,10 @@
 package com.smartdatainc.activities;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,7 +57,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     private ConnectionResult mConnectionResult;
     private ProgressDialog mProgressDialog;
     private SignInButton btnSignIn;
-   // private TwitterAuthClient authClient;
+    // private TwitterAuthClient authClient;
 
     private EditText passwordObj;
     private Button btnLoginObj;
@@ -70,7 +72,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     private LoginManager loginManagerObj;
     private boolean mIntentInProgress;
     private LinearLayout fb_login_llObj;
-   private TwitterLoginButton twitterLoginButton;
+    private TwitterLoginButton twitterLoginButton;
     FacebookSSO facebookssoObj;
     private boolean mSignInClicked;
     FacebookTaskCompleted onFacebookTaskCompletedObj;
@@ -84,7 +86,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.login);
-
+       // setActionBar("ToGo");
         facebookssoObj = new FacebookSSO(this, this);
         facebookssoObj.createFacebookSession(savedInstanceState);
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
@@ -97,7 +99,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         // authClient = new TwitterAuthClient();
-       // TwitterAuthConfig authConfig =  new TwitterAuthConfig("consumerKey", "consumerSecret");
+        // TwitterAuthConfig authConfig =  new TwitterAuthConfig("consumerKey", "consumerSecret");
         //Fabric.with(this, new Twitter(authConfig));
         //signIn();
 
@@ -105,7 +107,9 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         initData();
         bindControls();
 
+
     }
+
     private static final String getProfileUrl(String accessToken){
 
         return SocailNewtork.PROFILE_URL+"(id,first-name,last-name,email-address,picture-url)"
@@ -129,7 +133,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
 
         try {
-            OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            /*OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
             if (opr.isDone()) {
                 // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
                 // and the GoogleSignInResult will be available instantly.
@@ -148,7 +152,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                         handleSignInResult(googleSignInResult);
                     }
                 });
-            }
+            }*/
 
             // Session.getActiveSession().addCallback(statusCallback);
             facebookssoObj.addActiveSessionCallback();
@@ -208,11 +212,21 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         mtextForgtPass = (TextView) findViewById(R.id.forgotPassword);
         linkedInLogin = (Button) findViewById(R.id.login_with_linked_in);
         googlePlusLogin = (Button) findViewById(R.id.gsign_in_button);
+
         utilObj = new Utility(this);
         userObj = new User();
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/robot_light.ttf");
+        btnSignUpObj.setTypeface(face);
+        mtextForgtPass.setTypeface(face);
         loginManagerObj = new LoginManager(this, this);
         fb_login_llObj = (LinearLayout) findViewById(R.id.fb_login_ll);
-      twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twlogin_button);
+        twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twlogin_button);
+        twitterLoginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        twitterLoginButton.setBackgroundResource(R.drawable.tw_icon);
+        twitterLoginButton.setCompoundDrawablePadding(0);
+        twitterLoginButton.setPadding(0, 0, 0, 0);
+        twitterLoginButton.setText("");
+        twitterLoginButton.setTextSize(18);
 
     }
 
@@ -236,25 +250,52 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
 
                 if(validatingRequired()) {
-                    app().login(email, email);
+                  /*  app().login(email, email);
                     if (app().isOnline()) {
                         Intent intentObj = new Intent(getApplicationContext(), DashboardActivity.class);
                         startActivity(intentObj);
                         Toast.makeText(getApplicationContext(),"online",Toast.LENGTH_LONG).show();
-                    }
-                   /* utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
+                    }*/
+                    utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
 
                     //assigning the data to the user object
                     userObj.email = email;
                     userObj.password = password;
-                    loginManagerObj.authenticateLogin(userObj);*/
+                    loginManagerObj.authenticateLogin(userObj);
                 }
 
             }
         });
-       googlePlusLogin.setOnClickListener(new View.OnClickListener() {
+        googlePlusLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+                    if (opr.isDone()) {
+                        // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                        // and the GoogleSignInResult will be available instantly.
+                        Log.d(TAG, "Got cached sign-in");
+                        GoogleSignInResult result = opr.get();
+                        handleSignInResult(result);
+                    } else {
+                        // If the user has not previously signed in on this device or the sign-in has expired,
+                        // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                        // single sign-on will occur in this branch.
+                        showProgressDialog();
+                        opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                            @Override
+                            public void onResult(GoogleSignInResult googleSignInResult) {
+                                hideProgressDialog();
+                                handleSignInResult(googleSignInResult);
+                            }
+                        });
+                    }
+                }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                 signIn();
             }
         });
@@ -291,6 +332,14 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
                 TwitterAuthClient authClient = new TwitterAuthClient();
+                String username  = result.data.getUserName();
+                if(username!= null && username.length()>0)
+                {
+                    userObj.email = email;
+                    userObj.password = password;
+                    loginManagerObj.authenticateLogin(userObj);
+                }
+                Toast.makeText(getApplicationContext(),"Twitter user name:::"+ username, Toast.LENGTH_LONG).show();
                 authClient.requestEmail(result.data, new Callback<String>() {
                     @Override
                     public void success(Result<String> result) {
@@ -302,7 +351,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                     @Override
                     public void failure(TwitterException exception) {
                         // Do something on failure
-                        Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -401,7 +450,16 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         }
     }
     public void onSuccessRedirection(int taskID,String jsonMesseage) {
-
+        utilObj.stopLoader();
+        if(taskID == Constants.TaskID.LOGIN_TASK_ID) {
+            Toast.makeText(getApplicationContext(),jsonMesseage,Toast.LENGTH_LONG).show();
+            app().login(email, email);
+            if (app().isOnline()) {
+                Intent intentObj = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intentObj);
+                Toast.makeText(getApplicationContext(),"online",Toast.LENGTH_LONG).show();
+            }
+        }
     }
     /**
      * The interface method implemented in the java files
@@ -423,6 +481,10 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     @Override
     public void onFacebookTaskCompleted(Response response) {
         //write your code here
+
+        userObj.email = email;
+        userObj.password = password;
+        loginManagerObj.authenticateLogin(userObj);
         Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
     }
 
@@ -448,8 +510,8 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             String usernameEmail = acct.getEmail()+"email: "+acct.getDisplayName();
-            Log.d(TAG, "usernameEmail:" + usernameEmail);
-            Toast.makeText(getApplicationContext(),usernameEmail, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Google usernameEmail:" + usernameEmail);
+            Toast.makeText(getApplicationContext(),"Google username"+usernameEmail, Toast.LENGTH_LONG).show();
             //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             //updateUI(true);
         } else {

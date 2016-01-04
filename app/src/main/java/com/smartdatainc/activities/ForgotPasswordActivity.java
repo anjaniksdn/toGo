@@ -165,7 +165,13 @@ public class ForgotPasswordActivity extends AppActivity implements ServiceRedire
     }
 
     public void onSuccessRedirection(int taskID, Object parseString) {
+        utilObj.stopLoader();
+        if(taskID == Constants.TaskID.FORGOT_PASSWORD_TASK_ID) {
 
+            textViewObj.setVisibility(View.GONE);
+            Toast.makeText(this, "Thanks, Please check your mail for new password.", Toast.LENGTH_SHORT).show();
+
+        }
     }
     public void onSuccessRedirection(int taskID,String jsonMesseage) {
 

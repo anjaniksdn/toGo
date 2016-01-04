@@ -8,7 +8,6 @@ import com.smartdatainc.interfaces.CallBack;
 import com.smartdatainc.interfaces.ServiceRedirection;
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.utils.Constants;
-import com.smartdatainc.utils.ResponseCodes;
 import com.smartdatainc.utils.Utility;
 
 /**
@@ -88,11 +87,14 @@ public class LoginManager implements CallBack{
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
+
+                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
                 Log.v("Json response:",data);
-                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+              //  int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
 
                //
-                switch(messageID) {
+             /*   switch(messageID) {
 
                     case ResponseCodes.Success:
                         String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
@@ -136,7 +138,7 @@ public class LoginManager implements CallBack{
 
                 if(!errorMessage.isEmpty()) {
                    serviceRedirectionObj.onFailureRedirection(errorMessage);
-                }
+                }*/
 
             }
             else {
@@ -148,7 +150,9 @@ public class LoginManager implements CallBack{
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
-                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
+               /* int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
 
                 switch(messageID) {
 
@@ -193,7 +197,7 @@ public class LoginManager implements CallBack{
 
                 if(!errorMessage.isEmpty()) {
                     serviceRedirectionObj.onFailureRedirection(errorMessage);
-                }
+                }*/
 
             }
             else {
