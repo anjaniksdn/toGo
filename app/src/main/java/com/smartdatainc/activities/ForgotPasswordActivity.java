@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends AppActivity implements ServiceRedire
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password);
-
+        setActionBar(Constants.APPHEADER);
         initData();
         bindControls();
 
@@ -103,10 +103,12 @@ public class ForgotPasswordActivity extends AppActivity implements ServiceRedire
         //validate the content
         if (email.isEmpty()) {
             message = getResources().getString(R.string.EmailErrorMessage);
-            utilObj.showError(this, message, textViewObj, emailObj);
+            utilObj.showToast(this, message,0);
+          //  utilObj.showError(this, message, textViewObj, emailObj);
         } else if (!utilObj.checkEmail(email)) {
             message = getResources().getString(R.string.invalid_email);
-            utilObj.showError(this, message, textViewObj, emailObj);
+            utilObj.showToast(this, message,0);
+          //  utilObj.showError(this, message, textViewObj, emailObj);
         }
 
         if (message.equalsIgnoreCase("") || message == null) {

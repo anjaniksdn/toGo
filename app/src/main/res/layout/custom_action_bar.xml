@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/bt_share" />
+            android:visibility="invisible"
+            android:src="@drawable/menu_icon" />
 
         <TextView
             android:id="@+id/textView_add"
@@ -42,9 +43,10 @@
             android:layout_centerVertical="true"
             android:ellipsize="marquee"
             android:gravity="center"
+
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black_overlay"
+            android:textColor="@color/tw__solid_white"
             android:textStyle="bold"
             android:layout_toRightOf="@+id/textView_add"
             android:layout_toLeftOf="@+id/textViewSave"

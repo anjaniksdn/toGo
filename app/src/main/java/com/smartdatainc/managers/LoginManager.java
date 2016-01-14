@@ -11,7 +11,7 @@ import com.smartdatainc.utils.Constants;
 import com.smartdatainc.utils.Utility;
 
 /**
- * Created by Anurag Sethi
+ * Created by Anjani Kumar
  * The class will handle all the implementations related to the login operations
  */
 public class LoginManager implements CallBack{
@@ -41,6 +41,7 @@ public class LoginManager implements CallBack{
      */
     public void authenticateLogin(User userObj) {
         String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("",jsonString);
         commObj = new CommunicationManager(this.context);
         tasksID = Constants.TaskID.LOGIN_TASK_ID;
         commObj.CallWebService(this.context, Constants.WebServices.WS_USER_AUTHENTICATION, this, jsonString, tasksID);
@@ -81,16 +82,30 @@ public class LoginManager implements CallBack{
      */
     @Override
     public void onResult(String data, int tasksID) {
-        String errorMessage = "";  
+        String errorMessage = "";
+        Log.v("Json response:::",data);
         if(tasksID == Constants.TaskID.LOGIN_TASK_ID) {
             if(data != null) {
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if(messageID == 200) {
 
-                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
-                Log.v("Json response:",data);
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    String token = dataParserObj.parseJsonString(data,5);
+                    Log.v("token", token);
+                   // AppInstance.userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
+                    utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "_token", "Bearer "+token);
+
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                }
+                else
+                {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+                    Log.v("Json response:",data);
               //  int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
 
                //
@@ -150,8 +165,16 @@ public class LoginManager implements CallBack{
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
-                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if(messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                }
+                else
+                {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
                /* int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
 
                 switch(messageID) {
@@ -211,8 +234,16 @@ public class LoginManager implements CallBack{
                 Log.v("Json response:",data);
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
-                String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if(messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                }
+                else
+                {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
               //utilObj.showToast(this.context, jsonParsedData, 0);
                // int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE_ID));
 

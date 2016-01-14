@@ -2,11 +2,12 @@ package com.smartdatainc.managers;
 
 import android.content.Context;
 
-import com.smartdatainc.interfaces.CallBack;
-import com.smartdatainc.async.GetWebServiceData;
 import com.smartdatainc.async.DeleteMediaFile;
-                                import com.smartdatainc.async.DownloadMediaFileUrls;
-                                import com.smartdatainc.async.UploadMediaToServer;
+import com.smartdatainc.async.DownloadMediaFileUrls;
+import com.smartdatainc.async.GetWebServiceData;
+import com.smartdatainc.async.GetWebServiceGetData;
+import com.smartdatainc.async.UploadMediaToServer;
+import com.smartdatainc.interfaces.CallBack;
 
 /**
  * Created by Anurag Sethi
@@ -38,6 +39,11 @@ public class CommunicationManager {
     public void CallWebService(Context contextObj, String Url, CallBack listnerObj, String jsonString, int tasksID)
     {
         GetWebServiceData gwsdObj = new GetWebServiceData(contextObj, Url, listnerObj, jsonString, tasksID);
+        gwsdObj.execute();
+    }
+    public void CallGetWebService(Context contextObj, String Url, CallBack listnerObj, String jsonString, int tasksID)
+    {
+        GetWebServiceGetData gwsdObj = new GetWebServiceGetData(contextObj, Url, listnerObj, jsonString, tasksID);
         gwsdObj.execute();
     }
     

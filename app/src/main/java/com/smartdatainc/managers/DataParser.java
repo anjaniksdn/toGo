@@ -1,18 +1,18 @@
 package com.smartdatainc.managers;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.smartdatainc.dataobject.Media;
+import com.smartdatainc.dataobject.SwipeRefresh;
 import com.smartdatainc.dataobject.User;
+import com.smartdatainc.dataobject.UserProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.reflect.TypeToken;
-                          import com.smartdatainc.dataobject.Media;
-                          import com.smartdatainc.dataobject.MediaGallery;
-                          import java.lang.reflect.Type;
-                          import java.util.ArrayList;
-import com.smartdatainc.dataobject.SwipeRefresh;
 
 /**
  * Created by Anurag Sethi
@@ -43,12 +43,17 @@ public class DataParser {
                     parsedString = jsonObj.getString("result");
                     break;
                 case 3://return result key data
-                    //parsedString = jsonObj.getString("status");
-                    parsedString = Integer.toString(jsonObj.getInt("status"));
+                    parsedString = jsonObj.getString("code");
+
                     break;
                 case 4://return result key data
                     parsedString = jsonObj.getString("message");
                     break;
+                case 5://return result key data
+                    parsedString = jsonObj.getString("token");
+                    break;
+
+
             }
 
         } catch (JSONException e) {
@@ -59,7 +64,50 @@ public class DataParser {
         return parsedString;
     }
 
+    public UserProfile parseUserProfile(String data, int parseDataFor) {
+        UserProfile userProfile = new UserProfile();
 
+
+
+        switch(parseDataFor) {
+            case 1: //return messageId key data
+                try {
+
+                    JSONObject jsonObj = new JSONObject(data);
+                    JSONObject jsonobj = jsonObj.getJSONObject("user");
+                    String country = jsonobj.getString("email");
+                    String email = jsonobj.getString("email");
+                    String password = jsonobj.getString("password");
+                    String phone_number = jsonobj.getString("phone_number");
+                    String uid = jsonobj.getString("uid");
+                    String address = jsonobj.getString("address");
+                    String imageurl = jsonobj.getJSONObject("profile_img").getString("url");
+                    String first_name = jsonobj.getJSONObject("name").getString("first_name");
+                    String last_name = jsonobj.getJSONObject("name").getString("last_name");
+                    userProfile.setAddress(address);
+                    userProfile.setEmail(email);
+                    userProfile.setImageurl(imageurl);
+                    userProfile.setPhonenumber(phone_number);
+                    userProfile.setPassword(password);
+                    if(first_name!=null) {
+                        userProfile.setName(first_name + " " + last_name);
+                    }
+                    // String country = jsonobj.getString("email");
+                }catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+                //parsedString = Integer.toString(jsonObj.getInt("messageId"));
+                break;
+
+
+        }
+
+
+
+        return userProfile;
+    }
 
     /**
      * The method will be used to parse the data received from the web service
@@ -85,7 +133,7 @@ public class DataParser {
         }
         return null;
     }
-    
+
     /**
      * The method will be used to parse the data received from the web service
      * where the data return is in the form of jsonArray

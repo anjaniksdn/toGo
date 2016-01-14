@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.facebook.Response;
 import com.facebook.Session;
-import com.smartdatainc.activities.DashboardActivity;
+import com.smartdatainc.activities.InterpreterDashboardActivity;
 import com.smartdatainc.activities.ForgotPasswordActivity;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.helpers.FacebookSSO;
@@ -181,7 +181,7 @@ public class LoginFragment extends BaseFragment implements ServiceRedirection, F
 				if(validatingRequired()) {
 					app().login(email, email);
 					if (app().isOnline()) {
-						Intent intentObj = new Intent(getActivity().getApplicationContext(), DashboardActivity.class);
+						Intent intentObj = new Intent(getActivity().getApplicationContext(), InterpreterDashboardActivity.class);
 						startActivity(intentObj);
 						Toast.makeText(getActivity(), "online", Toast.LENGTH_LONG).show();
 					}
@@ -293,7 +293,7 @@ public class LoginFragment extends BaseFragment implements ServiceRedirection, F
 			//call the intent for the next activity
 			// User userobj = (User)userObj;
 			// int userid =  userobj.userID;
-			Intent intentObj = new Intent(getActivity(), DashboardActivity.class);
+			Intent intentObj = new Intent(getActivity(), InterpreterDashboardActivity.class);
 			startActivity(intentObj);
 		}
 	}

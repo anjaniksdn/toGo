@@ -1,0 +1,331 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundcolor"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="vertical">
+                <View style="@style/view_10" />
+                <TextView
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/orange"
+                    android:padding="10dp"
+                    android:textSize="@dimen/profiletextsize"
+                    android:text="@string/profile"
+                    android:gravity="center"
+                    android:textColor="@color/tw__solid_white"
+                    >
+                </TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <com.smartdatainc.utils.CircularImageView
+                            android:id="@+id/profileimageview"
+                            android:layout_width="140dp"
+                            android:layout_height="140dp"
+
+                            android:background="@drawable/profile_icon"
+                            >
+                        </com.smartdatainc.utils.CircularImageView>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/profilename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/heading"
+                        android:paddingBottom="@dimen/tendp"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginLeft="@dimen/tendp"
+                    android:layout_marginRight="@dimen/tendp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <View android:layout_height="2dp"
+
+                        android:background="@color/grey"
+                        android:layout_width="match_parent"></View>
+
+                    <TextView
+                        android:id="@+id/userprofileemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/email"
+
+                        >
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profileemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/password">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profilepassword"
+                        android:layout_width="match_parent"
+                        android:textSize="@dimen/profiletextsize"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/name">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/uesername"
+                        android:layout_width="match_parent"
+                        android:textSize="@dimen/profiletextsize"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/nickname">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/uid">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/uid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+
+                    <View style="@style/view_20" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/profiletextsize"
+                            android:text="@string/address">
+                        </TextView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:id="@+id/editaddress"
+                            android:background="@drawable/edit"
+                            />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:editable="false"
+                        android:textColor="@color/profiletextcolor"
+                        android:background="@color/backgroundcolor"
+
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+
+                        android:text=""
+                        />
+
+                    <View style="@style/view_20" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/profiletextsize"
+                            android:text="@string/phonenumber">
+                        </TextView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:id="@+id/profilephoneedit"
+                            android:background="@drawable/edit"
+                            />
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/profilephone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:background="@color/backgroundcolor"
+                        android:text=""
+                        />
+
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/description">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profiledescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/taxid">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profiletaxid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/bankacountdesc">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profilbankacount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/mylanguage">
+                    </TextView>
+                    <com.smartdatainc.utils.MultiSelectSpinner
+                        android:id="@+id/language"
+                        style="@style/MyProfileEditTextSpinnerStyle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdown"
+                        />
+
+                    <!-- <LinearLayout
+                         android:id="@+id/parentView"
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="@dimen/tendp"
+                         android:animateLayoutChanges="true"
+                         android:orientation="vertical" >
+
+                         <Button
+                             android:id="@+id/btnAddNewItem"
+                             android:layout_width="fill_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginBottom="5.0dip"
+                             android:background="@color/blue"
+
+                             android:gravity="center"
+                             android:paddingLeft="5.0dip"
+                             android:text="Add Policy" />
+                     </LinearLayout>-->
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="@string/certificates">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--<View style="@style/view_20" />-->
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>

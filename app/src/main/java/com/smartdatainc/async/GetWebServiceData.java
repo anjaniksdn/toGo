@@ -1,24 +1,14 @@
 package com.smartdatainc.async;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.smartdatainc.interfaces.CallBack;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.SocketException;
 
 import sdei.support.lib.communication.HttpUtility;
 
@@ -93,6 +83,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
     protected String doInBackground(String... params) {
         try{
             result = httpUtilityObj.getPostResults(this.url, this.postData,Authentication);
+
             //result = getPostResults(this.url, this.postData,Authentication);
         }
         catch(Exception e) {
@@ -115,7 +106,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
 
 
 
-    public String getPostResults(String url, String jsonToPost, String authorizeToken) {
+  /*  public String getPostResults(String url, String jsonToPost, String authorizeToken) {
         //if(this.isNetworkAvailable()) {
             InputStream mInputStreamis = null;
 
@@ -142,12 +133,12 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
             }
 
             resultData = this.convertResponseToString(mInputStreamis);
-       /* } else {
+       *//* } else {
             this.resultData = null;
-        }*/
+        }*//*
 
         return resultData;
-    }
+    }*/
 
 
 

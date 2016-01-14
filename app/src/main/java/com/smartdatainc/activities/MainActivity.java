@@ -1,11 +1,15 @@
 package com.smartdatainc.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.dataobject.AppInstance;
@@ -14,10 +18,13 @@ import com.smartdatainc.utils.Constants;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
- * Created by Anurag Sethi
+ * Created by Anjani Kumar
  * The activity is used for handling the splash screen operations along with redirection to login screen
  * after the splash screen delay is exhausted  
  */
@@ -30,14 +37,28 @@ public class MainActivity extends AppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_main);
-      //  setActionBar("ToGo");
+        setActionBar("TOGO");
 
         //initializing the data
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.smartdatainc.toGo", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:",
+                        Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         initData();
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new TwitterCore(authConfig));
@@ -47,7 +68,7 @@ public class MainActivity extends AppActivity {
             public void run() {
 
                 //Intent to call the Login Activity
-                Intent intentObj = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intentObj = new Intent(MainActivity.this, UserTypeActivity.class);
                 startActivity(intentObj);
                 MainActivity.this.finish();
 

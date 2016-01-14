@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+
+
+    <EditText
+        android:id="@+id/languageadded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:inputType="text"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/text_color"
+        android:text="asfsdg"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:onClick="onDeleteClicked"
+        android:background="@drawable/edit" />
+
+</LinearLayout>

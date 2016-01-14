@@ -5,12 +5,29 @@
     <!-- Login Screen -->
     <string name="logoContentDescription">Splash Logo</string>
     <string name="email">Email</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="profile">Profile</string>
+    <string name="name">Name</string>
+    <string name="uid">UId</string>
+    <string name="nickname">Nick Name</string>
+    <string name="address">Address</string>
+    <string name="phonenumber">Phone Number</string>
+    <string name="description">Description</string>
+    <string name="bankacountdesc">Bank Account Information</string>
+    <string name="taxid">Tax ID / EIN</string>
+    <string name="mylanguage">My Languages</string>
+    <string name="certificates">Certificates</string>
+    <string name="selectuser">Select User Types</string>
+    <string name="interpreter">Interpreter</string>
+    <string name="user">Customer</string>
+    <string name="userid">User ID</string>
+    <string name="dummy">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry standard dummy text ever since the 1500s.</string>
     <string name="password">Password</string>
-    <string name="btn_signIn">Sign In</string>
-    <string name="forgot_password">Forgot Password</string>
+    <string name="btn_signIn">LOGIN</string>
+    <string name="forgot_password">Forgot Password ?</string>
     <string name="conntectWithText">Connect with</string>
     <string name="orText">OR</string>
-
+    <string name="btn_register">Register Now</string>
     <string name="btn_signup">Sign Up</string>
     <string name="EmailErrorMessage">Please enter email</string>
     <string name="PasswordErrorMessage">Please enter password</string>
@@ -31,7 +48,7 @@
     <string name="dobHint">Date Of Birth</string>
     <string name="passwordHint">Password</string>
     <string name="cpasswordHint">Confirm Password</string>
-    <string name="register">Register</string>
+    <string name="register">REGISTER</string>
 
     <!-- Network String Starts here -->
     <string name="network_service_message_title">Network Services</string>
@@ -81,7 +98,11 @@
     <string name='view_both_only'>View Both</string>
     <string name='streaming_video'>Streaming Video</string>
     <string name='buffering_video'>Buffering...</string>
-    
+    <string name='drawer_open'>Open</string>
+    <string name='drawer_close'>Close</string>
+
+
+    drawer_open
     <!-- GooglePlayService Strings -->
     <string name="device_not_supported">This device is not supported</string>
     <string name="invalid_google_play_service_found">No valid Google Play Services APK found</string>
@@ -106,9 +127,10 @@
     <!--  Forgot Password Screen String starts here  -->
 
     <string name="forgotScreenTitle">Reset Password</string>
-    <string name="forgotTxt">To reset your password, Please enter your registered email id.</string>
+    <string name="forgotTxt">Just Don\'t Worry!Fill in your Email ID &amp; we will help you reset your password.</string>
     <string name="forgotemailHint">Enter your Email ID</string>
      <string name="submit">Submit</string>
+    <string name="sendemail">Send Email</string>
 
     // ooVoo Strings
     <string name="username_label">Username:</string>
@@ -191,6 +213,11 @@
     <string name="title_activity_to_go">ToGoActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login_with_linked_in">LoginWithLinkedInActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_customer_dash_board">CustomerDashBoardActivity</string>
+    <string name="title_activity_uer_type">UerTypeActivity</string>
 
 
 </resources>

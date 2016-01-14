@@ -5,6 +5,9 @@
 
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="sixtyDp">60dp</dimen>
+    <dimen name="threeDp">3dp</dimen>
+    <dimen name="tendp">10dp</dimen>
+
 
     <dimen name="vc_surface_text_height">26dp</dimen>
     <dimen name="vc_surface_margin">5dp</dimen>
@@ -17,5 +20,8 @@
     <dimen name="main_margin">20dip</dimen>
     <dimen name="row_margin">16dip</dimen>
     <dimen name="grid_item_padding">2dip</dimen>
+    <dimen name="profiletextsize">22sp</dimen>
+    <dimen name="normaltextsize">18sp</dimen>
+    <dimen name="heading">35sp</dimen>
 
 </resources>

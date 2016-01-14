@@ -2,88 +2,246 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <LinearLayout 
-        android:id="@+id/signupLayout"
+
+
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_margin="10dp">
-        <View style="@style/view_20" />
-
-        <TextView
+        >
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/errorMessage"/>
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/default_pic"
+                android:paddingTop="30dp"
+                android:paddingBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/logoContentDescription"/>
 
-        <View style="@style/view_20" />
-        <EditText 
-            android:id="@+id/uname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/unameHint"
-            android:padding="10dp"/>
-       <!-- <EditText
-            android:id="@+id/lname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/lnameHint"
-            android:padding="10dp"/>-->
-		
-<!--
-        <EditText
-            android:id="@+id/dob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/dobHint"
-
-            android:paddingTop="10dp"
-            android:maxLength="10"/>-->
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/emailHint"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"/>
+            <LinearLayout
+                android:id="@+id/signupLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_below="@+id/imageView1"
+                android:layout_margin="10dp">
 
 
-        <EditText 
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/passwordHint"
-            android:inputType="textPassword"
-            android:paddingTop="10dp"
-            android:maxLength="10"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/errorMessage"/>
 
-        <EditText
-            android:id="@+id/cpassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="@string/cpasswordHint"
-            android:inputType="textPassword"
-            android:paddingTop="10dp"
-            android:maxLength="10"/>
+                <View style="@style/view_20" />
 
-        
-        <Button 
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:layout_marginTop="30dp"/>
-            
-        
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
 
+                    android:layout_height="50dp"
+                    android:background="@drawable/text_field"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:src="@drawable/user_icon" />
+
+                    <EditText
+                        android:id="@+id/uname"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/email"
+                        android:hint="@string/unameHint"
+
+
+                        style="@style/LoginEditTextStyle"
+                        android:singleLine="true"></EditText>
+                </LinearLayout>
+
+                <!--  <EditText
+                      android:id="@+id/uname"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:singleLine="true"
+                      android:background="@drawable/text_field"
+                      android:hint="@string/unameHint"
+                      android:paddingTop="30dp"
+                      android:padding="10dp"/>-->
+                <!-- <EditText
+                     android:id="@+id/lname"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:singleLine="true"
+                     android:hint="@string/lnameHint"
+                     android:padding="10dp"/>-->
+
+                <!--
+                        <EditText
+                            android:id="@+id/dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:hint="@string/dobHint"
+
+                            android:paddingTop="10dp"
+                            android:maxLength="10"/>-->
+                <View style="@style/view_20" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/text_field"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:src="@drawable/email_icon" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/email"
+                        android:hint="@string/emailHint"
+                        android:inputType="textEmailAddress"
+
+                        style="@style/LoginEditTextStyle"
+                        android:singleLine="true"></EditText>
+                </LinearLayout>
+                <!--        <EditText
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:paddingTop="30dp"
+                            android:hint="@string/emailHint"
+                            android:background="@drawable/text_field"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"/>-->
+                <View style="@style/view_20" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/text_field"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:src="@drawable/password_icon" />
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/email"
+                        android:hint="@string/passwordHint"
+
+                        android:inputType="textPassword"
+                        style="@style/LoginEditTextStyle"
+                        android:singleLine="true"></EditText>
+                </LinearLayout>
+
+                <View style="@style/view_20" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/text_field"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="5dp"
+                        android:src="@drawable/password_icon" />
+
+                    <EditText
+                        android:id="@+id/cpassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/email"
+                        android:hint="@string/passwordHint"
+
+                        android:inputType="textPassword"
+                        style="@style/LoginEditTextStyle"
+                        android:singleLine="true"></EditText>
+                </LinearLayout>
+                <!--<EditText
+                    android:id="@+id/cpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:padding="10dp"
+                    android:background="@drawable/text_field"
+                    android:hint="@string/cpasswordHint"
+                    android:inputType="textPassword"
+                    android:paddingTop="30dp"o
+                    android:maxLength="10"/>-->
+
+                <View style="@style/view_20" />
+                <View style="@style/view_20" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/registercolor"
+                    android:text="Register As"
+                    />
+                <View style="@style/view_20" />
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/selectusertype">
+                    <RadioButton
+                        android:id="@+id/interpreterradio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/interpreter"
+                        >
+                    </RadioButton>
+                    <RadioButton
+                        android:id="@+id/userradio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        >
+                    </RadioButton>
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:text="@string/register"
+                    android:textColor="@color/tw__solid_white"
+                    android:layout_marginTop="20dp"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

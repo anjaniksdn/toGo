@@ -62,6 +62,7 @@ public class CallNegotiationFragment extends BaseFragment implements View.OnClic
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		//View view = inflater.inflate(R.layout.call_negotiation_fragment, container, false);
 		View view = inflater.inflate(R.layout.call_negotiation_fragment, container, false);
 
 		callReceiverAdapter = new CallReceiverAdapter();
@@ -78,9 +79,9 @@ public class CallNegotiationFragment extends BaseFragment implements View.OnClic
 		callReceiversList.setDivider(null);
 		callReceiversList.setDividerHeight(0);
 
-		callReceiverAdapter.addItem("sumitk");
+		/*callReceiverAdapter.addItem("sumitk");
 		callReceiverAdapter.addItem("deshbandhu");
-		callReceiverAdapter.addItem("vishwanath123");
+		callReceiverAdapter.addItem("vishwanath123");*/
 		callReceiversList.setAdapter(callReceiverAdapter);
 
 

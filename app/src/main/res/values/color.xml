@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name='error_text_color'>#FF0000</color>
-    <color name="orange">#FF9900</color>
+    <color name="orange">#ee8b16</color>
+    <color name="profile">#C0966C</color>
+    <color name="order">#A97D50</color>
+    <color name="callhistory">#BF710C</color>
+    <color name="purchase">#E28816</color>
+    <color name="favinterpreter">#E99926</color>
+    <color name="seetings">#F8AD38</color>
 
+    <color name="backgroundcolor">#E2DFD9</color>
+    <color name="grey">#A7A7A7</color>
     <color name="blue">#000099</color>
     <color name="black_overlay">#66000000</color>
     <color name="controller_grey">#EAEAEA</color>
     <color name="image_holder_bg">#EAEAEA</color>
-
+    <color name="editTextStrokeColor">#7F7F7F</color>
+    <color name="editTextBackgroundColor">#FFFFFF</color>
+    <color name="editTextBackgroundColorLocked">#D7D7D7</color>
     <color name="text_color">#FFF</color>
     <color name="text_field_color">#000</color>
     <color name="text_shadow">#FFF</color>
@@ -19,6 +29,8 @@
 
     <color name="bar_dark_color">#CECECE</color>
     <color name="bar_meduim_color">#DFDEE0</color>
+    <color name="profiletextcolor">#e0ad03</color>
+
     <color name="bar_light_color">#F2F2F2</color>
     <color name="red_dark_color">#B30000</color>
 
@@ -32,8 +44,10 @@
 
     <color name="green">#00FF00</color>
     <color name="light_green">#90EE90</color>
-
+    <color name="registercolor">#ee9f1b</color>
     <color name="color_preloader_center">#FFCCCB</color>
     <color name="color_preloader_start">#FF0000</color>
     <color name="color_preloader_end">#00FF00</color>
+    <color name="lightbrown">#ce7d13</color>
+    <color name="brown">#cbbea5</color>
 </resources>

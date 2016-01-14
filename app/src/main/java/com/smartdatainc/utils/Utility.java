@@ -102,12 +102,15 @@ public class Utility {
      * @param email email address to validate
      * @return true if the email entered is valid
      */
-     public boolean checkEmail(String email) {
+    public boolean checkEmail(String email) {
         Pattern pattern;
         Matcher matcher;
-        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
+        //final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        // final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        final String EMAIL_PATTERN = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputstr = email;
+        pattern = Pattern.compile(EMAIL_PATTERN,Pattern.CASE_INSENSITIVE);
+        matcher = pattern.matcher(inputstr);
         return matcher.matches();
     }
 
@@ -169,7 +172,7 @@ public class Utility {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // TODO Auto-generated method stub
                 // Show location settings when the user acknowledges the alert dialog
-               if(btnTagName.equalsIgnoreCase("network services")) {
+                if(btnTagName.equalsIgnoreCase("network services")) {
                     Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                     context.startActivity(intent);
                 }
@@ -372,7 +375,7 @@ public class Utility {
         }
         editorObj.commit();
     }
-    
+
     /**
      * show message to user using showToast
      *
@@ -451,7 +454,7 @@ public class Utility {
         return (float) num;
 
     }
-    
+
     /**
      * The method validates if GooglePlayServices are available or not
      * @param context - contains the context of the activity from where it is called

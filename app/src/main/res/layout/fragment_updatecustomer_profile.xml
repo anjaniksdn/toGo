@@ -1,0 +1,245 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="vertical">
+                <View style="@style/view_10" />
+                <TextView
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/orange"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/profile"
+                    android:gravity="center"
+                    android:textColor="@color/tw__solid_white"
+                    >
+                </TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <com.smartdatainc.utils.CircularImageView
+                            android:id="@+id/profileimageview"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+
+                            android:background="@drawable/profile_icon"
+                            >
+                        </com.smartdatainc.utils.CircularImageView>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/profilename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:padding="20dp"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="Name"
+                        >
+                    </TextView>
+                </LinearLayout>
+                <View android:layout_height="2dp"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"></View>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tw__solid_white"
+                    android:layout_weight="1"
+
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/userprofileemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        >
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profileemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="13"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profilepassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/uesername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="John Levis"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nickname">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="John Levis"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/uid">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/uid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="John Levis"
+                        />
+
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="153-lorisloris,Australia"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phonenumber">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profilephone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="11111111"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profiledescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="Description"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taxid">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profiletaxid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="13214242423"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bankacountdesc">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/profilbankacount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text="13214242423"
+                        />
+                    <View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mylanguage">
+                    </TextView>
+                    <Spinner
+                        android:id="@+id/language"
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdown"
+
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/certificates">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--<View style="@style/view_20" />-->
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>

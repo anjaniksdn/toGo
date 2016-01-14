@@ -1,0 +1,163 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <View style="@style/view_10" />
+            <TextView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:background="@color/orange"
+                android:padding="10dp"
+                android:textSize="@dimen/profiletextsize"
+                android:text="Dashboard"
+                android:gravity="center"
+                android:textColor="@color/tw__solid_white"
+                >
+            </TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.smartdatainc.utils.CircularImageView
+                        android:id="@+id/profileimageview"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+
+                        android:background="@drawable/profile_icon"
+                        >
+                    </com.smartdatainc.utils.CircularImageView>
+                    <TextView
+                        android:id="@+id/profilename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/heading"
+                        android:paddingBottom="@dimen/tendp"
+                        android:textColor="@color/profiletextcolor"
+                        android:text=""
+                        >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <View style="@style/view_10" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_field_color"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="No.OF CALL">
+                    </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="13"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/text_field_color"
+                        android:text="CALL MINUTES">
+                    </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/orange"
+                        android:text="86"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_field_color"
+                        android:text="CALL YTD EARNINGS">
+                    </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/profiletextsize"
+                        android:text="98 120"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
+                        android:textColor="@color/text_field_color"
+                        android:text="STATUS">
+                    </TextView>
+                    <ToggleButton
+                        android:id="@+id/avaiblitytoggle"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:button="@drawable/toggleselector"
+                        android:background="@null"
+                        android:checked="false" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/dummy"
+                    android:textSize="@dimen/normaltextsize"
+                    >
+                </TextView>
+                <View style="@style/view_20" />
+                <Button
+                    android:id="@+id/manageprofile"
+                    android:background="@drawable/button"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/tw__solid_white"
+                    android:text="PROFILE MANAGEMENT"
+                    android:layout_height="wrap_content">
+                </Button>
+                <View style="@style/view_20" />
+                <Button
+                    android:id="@+id/customerfeedback"
+                    android:background="@drawable/button"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/tw__solid_white"
+                    android:text="CUSTOMER FEEDBACK"
+                    android:layout_height="wrap_content">
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

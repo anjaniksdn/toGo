@@ -1,10 +1,23 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="colorPrimary">#ee8b16</item>
+        <item name="colorPrimaryDark">#ee8004</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    <!-- Customize your theme here. -->
+        <!--<item name="android:actionBarStyle">@style/Theme.MyAppTheme.ActionBar</item>-->
       <!--  <item name="actionBarStyle">@style/MyActionBar</item>-->
     </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+  <!--  <style name="Theme.MyAppTheme.ActionBar" parent="@style/Theme.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#ee8b16</item>
+    </style>-->
    <!-- <style name="MyActionBar"
         parent="Widget.AppCompat.Toolbar">
 
@@ -23,10 +36,30 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
-
+    <style name="MyProfileEditTextSpinnerStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:layout_marginTop">@dimen/my_profile_fields_margin_top</item>
+        <item name="android:background">@drawable/border_textview</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <!-- Edit Text Style -->
+    <style name="LoginEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:background">@drawable/text_field</item>
+        <item name="android:ems">10</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">7dp</item>
+    </style>
     <style name="view_20">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/twenty</item>
+        <item name="android:layout_height">@dimen/ten</item>
+    </style>
+    <style name="view_10">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/five</item>
     </style>
 
     <style name="padding_left_right_small">

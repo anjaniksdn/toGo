@@ -62,7 +62,7 @@ public class User {
      * User's _token
      */
     public String _token;
-
+    public String Authorization;
     /**
      * User's jabber_id
      */
@@ -76,7 +76,11 @@ public class User {
     /**
      * User's Type
      */
-    public String type;
+    public String utype;
 
+    /**
+     * User's Login Type
+     */
+    public String logintype;
 
 }
