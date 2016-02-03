@@ -122,7 +122,7 @@ public class MultiSelectSpinner extends Spinner implements
         mSelection = new boolean[_items.length];
         mSelectionAtStart = new boolean[_items.length];
         simple_adapter.clear();
-        simple_adapter.add("Select Benefit Types");
+        simple_adapter.add("Select Languages");
         Arrays.fill(mSelection, false);
     }
 

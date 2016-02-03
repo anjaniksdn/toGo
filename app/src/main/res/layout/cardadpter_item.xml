@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+
+
+    <TextView
+        android:id="@+id/txtcardName"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_field_color"
+
+        android:padding="5dp"
+        android:textSize="@dimen/profiletextsize"
+        android:layout_width="match_parent" />
+
+</LinearLayout>

@@ -82,7 +82,7 @@ public class GetWebServiceGetData extends AsyncTask<String, Void, String> {
      * @param params The parameters of the task.
      * @return A result, defined by the subclass of this task.
      * @see #onPreExecute()
-     * @see #onPostExecuteSystem.out.println("\nSending 'GET' request to URL : " + url);
+     *
      * @see #publishProgress
      */
     @Override
@@ -90,7 +90,7 @@ public class GetWebServiceGetData extends AsyncTask<String, Void, String> {
         try{
 
 
-            result = httpUtilityObj.getPostResults(this.url, this.postData,Authentication);
+           // result = httpUtilityObj.getPostResults(this.url, this.postData,Authentication);
 
             URL myURL = new URL(url);
             HttpURLConnection myURLConnection = (HttpURLConnection)myURL.openConnection();
@@ -115,7 +115,7 @@ public class GetWebServiceGetData extends AsyncTask<String, Void, String> {
             }
             in.close();
             result = response.toString();
-            Log.v("userProfile::",result);
+            Log.v("interpreterProfile::",result);
             //result = httpUtilityObj.getResultsViaGet(this.url);
             //result = getPostResults(this.url, this.postData,Authentication);
         }

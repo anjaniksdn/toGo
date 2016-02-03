@@ -1,332 +1,189 @@
 package com.smartdatainc.ui.fragments;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.Response;
-import com.facebook.Session;
-import com.smartdatainc.activities.InterpreterDashboardActivity;
-import com.smartdatainc.activities.ForgotPasswordActivity;
-import com.smartdatainc.dataobject.User;
-import com.smartdatainc.helpers.FacebookSSO;
-import com.smartdatainc.interfaces.FacebookTaskCompleted;
-import com.smartdatainc.interfaces.ServiceRedirection;
-import com.smartdatainc.managers.LoginManager;
 import com.smartdatainc.toGo.R;
-import com.smartdatainc.utils.Constants;
-import com.smartdatainc.utils.Utility;
 
 
-public class LoginFragment extends BaseFragment implements ServiceRedirection, FacebookTaskCompleted {
+public class LoginFragment extends  BaseFragment {
 
-	private String email;
-	private String password;
-	private EditText emailObj;
+	private static final int MIN_USERNAME_LENGTH = 6;
+	private static final int USERNAME_LIMIT = 200;
+	private static final int DISPLAY_NAME_LIMIT = 100;
+	private String errorDescription 		= null;
+	private EditText usernameEditText 		= null;
+	private EditText displayNameEditText	= null;
+	private TextView errorTextView			= null;
+	private MenuItem settingsMenuItem 		= null;
 
+	public LoginFragment() {
+	}
 
+	public static LoginFragment newInstance(MenuItem settingsMenuItem) {
+		LoginFragment fragment = new LoginFragment();
+		fragment.settingsMenuItem = settingsMenuItem;
 
-	private EditText passwordObj;
-	private Button btnLoginObj;
-	private Button btnSignUpObj;
-	private TextView textViewObj;
-	private TextView mtextForgtPass;
-	private Utility utilObj;
-	private String message;
-	private User userObj;
-	private LoginManager loginManagerObj;
+		return fragment;
+	}
 
-	private LinearLayout fb_login_llObj;
-	FacebookSSO facebookssoObj;
-	FacebookTaskCompleted onFacebookTaskCompletedObj;
+	public static final LoginFragment newInstance(String errorDescription)
+	{
+		LoginFragment instance = new LoginFragment();
+		instance.setErrorDescription(errorDescription);
+		return instance;
+	}
 
-
-
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
+	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onResume() {
+		super.onResume();
 
-		//setContentView(R.layout.login);
-
-		facebookssoObj = new FacebookSSO(getActivity(), this);
-		facebookssoObj.createFacebookSession(savedInstanceState);
-
-		//initData();
-
-
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		getActivity().getWindow().setBackgroundDrawableResource(R.drawable.slqsm);
+		if (settingsMenuItem != null) {
+			settingsMenuItem.setVisible(true);
+		}
 	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		if (settingsMenuItem != null) {
+			settingsMenuItem.setVisible(false);
+		}
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.login, container, false);
+		View view = inflater.inflate(R.layout.login_fragment_layout, container, false);
 
-		emailObj = (EditText) view.findViewById(R.id.email);
-		passwordObj = (EditText) view.findViewById(R.id.password);
-		btnLoginObj = (Button) view.findViewById(R.id.btnSignIn);
-		//btnSignUpObj = (Button) view.findViewById(R.id.btnSignup);
-		textViewObj = (TextView) view.findViewById(R.id.errorMessage);
-		mtextForgtPass = (TextView) view.findViewById(R.id.forgotPassword);
-		utilObj = new Utility(getActivity());
-		userObj = new User();
-		loginManagerObj = new LoginManager(getActivity(), this);
-		fb_login_llObj = (LinearLayout) view.findViewById(R.id.fb_login_ll);
-		bindControls();
+		Button loginButton = (Button) view.findViewById(R.id.login_button);
+
+		usernameEditText = (EditText) view.findViewById(R.id.username_field);
+		String username = settings().get("username");
+		if (username != null) {
+			usernameEditText.setText(username);
+		}
+
+		String lastDisplayName = settings().get("avs_session_display_name");
+
+		displayNameEditText = (EditText) view.findViewById(R.id.displayname_field);
+
+		if (lastDisplayName != null) {
+			displayNameEditText.setText(lastDisplayName);
+		}
+
+		loginButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onLoginClick();
+			}
+		});
+
+		errorTextView = (TextView)view.findViewById(R.id.error_label);
+		errorTextView.setVisibility(View.INVISIBLE);
+		errorTextView.setText("");
+		if (!app().isOnline()) {
+			errorTextView.setVisibility(View.VISIBLE);
+			errorTextView.setText(getActivity().getResources().getString(R.string.no_internet));
+		} else if (errorDescription != null) {
+			errorTextView.setVisibility(View.VISIBLE);
+			errorTextView.setText(errorDescription);
+		}
+
 		return view;
 	}
 
-	/**
-	 * Default method of activity life cycle to handle the actions required once the activity starts
-	 * checks if the network is available or not
-	 * @return none
-	 */
+	public void onLoginClick() {
+		errorTextView.setText("");
+		String username = usernameEditText.getText().toString();
+		if (username.isEmpty()) {
+			showErrorMessageBox(getString(R.string.login_title), getString(R.string.enter_username_toast));
 
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-
-		if(!isNetworkAvailable(getActivity())) {
-			utilObj.showAlertDialog(getActivity(),this.getResources().getString(R.string.network_service_message_title),this.getResources().getString(R.string.network_service_message), this.getResources().getString(R.string.Ok), null, Constants.ButtonTags.TAG_NETWORK_SERVICE_ENABLE, 0);
+			return;
 		}
 
+		if (username.length() < MIN_USERNAME_LENGTH) {
+			showErrorMessageBox(getString(R.string.characters_missing), getString(R.string.min_username_length));
 
-		try {
-
-			// Session.getActiveSession().addCallback(statusCallback);
-			facebookssoObj.addActiveSessionCallback();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			return;
 		}
+
+		if (!username.matches("^([a-zA-Z0-9-_%. ])+$") || username.length() > USERNAME_LIMIT) {
+			showErrorMessageBox(getString(R.string.login_title), getString(R.string.wrong_username_id));
+
+			return;
+		}
+
+		String displayName = displayNameEditText.getText().toString();
+
+		if (!checkDisplayName(displayName)) {
+			return;
+		}
+
+		InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(usernameEditText.getWindowToken(), 0);
+
+		app().login(usernameEditText.getText().toString(), displayName);
 	}
 
-	/**
-	 * Default activity life cycle method
-	 */
-	@Override
-	public void onStop() {
-		super.onStop();
+	private boolean checkDisplayName(String displayName)
+	{
+		if (displayName.isEmpty()) {
+			showErrorMessageBox(getString(R.string.login_title), getString(R.string.enter_conference_display_name));
 
-		try {
-
-			// Session.getActiveSession().removeCallback(statusCallback);
-			facebookssoObj.removeActiveSessionCallback();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-	}
-
-	/**
-	 * The method to handle the data when the orientation is changed
-	 *
-	 * @param outState contains Bundle data
-	 */
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-
-		Session session = Session.getActiveSession();
-		Session.saveSession(session, outState);
-
-	}
-
-	/**
-	 * Initializes the objects
-	 * @return none
-	 */
-/*	@Override
-	public void initData() {
-		emailObj = (EditText) findViewById(R.id.email);
-		passwordObj = (EditText) findViewById(R.id.password);
-		btnLoginObj = (Button) findViewById(R.id.btnSignIn);
-		btnSignUpObj = (Button) findViewById(R.id.btnSignup);
-		textViewObj = (TextView) findViewById(R.id.errorMessage);
-		mtextForgtPass = (TextView) findViewById(R.id.forgotPassword);
-		utilObj = new Utility(this);
-		userObj = new User();
-		loginManagerObj = new LoginManager(getActivity(), this);
-		fb_login_llObj = (LinearLayout) findViewById(R.id.fb_login_ll);
-
-
-	}*/
-
-	/**
-	 * Binds the UI controls
-	 * @return none
-	 */
-
-	public void bindControls() {
-
-		//Login Button click
-		btnLoginObj.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				email = emailObj.getText().toString();
-				password = passwordObj.getText().toString();
-
-
-
-				if(validatingRequired()) {
-					app().login(email, email);
-					if (app().isOnline()) {
-						Intent intentObj = new Intent(getActivity().getApplicationContext(), InterpreterDashboardActivity.class);
-						startActivity(intentObj);
-						Toast.makeText(getActivity(), "online", Toast.LENGTH_LONG).show();
-					}
-                   /* utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
-
-                    //assigning the data to the user object
-                    userObj.email = email;
-                    userObj.password = password;
-                    loginManagerObj.authenticateLogin(userObj);*/
-				}
-
-			}
-		});
-
-		//SignUp
-		/*btnSignUpObj.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intentObj = new Intent(getActivity(), SignUp.class);
-				startActivity(intentObj);
-			}
-		});*/
-
-
-		//facebook login
-		fb_login_llObj.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				facebookssoObj.startFacebookLogin(getActivity());
-			}
-		});
-
-
-		//ForgotPassword
-		mtextForgtPass.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intentObj = new Intent(getActivity(), ForgotPasswordActivity.class);
-				startActivity(intentObj);
-			}
-		});
-
-
-	}
-
-
-
-	/**
-	 *  The method is used to validate the required fields
-	 *  @return boolean true if fields are validated else false
-	 **/
-
-	private boolean validatingRequired() {
-		message = "";
-		email = emailObj.getText().toString();
-		password = passwordObj.getText().toString();
-
-		//validate the content
-		if(email.isEmpty()) {
-			message = getResources().getString(R.string.EmailErrorMessage);
-			utilObj.showError(getActivity(), message, textViewObj, emailObj);
-		}
-       /* else if(!utilObj.checkEmail(email)) {
-            message = getResources().getString(R.string.invalid_email);
-            utilObj.showError(this, message, textViewObj, emailObj);
-        }*/
-		else if(password.isEmpty()) {
-			message = getResources().getString(R.string.PasswordErrorMessage);
-			utilObj.showError(getActivity(), message, textViewObj, passwordObj);
-		}
-
-		if(message.equalsIgnoreCase("") || message == null) {
-			return true;
-		}
-		else {
 			return false;
 		}
 
+		if (displayName.length() > DISPLAY_NAME_LIMIT) {
+			showErrorMessageBox(getString(R.string.login_title), getString(R.string.display_name_too_long));
+
+			return false;
+		}
+
+		return true;
 	}
 
-	/**
-	 * The method handles the result from the Facebook
-	 * @param requestCode
-	 * @param resultCode
-	 * @param data
-	 */
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
+	public void showErrorMessageBox(String title,String msg)
+	{
+		try {
+			AlertDialog.Builder popupBuilder = new AlertDialog.Builder(getActivity());
+			TextView myMsg = new TextView(getActivity());
+			myMsg.setText(msg);
+			myMsg.setGravity(Gravity.CENTER);
+			popupBuilder.setTitle(title);
+			popupBuilder.setPositiveButton("OK", null);
+			popupBuilder.setView(myMsg);
 
-		Session.getActiveSession().onActivityResult(getActivity(), requestCode, resultCode, data);
-
-	}
-
-
-
-	/**
-	 * The interface method implemented in the java files
-	 *
-	 * @param taskID the id based on which the relevant action is performed
-	 * @return none
-	 */
-	@Override
-	public void onSuccessRedirection(int taskID) {
-		utilObj.stopLoader();
-
-		if(taskID == Constants.TaskID.LOGIN_TASK_ID) {
-			//call the intent for the next activity
-			// User userobj = (User)userObj;
-			// int userid =  userobj.userID;
-			Intent intentObj = new Intent(getActivity(), InterpreterDashboardActivity.class);
-			startActivity(intentObj);
+			popupBuilder.show();
+		} catch( Exception e) {
 		}
 	}
 
-	/**
-	 * The interface method implemented in the java files
-	 * @param errorMessage the error message to be displayed
-	 * @return none
+	/***
+	 * In the fragment when user click on back button we just call finish on host activity
 	 */
-	@Override
-	public void onFailureRedirection(String errorMessage) {
-		utilObj.stopLoader();
-		utilObj.showError(getActivity(), errorMessage, textViewObj, null);
-
-	}
-
-	/**
-	 * The interface method implemented in the java files
-	 *
-	 * @param response is the response received from the Facebook
-	 */
-	@Override
-	public void onFacebookTaskCompleted(Response response) {
-		//write your code here
-		Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_SHORT).show();
-	}
-
 	public boolean onBackPressed()
 	{
 		this.getActivity().finish();
 		return false ;
 	}
-	public void onSuccessRedirection(int taskID,String jsonMesseage) {
 
-	}
 }

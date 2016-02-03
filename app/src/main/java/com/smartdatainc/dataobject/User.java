@@ -83,4 +83,6 @@ public class User {
      */
     public String logintype;
 
+    public String toLanguage;
+    public String fromLanguage;
 }

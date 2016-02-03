@@ -17,8 +17,12 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class ApplicationSettings extends Hashtable<String, String> {
-
-	private static final String TOKEN = "MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnVEdsyUHpvisNJG2XJG8G2rWussW%2BlwZ2Y45KN8RlRLSgLQKMT7hFDN0uF5jS9xCdXrd9BvAp9gWlEkpWt6j44YmtWVS%2BAbcn1WN22nwFNPqyni4Pjs6M1MmOPkOPK2E%3D";
+//"12349983355077
+	//"MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZUYVW%2BB1MwyBDpt22C0WvOeMPW7fH6mMOv8d%2FAPeFZ2QeCOguU288bRzsChrixFyZ%2BKzm9nrLmfOkZwyPrAO%2BDP8wgDiVtL%2F0w9mZQ78Az5Hk6imDbhYGNGRFMqo0H2virlVE4Q%2Bpf5S%2Fm50MO%2BMh"
+private static final String TOKEN = "MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZUYVW%2BB1MwyBDpt22C0WvOeMPW7fH6mMOv8d%2FAPeFZ2QeCOguU288bRzsChrixFyZ%2BKzm9nrLmfOkZwyPrAO%2BDP8wgDiVtL%2F0w9mZQ78Az5Hk6imDbhYGNGRFMqo0H2virlVE4Q%2Bpf5S%2Fm50MO%2BMh";
+	// Babul private static final String TOKEN = "MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACs5wargiqXmlwM3bTZvfNOocpZHMgFFy9TaEfqCu4GrTO7y6TKXQZXtPLNmO1fWi4w1oUzY5wcXlSuiLl5YHFJx2%2FZP6baqkSrDP5ywPkbVGsHlvRUHkLmE%2B6%2BeY4LVVAxLwTliCn%2FDCPSve1wV6hT";
+	//private static final String TOKEN = "MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmOAqTZF1VChoHNfkxcVGd2j9O0nO1GOt3ONvzZ5AMIwo%2FksmUL5lzYzt%2FRddEvi53U2yg%2FZqiH3XAhQFaBlN11HdwRojDwnDqSK%2BoRrcNMqweaZD9y4manGLi9StdzVI%3D";
+	//private static final String TOKEN = "MDAxMDAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABNzmf8uyXrdfAAqDGXfbG12LYdamctujWj9mfuSLwwJbvdN%2Fga71LW1hcf%2FZk6pE76s9%2BILLpsabfcDTIzRAJJPDMp9uyd5AzV0PATwNjEYUauu8s5jW1IwcvofJDi7Ao%3D";
 	// Put your application token here
 	public static final String Token				  = "token";
 	public static final String Username	          = "username";
@@ -33,7 +37,9 @@ public class ApplicationSettings extends Hashtable<String, String> {
 	public static final String TAG	                  = "ApplicationSettings";
 	public static final String SENT_TOKEN_TO_SERVER  = "sentTokenToServer";
 	public static final String REGISTRATION_COMPLETE = "registrationComplete";
-	public static final String PREVIEW_ID			  = "12349983355122";
+	public static final String PREVIEW_ID			  ="12349983355077";
+	//babul public static final String PREVIEW_ID			  = "12349983355392";
+	//public static final String PREVIEW_ID			  = "12349983355075";
 	private Context appcontext	          = null;
 
 	public ApplicationSettings(Context appcontext) {

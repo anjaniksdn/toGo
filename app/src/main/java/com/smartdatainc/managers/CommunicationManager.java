@@ -6,6 +6,7 @@ import com.smartdatainc.async.DeleteMediaFile;
 import com.smartdatainc.async.DownloadMediaFileUrls;
 import com.smartdatainc.async.GetWebServiceData;
 import com.smartdatainc.async.GetWebServiceGetData;
+import com.smartdatainc.async.PostImageWebServiceData;
 import com.smartdatainc.async.UploadMediaToServer;
 import com.smartdatainc.interfaces.CallBack;
 
@@ -44,6 +45,11 @@ public class CommunicationManager {
     public void CallGetWebService(Context contextObj, String Url, CallBack listnerObj, String jsonString, int tasksID)
     {
         GetWebServiceGetData gwsdObj = new GetWebServiceGetData(contextObj, Url, listnerObj, jsonString, tasksID);
+        gwsdObj.execute();
+    }
+    public void CallWebServiceFormdata(Context contextObj, String Url, CallBack listnerObj, String jsonString, int tasksID)
+    {
+        PostImageWebServiceData gwsdObj = new PostImageWebServiceData(contextObj, Url, listnerObj, jsonString, tasksID);
         gwsdObj.execute();
     }
     

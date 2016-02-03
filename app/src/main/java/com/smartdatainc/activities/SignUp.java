@@ -1,12 +1,12 @@
 package com.smartdatainc.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.facebook.Session;
@@ -39,12 +39,14 @@ public class SignUp extends AppActivity implements ServiceRedirection {
     private Button btnRegisterObj;
     private Utility utilObj;
     private String message;
-    private RadioGroup selectusertype;
+   // private RadioGroup selectusertype;
     private User userObj;
     private LoginManager loginManagerObj;
     PasswordValidator passwordValidator;
-    RadioButton radiointerpreter;
-    RadioButton selectuser ;
+   // RadioButton radiointerpreter;
+  //  RadioButton selectuser ;
+    String usertype;
+    Context contex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,12 @@ public class SignUp extends AppActivity implements ServiceRedirection {
         setContentView(R.layout.signup);
         setActionBar(Constants.APPHEADER);
         initData();
+        //Show soft-keyboard:
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//hide keyboard :
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+     //   utilObj.hideVirtualKeyboard(SignUp.this);
+        utilObj.hideKeyboard(SignUp.this);
         bindControls();
     }
 
@@ -60,22 +68,25 @@ public class SignUp extends AppActivity implements ServiceRedirection {
         emailObj = (EditText) findViewById(R.id.email);
         passwordObj = (EditText) findViewById(R.id.password);
         unameObj=(EditText)findViewById(R.id.uname);
-        radiointerpreter = (RadioButton) findViewById(R.id.interpreterradio);
+      //  radiointerpreter = (RadioButton) findViewById(R.id.interpreterradio);
        // radiocustomer = (RadioButton) findViewById(R.id.userradio);
-        radiointerpreter.setChecked(true);
+        //radiointerpreter.setChecked(true);
         //radiointerpreter.setOnCheckedChangeListener(this);
         //radiocustomer.setOnCheckedChangeListener(this);
         // lnameObj=(EditText)findViewById(R.id.lname);
         // dobObj=(EditText)findViewById(R.id.dob);
         cpasswordObj=(EditText)findViewById(R.id.cpassword);
-        selectusertype = (RadioGroup)findViewById(R.id.selectusertype);
+       // selectusertype = (RadioGroup)findViewById(R.id.selectusertype);
         btnRegisterObj = (Button) findViewById(R.id.btnRegister);
         textViewObj = (TextView) findViewById(R.id.errorMessage);
         utilObj = new Utility(this);
         userObj = new User();
         loginManagerObj = new LoginManager(this, this);
         passwordValidator =  new PasswordValidator();
-
+        Bundle intentBundle = getIntent().getBundleExtra("userbundle");
+        //intentBundle.getString("usertype");
+        usertype = intentBundle.getString("usertype");
+        contex = this;
 
     }
 
@@ -98,24 +109,25 @@ public class SignUp extends AppActivity implements ServiceRedirection {
                 if (validatingRequired()) {
 
                     utilObj.startLoader(SignUp.this, R.drawable.image_for_rotation);
-                    int selectedId = selectusertype.getCheckedRadioButtonId();
+                    //int selectedId = selectusertype.getCheckedRadioButtonId();
 
                     // find the radiobutton by returned id
-                    selectuser = (RadioButton) findViewById(selectedId);
+                    //selectuser = (RadioButton) findViewById(selectedId);
                     //assigning the data to the user object
                     // userObj.firstName = fname;
                     // userObj.lastName = lname;
                     userObj.username = uname;
                     userObj.email= email;
                     userObj.password = password;
-                    if(selectuser.getText().toString().equalsIgnoreCase("Customer"))
+                    userObj.utype = usertype;
+                 /*   if(selectuser.getText().toString().equalsIgnoreCase("Customer"))
                     {
                         userObj.utype = "user";
                     }
                     else
                     {
                         userObj.utype = "interpreter";
-                    }
+                    }*/
                    // userObj.utype = selectuser.getText().toString();
                     // userObj.cpassword=cpassword;
                     // userObj.dob=dob;
@@ -134,6 +146,7 @@ public class SignUp extends AppActivity implements ServiceRedirection {
         message = "";
         email = emailObj.getText().toString();
         password = passwordObj.getText().toString();
+        uname = unameObj.getText().toString();
         boolean check =  utilObj.checkEmail(email);
         //validate the content
         if(email.isEmpty()) {
@@ -144,6 +157,11 @@ public class SignUp extends AppActivity implements ServiceRedirection {
 
         else if(!utilObj.checkEmail(email)) {
             message = getResources().getString(R.string.invalid_email);
+            //utilObj.showError(this, message, textViewObj, emailObj);
+            utilObj.showToast(this,message,0);
+        }
+        else if(uname.isEmpty()) {
+            message = getResources().getString(R.string.usernameErrormesseage);
             //utilObj.showError(this, message, textViewObj, emailObj);
             utilObj.showToast(this,message,0);
         }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/five_dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/tendp"
+        android:textColor="@color/tab_text_color"
+        android:textSize="@dimen/twenty_two_sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/two_dp"
+        android:background="@color/grey"></View>
+
+    <TextView
+        android:id="@+id/message_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fifteen_dp"
+        android:textColor="@color/tab_text_color"
+        android:textSize="@dimen/normaltextsize" />
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_style"
+        android:padding="@dimen/tendp"
+        android:textSize="@dimen/normaltextsize"
+        android:layout_margin="@dimen/five_dp"
+        android:hint="@string/password"
+
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tendp"
+        android:gravity="center|right"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/five_dp"
+            android:layout_weight="1"
+            android:background="@drawable/popup_btn2"
+            android:gravity="center"
+            android:padding="@dimen/tendp"
+            android:text="@string/cancel"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/normaltextsize"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/confirm_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/five_dp"
+            android:layout_weight=".85"
+            android:background="@drawable/popup_btn2"
+            android:gravity="center"
+            android:padding="@dimen/tendp"
+            android:text="@string/confirm"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/normaltextsize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cancel_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/five_dp"
+            android:layout_weight=".85"
+            android:background="@drawable/popup_btn1"
+            android:gravity="center"
+            android:padding="@dimen/tendp"
+            android:text="@string/cancel"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/normaltextsize"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

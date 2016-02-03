@@ -34,7 +34,7 @@ public class GridViewAdapter extends BaseAdapter {
      * Constructor
      *
      * @param context  The current context.
-     * @param resource The resource ID for a layout file containing a TextView to use when
+     * @param resource The resource ID for a country_list_item file containing a TextView to use when
      *                 instantiating views.
      * @param data     The array of the media file data.
      * @param dataType The array of the media file types
@@ -82,8 +82,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     /**
      * Get a View that displays the data at the specified position in the data set. You can either
-     * create a View manually or inflate it from an XML layout file. When the View is inflated, the
-     * parent View (GridView, ListView...) will apply default layout parameters unless you use
+     * create a View manually or inflate it from an XML country_list_item file. When the View is inflated, the
+     * parent View (GridView, ListView...) will apply default country_list_item parameters unless you use
      * {@link LayoutInflater#inflate(int, ViewGroup, boolean)}
      * to specify a root view and to prevent attachment to the root.
      *

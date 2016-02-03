@@ -130,7 +130,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 
 			settings = new ApplicationSettings(this);
 
-			ooVooClient.setLogger(this, LogLevel.fromString(getSettings().get(ApplicationSettings.LogLevelKey)));
+			ooVooClient.setLogger(this, LoggerListener.LogLevel.fromString(getSettings().get(ApplicationSettings.LogLevelKey)));
 			ooVooClient.setContext(this);
 			sdk = ooVooClient.sharedInstance();
 			sdk.getAVChat().setListener(this);
@@ -374,7 +374,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 	}
 
 	@Override
-	public void onRemoteVideoStateChanged(String uid, RemoteVideoState state, int width, int height, sdk_error error) {
+	public void onRemoteVideoStateChanged(String uid, VideoControllerListener.RemoteVideoState state, int width, int height, sdk_error error) {
 
 		LogSdk.d(TAG, "ooVooCamera ->onRemoteVideoStateChanged [uid = " + uid + ". RemoteVideoState = " + state + "]");
 		switch (state) {
@@ -421,7 +421,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 	}
 
 	@Override
-	public void OnLog(LogLevel level, String tag, String message) {
+	public void OnLog(LoggerListener.LogLevel level, String tag, String message) {
 		switch (level) {
 			case None:
 				break;
@@ -579,17 +579,17 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 	}
 
 	@Override
-	public void onConferenceStateChanged(ConferenceState avchat_state, sdk_error error) {
+	public void onConferenceStateChanged(AVChatListener.ConferenceState avchat_state, sdk_error error) {
 		LogSdk.d(TAG, "Application - > onConferenceStateChanged " + avchat_state + ", error " + error);
-		if (avchat_state == ConferenceState.Joined && error == sdk_error.OK) {
+		if (avchat_state == AVChatListener.ConferenceState.Joined && error == sdk_error.OK) {
 			isInConference = true;
 			settings.save();
 			fireApplicationStateEvent(Operation.AVChatJoined);
 
-		} else if (avchat_state == ConferenceState.Joined && error != sdk_error.OK) {
+		} else if (avchat_state == AVChatListener.ConferenceState.Joined && error != sdk_error.OK) {
 			fireApplicationStateEvent(Operation.Error, Operation.AVChatJoined, sdk_error.getErrorString(error));
 
-		} else if (avchat_state == ConferenceState.Disconnected) {
+		} else if (avchat_state == AVChatListener.ConferenceState.Disconnected) {
 			isInConference = false;
 			fireApplicationStateEvent(Operation.AVChatDisconnected);
 		}
@@ -700,7 +700,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 
 		public void onParticipantLeft(String userId);
 
-		public void onRemoteVideoStateChanged(String userId, RemoteVideoState state, sdk_error error);
+		public void onRemoteVideoStateChanged(String userId, VideoControllerListener.RemoteVideoState state, sdk_error error);
 
 		public void onTransmitStateChanged(boolean state, sdk_error err);
 	}
@@ -998,7 +998,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 	}
 
 	public void setLogLevel(String logLevel) {
-		ooVooClient.setLogLevel(LogLevel.fromString(logLevel));
+		ooVooClient.setLogLevel(LoggerListener.LogLevel.fromString(logLevel));
 	}
 
 	public static interface MessageCompletionHandler {

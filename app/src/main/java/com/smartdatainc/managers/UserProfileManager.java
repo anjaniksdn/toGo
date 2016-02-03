@@ -3,6 +3,11 @@ package com.smartdatainc.managers;
 import android.content.Context;
 import android.util.Log;
 
+import com.smartdatainc.dataobject.CountryData;
+import com.smartdatainc.dataobject.Customer;
+import com.smartdatainc.dataobject.InterepreterdashBoard;
+import com.smartdatainc.dataobject.Interpreter;
+import com.smartdatainc.dataobject.Upload;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.interfaces.CallBack;
 import com.smartdatainc.interfaces.ServiceRedirection;
@@ -14,7 +19,7 @@ import com.smartdatainc.utils.Utility;
  * Created by Anjani Kumar
  * The class will handle all the implementations related to the login operations
  */
-public class UserProfileManager implements CallBack{
+public class UserProfileManager implements CallBack {
 
     Context context;
     Utility utilObj;
@@ -24,7 +29,8 @@ public class UserProfileManager implements CallBack{
 
     /**
      * Constructor
-     * @param contextObj  The Context from where the method is called
+     *
+     * @param contextObj                 The Context from where the method is called
      * @param successRedirectionListener The listener interface for receiving action events
      * @return none
      */
@@ -36,33 +42,103 @@ public class UserProfileManager implements CallBack{
 
     /**
      * Calls the Web Service of authenticateLogin
-     * @param userObj  having the required data
+     *
+     * @param userObj having the required data
      * @return none
      */
-    public void userProfile(User userObj) {
+    public void interpreterProfile(User userObj) {
         String jsonString = utilObj.convertObjectToJson(userObj);
-        Log.v("userprofile request",jsonString);
+        Log.v("interpreter request", jsonString);
         commObj = new CommunicationManager(this.context);
         tasksID = Constants.TaskID.USER_PROFILE_TASK_ID;
         commObj.CallGetWebService(this.context, Constants.WebServices.WS_USER_PROFILE, this, userObj.Authorization, tasksID);
     }
 
+    public void getCountryList(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_COUNTRYLIST_TASK_ID;
+        commObj.CallGetWebService(this.context, Constants.WebServices.WS_GETCOUNTRY, this, userObj.Authorization, tasksID);
+    }
+
+    public void getStateList(CountryData countryData) {
+
+        String jsonString = utilObj.convertObjectToJson(countryData);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_SATELIST_TASK_ID;
+        String appendedurl = Constants.WebServices.WS_GETSTATE + "?country=" + countryData.country;
+        commObj.CallGetWebService(this.context, appendedurl, this, countryData.Authorization, tasksID);
+        //commObj.CallGetWebService(this.context, Constants.WebServices.WS_GETSTATE, this, countryData.Authorization, tasksID);
+    }
+
+    public void customerProfile(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("customerProfile request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.CUSTOMER_PROFILE_TASK_ID;
+        commObj.CallGetWebService(this.context, Constants.WebServices.WS_CUSTOMER_PROFILE, this, userObj.Authorization, tasksID);
+    }
+
+    public void updateCustomerProfile(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("customerProfile request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.UPDATE_USERPROFILE_TASK_ID;
+        commObj.CallGetWebService(this.context, Constants.WebServices.WS_UPDATE_USERPROFILE, this, userObj.Authorization, tasksID);
+    }
+
     /**
      * Calls the Web Service of authenticateLogin
-     * @param userObj  having the required data
+     *
+     * @param interepreterdashBoard having the required data
      * @return none
      */
-    public void updateAviblity(User userObj) {
-        String jsonString = utilObj.convertObjectToJson(userObj);
+    public void updateAviblity(InterepreterdashBoard interepreterdashBoard) {
+        String jsonString = utilObj.convertObjectToJson(interepreterdashBoard);
         commObj = new CommunicationManager(this.context);
-        tasksID = Constants.TaskID.SIGNUP_TASK_ID;
+        tasksID = Constants.TaskID.UPDATE_AVAILAIBLITY_TASK_ID;
         commObj.CallWebService(this.context, Constants.WebServices.WS_UPDATE_AGENT, this, jsonString, tasksID);
     }
 
+    public void updateInterpreterProfile(Interpreter interpreterprofile) {
+        String jsonString = utilObj.convertObjectToJson(interpreterprofile);
+        Log.v("Interpreter profilejson", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.UPDATE_INTERPRETERPROFILE_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_UPDATE_INTERPRETERPROFILE, this, jsonString, tasksID);
+    }
+
+    public void updateCustomerProfile(Customer customerprofile) {
+        String jsonString = utilObj.convertObjectToJson(customerprofile);
+        Log.v("Customer profilejson", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.UPDATECUSTOMER_PROFILE_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_UPDATE_USERPROFILE, this, jsonString, tasksID);
+    }
+
+    public void updateProfileImage(Upload upload) {
+        String jsonString = utilObj.convertObjectToJson(upload);
+        Log.v("Interpreter imagejson", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.UPDATE_PROFILEIMAGE_TASK_ID;
+        //commObj.CallWebService(this.context, Constants.WebServices.WS_UPDATE_PROFILEIMAGE, this, jsonString, tasksID);
+        commObj.CallWebServiceFormdata(this.context, Constants.WebServices.WS_UPDATE_PROFILEIMAGE, this, jsonString, tasksID);
+    }
+
+    public void getLanguageList(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_LANGUAGE_LIST_TASK_ID;
+        commObj.CallGetWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_LIST, this, userObj.Authorization, tasksID);
+    }
 
     /**
      * Calls the Web Service of forgot password
-     * @param userObj  having the required data
+     *
+     * @param userObj having the required data
      * @return none
      */
     public void forgotPassword(User userObj) {
@@ -72,6 +148,15 @@ public class UserProfileManager implements CallBack{
         commObj.CallWebService(this.context, Constants.WebServices.WS_USER_FORGOTPASS, this, jsonString, tasksID);
 
     }
+
+    public void interpreterLanguageDetails(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_PRICE, this, jsonString, tasksID);
+    }
+
 
     /**
      * The interface method implemented in the java files
@@ -83,216 +168,189 @@ public class UserProfileManager implements CallBack{
     @Override
     public void onResult(String data, int tasksID) {
         String errorMessage = "";
-        Log.v("Json response:::",data);
-        if(tasksID == Constants.TaskID.USER_PROFILE_TASK_ID) {
-            if(data != null) {
+        Log.v("Json response:::", data);
+        if (tasksID == Constants.TaskID.USER_PROFILE_TASK_ID) {
+            if (data != null) {
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
                 int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
-                if(messageID == 200) {
+                if (messageID == 200) {
 
                     //String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     // AppInstance.userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
                     //utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "_token", AppInstance.userObj._token);
 
                     serviceRedirectionObj.onSuccessRedirection(tasksID, data);
-                }
-                else
-                {
+                } else {
                     String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     serviceRedirectionObj.onFailureRedirection(jsonParsedData);
                 }
-                Log.v("Json response:",data);
-                //  int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                Log.v("Json response:", data);
 
-                //
-             /*   switch(messageID) {
-
-                    case ResponseCodes.Success:
-                        String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                        //AppInstance.userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
-                        //User userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
-                        //utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "_token", AppInstance.userObj._token);
-                        serviceRedirectionObj.onSuccessRedirection(tasksID);
-                        break;
-
-                    case ResponseCodes.InvalidEmailPassword:
-                        errorMessage =  dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);;
-                        break;
-
-
-                    case ResponseCodes.InvalidJsonFormat:
-                        errorMessage = this.context.getResources().getString(R.string.invalid_json_format);
-                        break;
-
-                    case ResponseCodes.MissingEmail:
-                        errorMessage = this.context.getResources().getString(R.string.missing_email);
-                        break;
-
-                    case ResponseCodes.MissingPassword:
-                        errorMessage = this.context.getResources().getString(R.string.missing_password);
-                        break;
-
-                    case ResponseCodes.IncorrectEmailPassword:
-                        errorMessage = this.context.getResources().getString(R.string.incorrect_email_password);
-                        break;
-
-
-
-                    case ResponseCodes.UnthorisedAccess:
-                        errorMessage = this.context.getResources().getString(R.string.unauthorized_access);
-                        break;
-
-                    default:
-                        errorMessage = context.getResources().getString(R.string.invalid_message);
-                        break;
-                }
-
-                if(!errorMessage.isEmpty()) {
-                   serviceRedirectionObj.onFailureRedirection(errorMessage);
-                }*/
-
-            }
-            else {
+            } else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
-        }
-        else if(tasksID == Constants.TaskID.FORGOT_PASSWORD_TASK_ID) {
-            if(data != null) {
+        } else if (tasksID == Constants.TaskID.CUSTOMER_PROFILE_TASK_ID) {
+            if (data != null) {
 
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
                 int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
-                if(messageID == 200) {
-                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
-                }
-                else
-                {
+                if (messageID == 200) {
+//                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
                     String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     serviceRedirectionObj.onFailureRedirection(jsonParsedData);
                 }
-               /* int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
-
-                switch(messageID) {
-
-                    case ResponseCodes.Success:
-                        String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                       // serviceRedirectionObj.onSuccessRedirection(tasksID,jsonParsedData);
-                        serviceRedirectionObj.onSuccessRedirection(tasksID);
-                        break;
-
-                    case ResponseCodes.EmailNotFound:
-                        errorMessage = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
-                        break;
 
 
-                    case ResponseCodes.InvalidJsonFormat:
-                        errorMessage = this.context.getResources().getString(R.string.invalid_json_format);
-                        break;
-
-
-
-                    case ResponseCodes.MissingEmail:
-                        errorMessage = this.context.getResources().getString(R.string.missing_email);
-                        break;
-
-                    case ResponseCodes.MissingPassword:
-                        errorMessage = this.context.getResources().getString(R.string.missing_password);
-                        break;
-
-                    case ResponseCodes.InvalidEmailPassword:
-                        errorMessage = this.context.getResources().getString(R.string.invalid_email_password);
-                        break;
-
-                    case ResponseCodes.UnthorisedAccess:
-                        errorMessage = this.context.getResources().getString(R.string.unauthorized_access);
-                        break;
-
-                    default:
-                        errorMessage = context.getResources().getString(R.string.invalid_message);
-                        break;
-
-                }
-
-                if(!errorMessage.isEmpty()) {
-                    serviceRedirectionObj.onFailureRedirection(errorMessage);
-                }*/
-
-            }
-            else {
+            } else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
 
-        }
+        } else if (tasksID == Constants.TaskID.UPDATE_INTERPRETERPROFILE_TASK_ID) {
+            if (data != null) {
 
-        else if(tasksID == Constants.TaskID.SIGNUP_TASK_ID) {
-            if(data != null) {
-                Log.v("Json response:",data);
                 //parse your json data here
                 DataParser dataParserObj = new DataParser();
                 int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
-                if(messageID == 200) {
+                if (messageID == 200) {
                     String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
-                }
-                else
-                {
+                } else {
                     String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     serviceRedirectionObj.onFailureRedirection(jsonParsedData);
                 }
-                //utilObj.showToast(this.context, jsonParsedData, 0);
-                // int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE_ID));
 
-                //
-              /*  switch(messageID) {
 
-                    case ResponseCodes.Success:
-                        String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_RESULT);
-                        //AppInstance.userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
-                        //utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "userID", Integer.toString(AppInstance.userObj.userID));
-                        //User userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
-                        serviceRedirectionObj.onSuccessRedirection(tasksID);
-                        break;
-
-                    case ResponseCodes.InvalidJsonFormat:
-                        errorMessage = this.context.getResources().getString(R.string.invalid_json_format);
-                        break;
-
-                    case ResponseCodes.MissingEmail:
-                        errorMessage = this.context.getResources().getString(R.string.missing_email);
-                        break;
-
-                    case ResponseCodes.MissingPassword:
-                        errorMessage = this.context.getResources().getString(R.string.missing_password);
-                        break;
-
-                    case ResponseCodes.IncorrectEmailPassword:
-                        errorMessage = this.context.getResources().getString(R.string.incorrect_email_password);
-                        break;
-
-                    case ResponseCodes.InvalidEmailPassword:
-                        errorMessage = this.context.getResources().getString(R.string.invalid_email_password);
-                        break;
-
-                    case ResponseCodes.UnthorisedAccess:
-                        errorMessage = this.context.getResources().getString(R.string.unauthorized_access);
-                        break;
-
-                    default:
-                        errorMessage = context.getResources().getString(R.string.invalid_message);
-                        break;
-                }*/
-
-               /* if(!errorMessage.isEmpty()) {
-                    serviceRedirectionObj.onFailureRedirection(errorMessage);
-                }
-*/
-            }
-            else {
+            } else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
+
+        } else if (tasksID == Constants.TaskID.UPDATECUSTOMER_PROFILE_TASK_ID) {
+            if (data != null) {
+
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+
+        } else if (tasksID == Constants.TaskID.UPDATE_AVAILAIBLITY_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.UPDATE_PROFILEIMAGE_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.GET_COUNTRYLIST_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.GET_SATELIST_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            }
+        } else if (tasksID == Constants.TaskID.GET_LANGUAGE_LIST_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        }else if (tasksID == Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        }
+        else {
+            utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
         }
 
     }

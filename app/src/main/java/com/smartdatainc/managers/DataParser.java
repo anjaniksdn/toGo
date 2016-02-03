@@ -52,6 +52,23 @@ public class DataParser {
                 case 5://return result key data
                     parsedString = jsonObj.getString("token");
                     break;
+                case 6://return result key data
+                    boolean completionstatus = jsonObj.optBoolean("completion");
+                    if(completionstatus)
+                    {
+                        parsedString = "true";
+                    }
+                    else
+                    {
+                        parsedString = "false";
+                    }
+                    break;
+                case 7://return result key data
+                    String uid = jsonObj.optString("uid");
+                    parsedString= uid;
+
+                    break;
+
 
 
             }

@@ -1,242 +1,245 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <!-- TODO: Update blank fragment country_list_item -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        >
-        <LinearLayout
+        <View style="@style/view_five_pixel" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <View style="@style/view_10" />
-            <TextView
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@color/orange"
-                android:padding="10dp"
-                android:textSize="@dimen/profiletextsize"
-                android:text="Dashboard"
-                android:gravity="center"
-                android:textColor="@color/tw__solid_white"
-                >
-            </TextView>
+            android:layout_height="50dp"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Dashboard"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/profiletextsize"></TextView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/profile_icon"
-                            >
-                        </ImageView>
-                    </FrameLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/orange"
-                        android:textSize="20sp"
-                        android:paddingTop="10dp"
-                        android:gravity="center"
-
-                        android:text="John Levis"
-                        >
-                    </TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/grey"
-                        android:textSize="15sp"
-
-                        android:gravity="center"
-
-                        android:text="GERMAN"
-                        >
-                    </TextView>
-                    <View
-                        android:layout_width="match_parent"
-                        android:paddingTop="5dp"
-                        android:layout_height="2dp"
-                        android:background="@color/grey"
-                        >
-                    </View>
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/dummy"
-
-                    >
-                </TextView>
-                <View style="@style/view_20" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MyLanguage"
-                        android:textColor="@color/orange"
-                        android:layout_weight="1"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:textColor="@color/orange"
-                        android:layout_weight="1"
-                        android:text="Email ID"
-                        />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <TextView
-                        android:id="@+id/customerlanguage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="English"
-
-                        android:layout_weight="1"
-                        />
-
-                    <TextView
-                        android:id="@+id/customerEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-
-                        android:layout_weight="1"
-                        android:text="kaif"
-                        />
-                </LinearLayout>
-                <View style="@style/view_20" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <TextView
+                    android:weightSum="2">
 
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/tw__solid_white"
-                        android:gravity="center"
-                        android:textSize="30sp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:paddingTop="20dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/button_style"
-                        style="@drawable/button_style"
-                        android:text="ORDER INTERPRETATION"
-                        />
-                    <TextView
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="MANAGE MY PROFILE"
-                        android:textSize="30sp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:paddingTop="20dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/button_style_brown"
-                        android:textColor="@color/tw__solid_white"
-                        style="@drawable/button_style"
-                        android:gravity="center"
-                        />
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    >
-                    <TextView
+                            <com.smartdatainc.utils.CircularImageView
+                                android:id="@+id/profileimageview"
+                                android:layout_width="140dp"
+                                android:layout_height="140dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/profile_icon">
 
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:paddingTop="20dp"
-                        android:textSize="30sp"
-                        android:layout_margin="5dp"
+                            </com.smartdatainc.utils.CircularImageView>
+                        </FrameLayout>
 
-                        android:background="@drawable/button_style_brown"
-                        android:text="VIEW PURCHASE HISTORY"
-                        />
-                    <TextView
+                        <TextView
+                            android:id="@+id/user_name_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="10dp"
+                            android:text="John Levis"
+                            android:textColor="@color/orange"
+                            android:textSize="20sp"></TextView>
 
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="20dp"
-                        android:paddingTop="20dp"
+                        <TextView
+                            android:id="@+id/nick_name_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="GERMAN"
+                            android:textColor="@color/grey"
+                            android:textSize="15sp"></TextView>
 
-                        android:layout_margin="5dp"
-                        android:textColor="@color/tw__solid_white"
-                        android:textSize="30sp"
-                        android:background="@drawable/button_style"
-                        style="@drawable/button_style"
-                        android:text="PROVIDE FEEDBACK"
-                        />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/grey"
+                            android:paddingTop="5dp"></View>
                     </LinearLayout>
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/about_user_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummy"
+
+                        ></TextView>
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="MyLanguage"
+                            android:textColor="@color/orange" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="Email ID"
+                            android:textColor="@color/orange" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/customer_language_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/customer_email_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="kaif" />
+                    </LinearLayout>
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/order_interpretation_text_view"
+                            style="@drawable/button_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:text="ORDER INTERPRETATION"
+                            android:textColor="@color/tw__solid_white"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/managemyprofile"
+                            style="@drawable/button_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style_brown"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="10dp"
+                            android:text="MANAGE MY PROFILE"
+                            android:textColor="@color/tw__solid_white"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style_brown"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+
+                            android:paddingTop="10dp"
+
+                            android:text="VIEW PURCHASE HISTORY"
+                            android:textSize="20sp" />
+
+                        <TextView
+
+                            style="@drawable/button_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="10dp"
+
+                            android:text="PROVIDE FEEDBACK"
+                            android:textColor="@color/tw__solid_white"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>

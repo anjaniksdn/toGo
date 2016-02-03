@@ -1,240 +1,806 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.smartdatainc.ui.fragments.UpdateCustomerProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment country_list_item -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+        <View style="@style/view_five_pixel" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/profile"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/profiletextsize"></TextView>
+
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:background="@color/backgroundcolor">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
                 android:gravity="center"
-                android:orientation="vertical">
-                <View style="@style/view_10" />
-                <TextView
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent"
-                    android:background="@color/orange"
-                    android:padding="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/profile"
-                    android:gravity="center"
-                    android:textColor="@color/tw__solid_white"
-                    >
-                </TextView>
+                android:orientation="vertical"
+                android:weightSum="2">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
                     <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
 
                         <com.smartdatainc.utils.CircularImageView
                             android:id="@+id/profileimageview"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="140dp"
+                            android:layout_height="140dp"
+                            android:src="@drawable/profile_icon">
 
-                            android:background="@drawable/profile_icon"
-                            >
                         </com.smartdatainc.utils.CircularImageView>
                     </FrameLayout>
+
                     <TextView
                         android:id="@+id/profilename"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textSize="25sp"
-                        android:padding="20dp"
+                        android:paddingBottom="@dimen/tendp"
+                        android:text=""
                         android:textColor="@color/profiletextcolor"
-                        android:text="Name"
-                        >
-                    </TextView>
+                        android:textSize="@dimen/heading"></TextView>
                 </LinearLayout>
-                <View android:layout_height="2dp"
-                    android:background="@color/grey"
-                    android:layout_width="match_parent"></View>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/tw__solid_white"
-                    android:layout_weight="1"
 
-                    android:padding="10dp"
                     android:layout_gravity="center"
+
+                    android:layout_marginLeft="@dimen/tendp"
+                    android:layout_marginRight="@dimen/tendp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <View
+                        android:layout_width="match_parent"
+
+                        android:layout_height="2dp"
+                        android:background="@color/grey"></View>
+
+
+                    <!-- <View style="@style/view_20" />-->
+                    <!-- <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="@dimen/profiletextsize"
+                         android:text="@string/password">
+                     </TextView>
+                     <TextView
+                         android:id="@+id/profilepassword"
+                         android:layout_width="match_parent"
+                         android:textSize="@dimen/profiletextsize"
+                         android:layout_height="wrap_content"
+                         android:textColor="@color/profiletextcolor"
+                         android:text=""
+                         />
+                     <View style="@style/view_20" />-->
+                    <!--  <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="@dimen/profiletextsize"
+                          android:text="@string/name">
+
+                      </TextView>
+                      <TextView
+                          android:id="@+id/uesername"
+                          android:layout_width="match_parent"
+                          android:textSize="@dimen/profiletextsize"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/profiletextcolor"
+                          android:text=""
+                          />-->
+                    <View style="@style/view_20" />
+                    <!-- <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="@dimen/profiletextsize"
+                         android:text="@string/nickname">
+                     </TextView>
+                     <TextView
+                         android:id="@+id/nickname"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textSize="@dimen/profiletextsize"
+                         android:textColor="@color/profiletextcolor"
+                         android:text=""
+                         />
+
+                     <View style="@style/view_20" />-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/firstname"
+                            android:textSize="@dimen/profiletextsize">
+
+                        </TextView>
+
+                        <ImageView
+                            android:id="@+id/editfirstname"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/uesername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+
+                        android:enabled="false"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/lastname"
+                            android:textSize="@dimen/profiletextsize">
+
+                        </TextView>
+
+                        <ImageView
+                            android:id="@+id/editlastname"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/lastname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:enabled="false"
+
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/nickname"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/editnickname"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/nickname"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:enabled="false"
+
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/uid"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <TextView
+                        android:id="@+id/uid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/description"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/descriptionedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/profiledescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:enabled="false"
+
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
 
                     <TextView
                         android:id="@+id/userprofileemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/email"
-                        >
-                    </TextView>
+                        android:textSize="@dimen/profiletextsize"
+
+                        ></TextView>
+
                     <TextView
                         android:id="@+id/profileemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="13"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/password">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/profilepassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
                         android:text=""
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/name">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/uesername"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="John Levis"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nickname">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/nickname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="John Levis"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uid">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/uid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="John Levis"
-                        />
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
 
                     <View style="@style/view_20" />
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/address">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="153-lorisloris,Australia"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/phonenumber">
-                    </TextView>
-                    <TextView
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/phonenumber"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/profilephoneedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
                         android:id="@+id/profilephone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="11111111"
-                        />
+                        android:background="@color/backgroundcolor"
+                        android:text=""
+                        android:maxLength="12"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
                     <View style="@style/view_20" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/description">
-                    </TextView>
+                        android:text="@string/dob"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
                     <TextView
-                        android:id="@+id/profiledescription"
-                        android:layout_width="match_parent"
+                        android:id="@+id/dob"
+
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="Description"
+                        android:textColor="@drawable/textselector"
+
                         />
+
                     <View style="@style/view_20" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/gender"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <Spinner
+                        android:id="@+id/genderspinner"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="47dp"
+
+                        android:background="@drawable/dropdown" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/address"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+
+                            android:id="@+id/editaddress"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+
+                        android:enabled="false"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+                    <!--  <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          >
+                          <TextView
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:textSize="@dimen/profiletextsize"
+                              android:text="@string/address">
+                          </TextView>
+                          <ImageView
+                              android:layout_width="30dp"
+                              android:layout_height="30dp"
+                              android:layout_gravity="right"
+                              android:id="@+id/editaddress"
+                              android:background="@drawable/edit_black"
+                              />
+                      </LinearLayout>
+
+                      <EditText
+                          android:id="@+id/address"
+                          android:layout_width="wrap_content"
+                          android:editable="false"
+                          android:textColor="@color/profiletextcolor"
+                          android:background="@color/backgroundcolor"
+
+                          android:layout_height="wrap_content"
+                          android:textSize="@dimen/profiletextsize"
+
+                          android:text=""
+                          />
+                      <View style="@style/view_20" />-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/country"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <Spinner
+                        android:id="@+id/countryspinner"
+                        style="@style/MyProfileEditTextSpinnerStyle"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/dropdown" />
+
+                    <View style="@style/view_20" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/state"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <Spinner
+                        android:id="@+id/statespinner"
+                        style="@style/MyProfileEditTextSpinnerStyle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/dropdown" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/city"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/editcity"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/cityedit"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:inputType=""
+                        android:text=""
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/zip"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/editzip"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/zipcode"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+
+                        android:text=""
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+
+                    <View style="@style/view_20" />
+                    <!--  <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+
+                          >
+                          <TextView
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:textSize="@dimen/profiletextsize"
+                              android:text="@string/phonenumber">
+                          </TextView>
+
+                          <ImageView
+                              android:layout_width="20dp"
+                              android:layout_height="20dp"
+                              android:layout_gravity="right"
+
+
+                              android:id="@+id/profilephoneedit"
+                              android:background="@drawable/edit_black"
+                              />
+                      </LinearLayout>-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mylanguage"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <!-- <com.smartdatainc.utils.MultiSelectSpinner
+                         android:id="@+id/language"
+                         style="@style/MyProfileEditTextSpinnerStyle"
+                         android:layout_width="fill_parent"
+                         android:layout_height="47dp"
+                         android:background="@drawable/dropdown" />
+ -->
+
+                    <TextView
+                        android:id="@+id/language"
+                        style="@style/MyProfileEditTextSpinnerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/five_dp"
+                        android:layout_marginTop="@dimen/five_dp"
+                        android:background="@drawable/dropdown"
+                        android:clickable="true"
+                        android:padding="@dimen/tendp"
+                        android:text="@string/my_language"
+                        android:textSize="@dimen/twenty_two_sp" />
+
+                    <ListView
+                        android:id="@+id/language_list_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="60dp"></ListView>
+
+
+                    <!--<View style="@style/view_20" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
                         android:text="@string/taxid">
                     </TextView>
                     <TextView
                         android:id="@+id/profiletaxid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="13214242423"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bankacountdesc">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/profilbankacount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/profiletextcolor"
-                        android:text="13214242423"
-                        />
-                    <View style="@style/view_20" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mylanguage">
-                    </TextView>
-                    <Spinner
-                        android:id="@+id/language"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/dropdown"
-
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/certificates">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/certificate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/profiletextsize"
                         android:textColor="@color/profiletextcolor"
                         android:text=""
-                        />
+                        />-->
+                    <!--   <View style="@style/view_20" />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:textSize="@dimen/profiletextsize"
+                           android:text="@string/bankacountdesc">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/profilbankacount"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:textSize="@dimen/profiletextsize"
+                           android:textColor="@color/profiletextcolor"
+                           android:text=""
+                           />-->
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/cardtype"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/cardtypeedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/cardtypeSpinner"
+                        style="@style/MyProfileEditTextSpinnerStyle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="47dp"
+                        android:background="@drawable/dropdown" />
+
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/cardnumber"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/cardnumberedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/cardnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:editable="false"
+                        android:inputType="number"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/cvv"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/cvvedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+
+
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/cvvtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:editable="false"
+                        android:inputType="number"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profilenewsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/expirymonth"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/expirymonthedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+
+                    <Spinner
+                        android:id="@+id/expirymonthspinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:clickable="false"
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profiletextsize" />
+
+                    <View style="@style/view_20" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/expiryyear"
+                            android:textSize="@dimen/profiletextsize"></TextView>
+
+                        <ImageView
+                            android:id="@+id/expiryyearedit"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/edit_black" />
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/expiryyearspinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroundcolor"
+                        android:clickable="false"
+
+                        android:textColor="@drawable/textselector"
+                        android:textSize="@dimen/profiletextsize" />
+
+
+                    <View style="@style/view_20" />
+
                 </LinearLayout>
 
             </LinearLayout>

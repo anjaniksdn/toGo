@@ -5,8 +5,9 @@ package com.smartdatainc.dataobject;
  */
 public class InterepreterdashBoard {
     //userid
-    String email;
+    public String email;
     //userid
-    String id;
-    String interpreter_availability;
+    public String id;
+    public String phone_number;
+    public String interpreter_availability;
 }

@@ -1,0 +1,176 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment country_list_item -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View style="@style/view_five_pixel" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/select_interpretation_language"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/profiletextsize"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/tendp"
+        android:layout_marginRight="@dimen/tendp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="From"
+                    android:textColor="@color/profiletextcolor"
+                    android:textSize="@dimen/normaltextsize" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="To"
+                    android:textColor="@color/profiletextcolor"
+                    android:textSize="@dimen/normaltextsize" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/block_btn2"
+                        android:padding="@dimen/fifteen_dp">
+
+                        <com.smartdatainc.utils.CircularNoBorderImageView
+                            android:id="@+id/from_language_image_view"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/default_pic" />
+
+                        <TextView
+                            android:id="@+id/from_language_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left|center"
+                            android:hint="LANGUAGE"
+                            android:textSize="@dimen/profilenewsize" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/block_btn2"
+                        android:gravity="right"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/tendp">
+
+                        <TextView
+                            android:id="@+id/to_language_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right|center"
+                            android:hint="LANGUAGE"
+                            android:textSize="@dimen/profilenewsize" />
+
+                        <com.smartdatainc.utils.CircularNoBorderImageView
+                            android:id="@+id/to_language_image_view"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/default_pic" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/arrow_btn" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/amount_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tendp"
+                android:gravity="center"
+                android:textColor="@color/profiletextcolor"
+                android:textSize="@dimen/normaltextsize" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fifteen_dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/block_btn1"
+                    android:gravity="center"
+                    android:id="@+id/confirmCall"
+                    android:text="@string/confirm"
+                    android:textColor="@color/tw__solid_white"
+                    android:textSize="@dimen/normaltextsize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/block_btn2"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/tw__solid_white"
+                    android:textSize="@dimen/normaltextsize"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

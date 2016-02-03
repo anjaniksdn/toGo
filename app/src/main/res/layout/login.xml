@@ -206,6 +206,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="right"
+                android:padding="20dp"
                 android:layout_weight="1"
                 >
 
@@ -215,7 +216,7 @@
                     android:background="@drawable/fb"></ImageView>
 
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
 
                 android:baselineAligned="false"
                 android:layout_width="match_parent"
@@ -232,14 +233,14 @@
 
                     />
 
-            </LinearLayout>
+            </LinearLayout>-->
             <LinearLayout
 
                 android:baselineAligned="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-
+android:padding="20dp"
                 android:layout_weight="1"
                 >
                 <ImageView

@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/five_dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txtViewCountryName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/tendp"
+        android:textColor="@color/text_field_color"
+        android:textSize="@dimen/profiletextsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_dp"
+        android:background="@color/grey"></View>
+
+</LinearLayout>

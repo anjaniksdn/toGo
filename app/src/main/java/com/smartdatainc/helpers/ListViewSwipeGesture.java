@@ -390,7 +390,7 @@ public class ListViewSwipeGesture implements OnTouchListener {
 
     private void performDismiss(final View dismissView, final int dismissPosition) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
-        // all dismissed list item animations have completed. This triggers layout on each animation
+        // all dismissed list item animations have completed. This triggers country_list_item on each animation
         // frame; in the future we may want to do something smarter and more performant.
 
         final ViewGroup.LayoutParams lp = dismissView.getLayoutParams();

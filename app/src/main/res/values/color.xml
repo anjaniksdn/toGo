@@ -2,10 +2,13 @@
 <resources>
     <color name='error_text_color'>#FF0000</color>
     <color name="orange">#ee8b16</color>
+    <color name="profilettextcolor">#9D7A54</color>
+
     <color name="profile">#C0966C</color>
     <color name="order">#A97D50</color>
     <color name="callhistory">#BF710C</color>
     <color name="purchase">#E28816</color>
+    <color name="lightbrown">#ce7d13</color>
     <color name="favinterpreter">#E99926</color>
     <color name="seetings">#F8AD38</color>
 
@@ -48,6 +51,6 @@
     <color name="color_preloader_center">#FFCCCB</color>
     <color name="color_preloader_start">#FF0000</color>
     <color name="color_preloader_end">#00FF00</color>
-    <color name="lightbrown">#ce7d13</color>
     <color name="brown">#cbbea5</color>
+    <color name="tab_text_color">#333333</color>
 </resources>

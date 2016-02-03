@@ -55,7 +55,7 @@
     </style>
     <style name="view_20">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ten</item>
+        <item name="android:layout_height">@dimen/twentyfivepx</item>
     </style>
     <style name="view_10">
         <item name="android:layout_width">match_parent</item>
@@ -66,5 +66,8 @@
         <item name="android:paddingRight">@dimen/four</item>
         <item name="android:paddingLeft">@dimen/four</item>
     </style>
-
+    <style name="view_five_pixel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/five_pixel</item>
+    </style>
 </resources>

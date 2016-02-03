@@ -1,6 +1,7 @@
 package com.smartdatainc.activities;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,22 +42,15 @@ import com.smartdatainc.toGo.R;
 import com.smartdatainc.utils.Constants;
 import com.smartdatainc.utils.Constants.SocailNewtork;
 import com.smartdatainc.utils.Utility;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by Anjani Kumar
- * The activity is used for handling the login screen actions 
+ * The activity is used for handling the login screen actions
  */
-public class LoginActivity extends AppActivity implements ServiceRedirection, FacebookTaskCompleted,GoogleApiClient.OnConnectionFailedListener
-{
+public class LoginActivity extends AppActivity implements ServiceRedirection, FacebookTaskCompleted, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "LoginActivity";
     private String email;
     private String password;
@@ -78,15 +74,14 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     private LoginManager loginManagerObj;
     private boolean mIntentInProgress;
     private LinearLayout fb_login_llObj;
-    private TwitterLoginButton twitterLoginButton;
+    // private TwitterLoginButton twitterLoginButton;
     private String usertype;
     FacebookSSO facebookssoObj;
     private boolean mSignInClicked;
     FacebookTaskCompleted onFacebookTaskCompletedObj;
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_TWITTER_SIGN_IN = 140;
-
-
+    private boolean mCompleteProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +95,11 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        Bundle intentBundle =  getIntent().getBundleExtra("userbundle");
+        Bundle intentBundle = getIntent().getBundleExtra("userbundle");
         //intentBundle.getString("usertype");
-        usertype = intentBundle.getString("usertype");
+        if(intentBundle!=null) {
+            usertype = intentBundle.getString("usertype");
+        }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -115,19 +112,25 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
         initData();
         bindControls();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//hide keyboard :
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //   utilObj.hideVirtualKeyboard(SignUp.this);
 
 
     }
 
-    private static final String getProfileUrl(String accessToken){
+    private static final String getProfileUrl(String accessToken) {
 
-        return SocailNewtork.PROFILE_URL+"(id,first-name,last-name,email-address,picture-url)"
-                +SocailNewtork.QUESTION_MARK
-                +SocailNewtork.OAUTH_ACCESS_TOKEN_PARAM+SocailNewtork.EQUALS+accessToken+SocailNewtork.AMPERSAND+SocailNewtork.lINKED_IN_SERVICE_FORMAT;
+        return SocailNewtork.PROFILE_URL + "(id,first-name,last-name,email-address,picture-url)"
+                + SocailNewtork.QUESTION_MARK
+                + SocailNewtork.OAUTH_ACCESS_TOKEN_PARAM + SocailNewtork.EQUALS + accessToken + SocailNewtork.AMPERSAND + SocailNewtork.lINKED_IN_SERVICE_FORMAT;
     }
+
     /**
      * Default method of activity life cycle to handle the actions required once the activity starts
      * checks if the network is available or not
+     *
      * @return none
      */
 
@@ -136,8 +139,8 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         // TODO Auto-generated method stub
         super.onStart();
 
-        if(!isNetworkAvailable(this)) {
-            utilObj.showAlertDialog(this,this.getResources().getString(R.string.network_service_message_title),this.getResources().getString(R.string.network_service_message), this.getResources().getString(R.string.Ok), null, Constants.ButtonTags.TAG_NETWORK_SERVICE_ENABLE, 0);
+        if (!isNetworkAvailable(this)) {
+            utilObj.showAlertDialog(this, this.getResources().getString(R.string.network_service_message_title), this.getResources().getString(R.string.network_service_message), this.getResources().getString(R.string.Ok), null, Constants.ButtonTags.TAG_NETWORK_SERVICE_ENABLE, 0);
         }
 
 
@@ -170,16 +173,18 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             e.printStackTrace();
         }
     }
-    ooVooSdkSampleShowApp app(){
-        return ((ooVooSdkSampleShowApp)getApplication()) ;
+
+    ooVooSdkSampleShowApp app() {
+        return ((ooVooSdkSampleShowApp) getApplication());
     }
+
     /**
      * Default activity life cycle method
      */
 
     /*public void setActionBar(String title) {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        View customView = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
+        View customView = getLayoutInflater().inflate(R.country_list_item.custom_action_bar, null);
         TextView title1 = (TextView) customView.findViewById(R.id.textViewTitle);
         TextView saveText = (TextView) customView.findViewById(R.id.textViewSave);
         ImageView menuAddButton = (ImageView) customView.findViewById(R.id.addButton);
@@ -224,6 +229,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
     /**
      * Initializes the objects
+     *
      * @return none
      */
     @Override
@@ -233,8 +239,10 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         btnLoginObj = (Button) findViewById(R.id.btnSignIn);
         btnSignUpObj = (TextView) findViewById(R.id.btnSignup);
         textViewObj = (TextView) findViewById(R.id.errorMessage);
-        mtextForgtPass = (TextView) findViewById(R.id.forgotPassword);linkedInLogin = (Button) findViewById(R.id.login_with_linked_in);
+        mtextForgtPass = (TextView) findViewById(R.id.forgotPassword);
+        linkedInLogin = (Button) findViewById(R.id.login_with_linked_in);
         googlePlusLogin = (ImageView) findViewById(R.id.gsign_in_button);
+        emailObj.clearFocus();
 
         utilObj = new Utility(this);
         userObj = new User();
@@ -243,7 +251,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         mtextForgtPass.setTypeface(face);
         loginManagerObj = new LoginManager(this, this);
         fb_login_llObj = (LinearLayout) findViewById(R.id.fb_login_ll);
-        twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twlogin_button);
+        // twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twlogin_button);
        /* twitterLoginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         twitterLoginButton.setBackgroundResource(R.drawable.tw);
         twitterLoginButton.setHeight(convertDpToPixel(60, LoginActivity.this));
@@ -254,7 +262,14 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         twitterLoginButton.setTextSize(18);*/
 
     }
-    public static int convertDpToPixel(int dp, Context context){
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        utilObj = new Utility(this);
+    }
+
+    public static int convertDpToPixel(int dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         int px = dp * (metrics.densityDpi / 160);
@@ -264,6 +279,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
     /**
      * Binds the UI controls
+     *
      * @return none
      */
     @Override
@@ -278,46 +294,44 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 password = passwordObj.getText().toString();
 
 
-
-                if(validatingRequired()) {
-                   /* if(usertype.equalsIgnoreCase("interpreter"))
-                    {
-                        Intent intentObj = new Intent(LoginActivity.this, InterpreterDashboardActivity.class);
-                        startActivity(intentObj);
-                    }
-                    else{
-                        Intent intentObj = new Intent(LoginActivity.this, CustomerDashBoardActivity.class);
-                        startActivity(intentObj);}*/
-
-                  /*  app().login(email, email);
-                    if (app().isOnline()) {
-                        Intent intentObj = new Intent(getApplicationContext(), InterpreterDashboardActivity.class);
-                        startActivity(intentObj);
-                        Toast.makeText(getApplicationContext(),"online",Toast.LENGTH_LONG).show();
-                    }*/
-//                    utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
+                if (validatingRequired()) {
 
                     //assigning the data to the user object
+                    if (usertype.equalsIgnoreCase("interpreter")) {
+                        // emailObj.setText("togo-ibq@ice-breakrr.com");
+                        //passwordObj.setTag("Int@123");
+                        email= emailObj.getText().toString();
+                        password = passwordObj.getText().toString();
+                        // email = "togo-ibq@ice-breakrr.com";
+                        //password = "Int@123";
+                    } else {
+                        // emailObj.setText("rakeshp@ice-breakrr.com");
+                        //passwordObj.setTag("Admin@123");
+                        email = emailObj.getText().toString();
+                        password = passwordObj.getText().toString();
+                        // email = "rakeshp@ice-breakrr.com";
+                        // password = "Admin@123";
+                    }
 
-                    // email = "togo-ibq@ice-breakrr.com";
-                    // email = "obaidr@yopmail.com";
-                    //  password = "Obaid@123";
 
+                    //email = "obaidr@yopmail.com";
+                    //password = "Obaid@123";
+                    // email = "obaidru@yopmail.com";
+                    // password = "User@123";
                     //Csutomer
                     //UN : rakeshp@ice-breakrr.com
 
                     //PW : User@123
+                    // rakeshp@ice-breakrr.com / User@123
 
                     //UN / PW : togo-ibq@ice-breakrr.com/Int@123
-                    email="togo-ibq@ice-breakrr.com";
-                    password="Int@123";
+                    //email="togo-ibq@ice-breakrr.com";
+                    //  password="Int@123";
+                    //  email="testinterpreter@gmail.com";
+                    // password="Test@123";
                     userObj.email = email;
                     userObj.password = password;
-                    // userObj.utype = "interpreter";
-                    // Intent intentObj = new Intent(getApplicationContext(), InterpreterDashboardActivity.class);
-                    // startActivity(intentObj);
-                    login(email,password,"0");
-                    //loginManagerObj.authenticateLogin(userObj);
+                    login(email, password, "0");
                 }
 
             }
@@ -347,9 +361,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                             }
                         });
                     }
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -362,7 +374,13 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             @Override
             public void onClick(View v) {
                 Intent intentObj = new Intent(LoginActivity.this, SignUp.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("usertype", usertype);
+                intentObj.putExtra("userbundle", bundle);
                 startActivity(intentObj);
+       /*
+                Intent intentObj = new Intent(LoginActivity.this, SignUp.class);
+                startActivity(intentObj);*/
             }
         });
 
@@ -384,7 +402,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 facebookssoObj.startFacebookLogin(LoginActivity.this);
             }
         });
-        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+     /*   twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
@@ -398,11 +416,11 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                     email = username;
                     userObj.email = username;
                     login(username, "",  "1");
-                    /*userObj.password = "";
-                    loginManagerObj.authenticateLogin(userObj);*/
+                    *//*userObj.password = "";
+                    loginManagerObj.authenticateLogin(userObj);*//*
                 }
                 // Toast.makeText(getApplicationContext(),"Twitter user name:::"+ username, Toast.LENGTH_LONG).show();
-              /*  authClient.requestEmail(result.data, new Callback<String>() {
+              *//*  authClient.requestEmail(result.data, new Callback<String>() {
                     @Override
                     public void success(Result<String> result) {
                         String email = result.data;
@@ -415,14 +433,14 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                         // Do something on failure
                       //  Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });*//*
             }
 
             @Override
             public void failure(TwitterException exception) {
                 // Do something on failure
             }
-        });
+        });*/
 
         //ForgotPassword
         mtextForgtPass.setOnClickListener(new View.OnClickListener() {
@@ -437,10 +455,10 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     }
 
 
-
     /**
-     *  The method is used to validate the required fields
-     *  @return boolean true if fields are validated else false
+     * The method is used to validate the required fields
+     *
+     * @return boolean true if fields are validated else false
      **/
 
     private boolean validatingRequired() {
@@ -449,25 +467,24 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         password = passwordObj.getText().toString();
 
         //validate the content
-        if(email.isEmpty()) {
+        if (email.isEmpty()) {
             message = getResources().getString(R.string.EmailErrorMessage);
             utilObj.showToast(this, message, 0);
             //utilObj.showError(this, message, textViewObj, emailObj);
         }
-       /* else if(!utilObj.checkEmail(email)) {
+        else if(!utilObj.checkEmail(email)) {
             message = getResources().getString(R.string.invalid_email);
             utilObj.showError(this, message, textViewObj, emailObj);
-        }*/
-        else if(password.isEmpty()) {
+        }
+        else if (password.isEmpty()) {
             message = getResources().getString(R.string.PasswordErrorMessage);
             utilObj.showToast(this, message, 0);
             //utilObj.showError(this, message, textViewObj, passwordObj);
         }
 
-        if(message.equalsIgnoreCase("") || message == null) {
+        if (message.equalsIgnoreCase("") || message == null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
@@ -475,6 +492,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
     /**
      * The method handles the result from the Facebook
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -488,11 +506,10 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
-        else if(requestCode == RC_TWITTER_SIGN_IN){
+      /*  else if(requestCode == RC_TWITTER_SIGN_IN){
             twitterLoginButton.onActivityResult(requestCode, resultCode, data);
-        }
+        }*/
     }
-
 
 
     /**
@@ -505,47 +522,99 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
     public void onSuccessRedirection(int taskID) {
         utilObj.stopLoader();
 
-        if(taskID == Constants.TaskID.LOGIN_TASK_ID) {
-            //call the intent for the next activity
-            // User userobj = (User)userObj;
-            // int userid =  userobj.userID;
-            if(usertype.equalsIgnoreCase("interpreter"))
-            {
+       /* if (taskID == Constants.TaskID.LOGIN_TASK_ID) {
+            if (usertype.equalsIgnoreCase("interpreter")) {
                 Intent intentObj = new Intent(this, InterpreterDashboardActivity.class);
                 startActivity(intentObj);
-            }
-            else{
+            } else {
                 Intent intentObj = new Intent(this, CustomerDashBoardActivity.class);
-                startActivity(intentObj);}
-        }
+                startActivity(intentObj);
+            }
+        }*/
     }
 
 
-    public void onSuccessRedirection(int taskID,String jsonMesseage) {
-        if(utilObj!=null) {
+    public void onSuccessRedirection(int taskID, String jsonMasseage) {
+        if (utilObj != null) {
             utilObj.stopLoader();
         }
-        if(taskID == Constants.TaskID.LOGIN_TASK_ID) {
-            //  Toast.makeText(getApplicationContext(),jsonMesseage,Toast.LENGTH_LONG).show();
-            app().login(email, email);
-            if (app().isOnline()) {
-                /*Intent intentObj = new Intent(getApplicationContext(), InterpreterDashboardActivity.class);
-                startActivity(intentObj);*/
-                if(usertype.equalsIgnoreCase("interpreter"))
-                {
+
+
+
+        if (taskID == Constants.TaskID.LOGIN_TASK_ID) {
+            if (jsonMasseage.equalsIgnoreCase("true")) {
+                String uid = utilObj.readDataInSharedPreferences("Users",0, "uid");
+
+                if (usertype.equalsIgnoreCase("interpreter")) {
+                    // app().login("sumit1234", "sumit1234");
+
+                    if(uid != null)
+                    {
+                        app().login(uid, uid);
+                    }
+
                     Intent intentObj = new Intent(LoginActivity.this, InterpreterDashboardActivity.class);
                     startActivity(intentObj);
-                }
-                else{
+                } else {
+
+                    if(uid != null)
+                    {
+                        app().login(uid, uid);
+                    }
+
                     Intent intentObj = new Intent(LoginActivity.this, CustomerDashBoardActivity.class);
                     startActivity(intentObj);
                 }
-                //  Toast.makeText(getApplicationContext(),"online",Toast.LENGTH_LONG).show();
+
+            } else {
+                //show dialog
+                confirmationDialog();
             }
         }
     }
+
+    /**
+     * confirmation dialog for complete the profile details
+     */
+    private void confirmationDialog() {
+        final Dialog dialog = new Dialog(LoginActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_alert_dialog);
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+        TextView confirmTextView = (TextView) dialog.findViewById(R.id.confirm_text_view);
+        TextView cancelTextView = (TextView) dialog.findViewById(R.id.cancel_text_view);
+        TextView titleTextView = (TextView) dialog.findViewById(R.id.title_text_view);
+        titleTextView.setText(getResources().getString(R.string.complete_profile_title));
+        TextView messageTextView = (TextView) dialog.findViewById(R.id.message_text_view);
+        messageTextView.setText(getResources().getString(R.string.complete_profile_message));
+        EditText passwordEditText = (EditText) dialog.findViewById(R.id.password_edit_text);
+        passwordEditText.setVisibility(View.GONE);
+        cancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        confirmTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (usertype.equalsIgnoreCase("interpreter")) {
+                    Intent intentObj = new Intent(LoginActivity.this, InterpreterDashboardActivity.class);
+                    startActivity(intentObj);
+                } else {
+                    Intent intentObj = new Intent(LoginActivity.this, CustomerDashBoardActivity.class);
+                    startActivity(intentObj);
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     /**
      * The interface method implemented in the java files
+     *
      * @param errorMessage the error message to be displayed
      * @return none
      */
@@ -564,16 +633,14 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
      */
     @Override
     public void onFacebookTaskCompleted(Response response) {
-        String fbName="";
-        String fbEmail="";
+        String fbName = "";
+        String fbEmail = "";
         try {
             JSONObject fbJsonObj = response.getGraphObject().getInnerJSONObject();
             fbName = fbJsonObj.get(Constants.FACEBOOK.NAME).toString();
             fbEmail = fbJsonObj.get(Constants.FACEBOOK.EMAIL).toString();
-            login(fbEmail,"","1");
-        }
-        catch(JSONException e)
-        {
+            login(fbEmail, "", "1");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         //write your code here
@@ -600,6 +667,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             mProgressDialog.hide();
         }
     }
+
     // [START handleSignInResult]
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("LoginActivity", "handleSignInResult:" + result.isSuccess());
@@ -607,11 +675,11 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
             // Signed in successfully, show authenticated UI.
             // utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
             GoogleSignInAccount acct = result.getSignInAccount();
-            String usernameEmail = acct.getEmail()+"email: "+acct.getDisplayName();
+            String usernameEmail = acct.getEmail() + "email: " + acct.getDisplayName();
             email = usernameEmail;
             userObj.email = usernameEmail;
             userObj.password = password;
-            login(usernameEmail,"","1");
+            login(usernameEmail, "", "1");
            /* loginManagerObj.authenticateLogin(userObj);*/
             Log.d(TAG, "Google usernameEmail:" + usernameEmail);
             // Toast.makeText(getApplicationContext(),"Google username"+usernameEmail, Toast.LENGTH_LONG).show();
@@ -628,6 +696,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     // [START signOut]
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -640,6 +709,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                     }
                 });
     }
+
     // [END signOut]
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -650,16 +720,22 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
     //**********For calling login webservice********
 
-    public void login(String useremail,String userpass,String loginType)
+    public void login(String useremail, String userpass, String loginType)
+
     {
-        utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
-        email = useremail;
-        password = userpass;
-        userObj.email = email;
-        userObj.password = password;
-        userObj.utype = usertype;
-        userObj.username = useremail;
-        userObj.logintype = loginType;
-        loginManagerObj.authenticateLogin(userObj);
+        if (isNetworkAvailable(this)) {
+
+            utilObj.startLoader(LoginActivity.this, R.drawable.image_for_rotation);
+            email = useremail;
+            password = userpass;
+            userObj.email = email;
+            userObj.password = password;
+            userObj.utype = usertype;
+            userObj.username = useremail;
+            userObj.logintype = loginType;
+            loginManagerObj.authenticateLogin(userObj);
+        } else {
+            utilObj.showToast(this, Constants.NOINTERNET, 0);
+        }
     }
 }

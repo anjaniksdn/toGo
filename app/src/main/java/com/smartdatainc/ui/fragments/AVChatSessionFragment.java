@@ -87,7 +87,7 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
     public AVChatSessionFragment() {
     }
 
- /*   public static final AVChatSessionFragment newInstance(MenuItem signalStrengthMenuItem,
+   public static final AVChatSessionFragment newInstance(MenuItem signalStrengthMenuItem,
                                                           MenuItem secureNetworkMenuItem,
                                                           MenuItem informationMenuItem) {
         AVChatSessionFragment instance = new AVChatSessionFragment();
@@ -108,7 +108,7 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
 
     public void setInformationMenuItem(MenuItem informationMenuItem) {
         this.informationMenuItem = informationMenuItem;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

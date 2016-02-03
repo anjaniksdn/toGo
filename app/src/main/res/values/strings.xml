@@ -5,26 +5,42 @@
     <!-- Login Screen -->
     <string name="logoContentDescription">Splash Logo</string>
     <string name="email">Email</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="profile">Profile</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="select_interpretation_language">SELECT YOUR INTERPRETATION LANGUAGE</string>
+    <string name="profile">PROFILE</string>
     <string name="name">Name</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
     <string name="uid">UId</string>
     <string name="nickname">Nick Name</string>
     <string name="address">Address</string>
     <string name="phonenumber">Phone Number</string>
     <string name="description">Description</string>
     <string name="bankacountdesc">Bank Account Information</string>
+    <string name="cardtype">Card Type</string>
+    <string name="cvv">CVV</string>
+    <string name="expirydate">Expiry Date</string>
+    <string name="expirymonth">Expiry Month</string>
+    <string name="expiryyear">Expiry Year</string>
+    <string name="cardnumber">Card Number</string>
     <string name="taxid">Tax ID / EIN</string>
     <string name="mylanguage">My Languages</string>
+    <string name="city">City</string>
+    <string name="zip">Postal Code</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of Birth</string>
     <string name="certificates">Certificates</string>
     <string name="selectuser">Select User Types</string>
-    <string name="interpreter">Interpreter</string>
-    <string name="user">Customer</string>
+    <string name="interpreter">INTERPRETER</string>
+    <string name="user">CUSTOMER</string>
     <string name="userid">User ID</string>
     <string name="dummy">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry standard dummy text ever since the 1500s.</string>
     <string name="password">Password</string>
     <string name="btn_signIn">LOGIN</string>
     <string name="forgot_password">Forgot Password ?</string>
+
     <string name="conntectWithText">Connect with</string>
     <string name="orText">OR</string>
     <string name="btn_register">Register Now</string>
@@ -32,6 +48,7 @@
     <string name="EmailErrorMessage">Please enter email</string>
     <string name="PasswordErrorMessage">Please enter password</string>
     <string name="invalid_email">Please enter valid email address</string>
+    <string name="usernameErrormesseage">Please enter username</string>
     <string name="missing_email">Email is missing</string>
     <string name="missing_password">Password is missing</string>
     <string name="invalid_email_password">Entered email or password are not in correct format</string>
@@ -67,14 +84,14 @@
     <!-- Facebook Settings -->
     <string name="facebook_app_id">1634906070093280</string>
     <string name="sing_in_with_fd">Login With Facebook</string>
-    
+
     <!-- Google Map Settings -->
-      <string name="title_activity_maps">Map</string>
-      <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve"></string>
-      <string name="location_service_message_title">Location Services</string>
-      <string name="location_service_message">Kindly enable location services</string>
-    
-        <!-- Media Settings -->
+    <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
+    <string name="location_service_message_title">Location Services</string>
+    <string name="location_service_message">Kindly enable location services</string>
+
+    <!-- Media Settings -->
     <string name='title_activity_choose_photo'>ChoosePhotoActivity</string>
     <string name='from_camera'>Camera</string>
     <string name='from_gallery'>Gallery</string>
@@ -106,19 +123,19 @@
     <!-- GooglePlayService Strings -->
     <string name="device_not_supported">This device is not supported</string>
     <string name="invalid_google_play_service_found">No valid Google Play Services APK found</string>
-    
+
     <!-- GCM Strings -->
     <string name='gcm_send_message'>Token retrieved and sent to server! You can now use gcmsender to
         send downstream messages to this app.</string>
     <string name='token_error_message'>An error occurred while either fetching the InstanceID token,
         sending the fetched token to the server. Please try running the sample again.</string>
-    
+
     <!-- SwipeList String -->
     <string name="basic_action_1">Action_1</string>
     <string name="basic_action_2">Action_2</string>
     <string name="basic_del">Delete</string>
     <string name="str_orange">#fe7b27</string>
-    <string name="str_green">#3cac69</string>     
+    <string name="str_green">#3cac69</string>
     <string name="str_red">#FF4444</string>
     <string name="str_yellow">#FFBB33</string>
     <string name="str_sky_blue">#33B5E5</string>
@@ -129,7 +146,7 @@
     <string name="forgotScreenTitle">Reset Password</string>
     <string name="forgotTxt">Just Don\'t Worry!Fill in your Email ID &amp; we will help you reset your password.</string>
     <string name="forgotemailHint">Enter your Email ID</string>
-     <string name="submit">Submit</string>
+    <string name="submit">Submit</string>
     <string name="sendemail">Send Email</string>
 
     // ooVoo Strings
@@ -177,7 +194,10 @@
     <string name="enter_receiver_id">Enter receiver Id</string>
     <string name="enter_call_receiver">Enter call receiver</string>
     <string name="ok">Ok</string>
-    <string name="cancel">Cancel</string>
+    <string name="selectProfilePicTitle">Choose profile Image</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+
     <string name="add_title">Add</string>
     <string name="call_receivers">Call receivers:</string>
     <string name="calling">Calling</string>
@@ -188,12 +208,12 @@
     <string name="make_call_title">Make call</string>
     <string name="use_custom_render">Use custom video render</string>
     <string name="min_username_length">username must contain at least 6 characters</string>
-<!--	<string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
-        send downstream messages to this app.</string>-->
+    <!--	<string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+            send downstream messages to this app.</string>-->
     <string name="registering_message">Generating InstanceID token...</string>
-   <!-- <string name="token_error_message">An error occurred while either fetching the InstanceID token,
-        sending the fetched token to the server or subscribing to the PubSub topic. Please try
-        running the sample again.</string>-->
+    <!-- <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+         sending the fetched token to the server or subscribing to the PubSub topic. Please try
+         running the sample again.</string>-->
     <string name="push_title">Push</string>
     <string name="send_title">Send</string>
     <string name="enter_push_receiver">Enter push receiver</string>
@@ -214,10 +234,40 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login_with_linked_in">LoginWithLinkedInActivity</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_customer_dash_board">CustomerDashBoardActivity</string>
     <string name="title_activity_uer_type">UerTypeActivity</string>
+
+    <!--<compelte profle ino>-->
+    <string name="complete_profile_title">Complete Profile Info</string>
+    <string name="complete_profile_message">Please complete your profile to get best output of using toGo App.</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <!--<forgot password>-->
+    <string name="forgot_password_message">Please checkyour email registered to reset your password.</string>
+    <string name="forgot_password_title">Forgot Password</string>
+    <!--<password validation for user profile>-->
+    <string name="password_title">Enter Password</string>
+
+    <string name="my_language">My Languages</string>
+    <string name="interpreter_charge_amount">This interpretation service may charge</string>
+
+    <string name="PhoneNumberMessage">Please enter phonenumber</string>
+    <string name="FirstnameMessage">Please enter firstname</string>
+    <string name="lastnameMessage">Please enter lastname</string>
+    <string name="AddressMessage">Please enter address</string>
+    <string name="ZipcodeMessage">Please enter postalcode</string>
+    <string name="CityMessage">Please enter city</string>
+    <string name="CertificatesMessage">Please enter certificates</string>
+    <string name="NicknameMessage">Please enter nickname</string>
+    <string name="CVVmesseage">Please enter cvv</string>
+    <string name="Cardnumbermesseage">Please enter cardnumber</string>
+    <string name="Expirymonth">Please enter expiry month</string>
+    <string name="ExpiryYear">Please enter expiry year</string>
+
 
 
 </resources>

@@ -175,7 +175,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/email"
-                        android:hint="@string/passwordHint"
+                        android:hint="@string/cpasswordHint"
 
                         android:inputType="textPassword"
                         style="@style/LoginEditTextStyle"
@@ -194,7 +194,7 @@
                     android:maxLength="10"/>-->
 
                 <View style="@style/view_20" />
-                <View style="@style/view_20" />
+         <!--       <View style="@style/view_20" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                         >
                     </RadioButton>
 
-                </RadioGroup>
+                </RadioGroup>-->
 
                 <Button
                     android:id="@+id/btnRegister"

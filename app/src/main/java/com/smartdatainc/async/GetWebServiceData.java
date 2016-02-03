@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.smartdatainc.interfaces.CallBack;
+import com.smartdatainc.utils.Utility;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -28,6 +29,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
     int tasksID;
     String Authentication="12345";
     String resultData;
+    Utility utilObj;
 
     @Override
     protected void onProgressUpdate(Void... values) {
@@ -51,6 +53,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
         this.callbackObj = listnerObj;
         this.tasksID = tasksID;
         this.httpUtilityObj = new HttpUtility(contextObj);
+        utilObj = new Utility(context);
     }
     /**
      * The method executes before the background processing starts and
@@ -82,11 +85,23 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
     @Override
     protected String doInBackground(String... params) {
         try{
+
+
+            String Authentication = utilObj.readDataInSharedPreferences("Users",0, "_token");
+            if(Authentication == null)
+            {
+                Authentication="12345";
+            }
+            if(Authentication.length()== 0)
+            {
+                Authentication="12345";
+            }
             result = httpUtilityObj.getPostResults(this.url, this.postData,Authentication);
 
             //result = getPostResults(this.url, this.postData,Authentication);
         }
         catch(Exception e) {
+            utilObj.stopLoader();
             Log.e("exception from web", e.toString());
             result = "";
         }
@@ -126,7 +141,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
                 if(response != null) {
                     mInputStreamis = response.getEntity().getContent();
                 }
-            } catch (SocketException var9) {
+            } catch (SocketException var9) { result = httpUtilityObj.getPostResults(this.url, this.postData,Authentication);
                 Log.e("Caught in socket", "Error  ===== " + var9.toString());
             } catch (Exception var10) {
                 Log.e("Caught in exception", "Error  ===== " + var10.toString());

@@ -1,5 +1,6 @@
 package com.smartdatainc.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,9 +27,9 @@ import io.fabric.sdk.android.Fabric;
 /**
  * Created by Anjani Kumar
  * The activity is used for handling the splash screen operations along with redirection to login screen
- * after the splash screen delay is exhausted  
+ * after the splash screen delay is exhausted
  */
-public class MainActivity extends AppActivity {
+public class MainActivity extends Activity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "JlGF9bsbxiTtJad60TY4rRBG2";
@@ -37,13 +38,12 @@ public class MainActivity extends AppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_main);
-        setActionBar("TOGO");
-
+        //setActionBar("TOGO");
         //initializing the data
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -80,16 +80,18 @@ public class MainActivity extends AppActivity {
 
     /**
      * The method is used to initialize the objects
+     *
      * @return none
      */
     public void initData() {
-        app().reautorize();
+       app().reautorize();
         AppInstance.getAppInstance();
     }
 
-    ooVooSdkSampleShowApp app(){
-        return ((ooVooSdkSampleShowApp) getApplication()) ;
+    ooVooSdkSampleShowApp app() {
+        return ((ooVooSdkSampleShowApp) getApplication());
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

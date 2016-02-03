@@ -94,11 +94,16 @@ public class LoginManager implements CallBack{
 
                     String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
                     String token = dataParserObj.parseJsonString(data,5);
+                    String completion = dataParserObj.parseJsonString(data,6);
+                    String uid = dataParserObj.parseJsonString(data,7);
                     Log.v("token", token);
+                    Log.v("completion",completion);
                    // AppInstance.userObj = (User) dataParserObj.parseDataForObject(jsonParsedData, "user");
                     utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "_token", "Bearer "+token);
+                    utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "completion",completion);
+                    utilObj.saveDataInSharedPreferences("Users", context.MODE_PRIVATE, "uid",uid);
 
-                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, completion);
                 }
                 else
                 {

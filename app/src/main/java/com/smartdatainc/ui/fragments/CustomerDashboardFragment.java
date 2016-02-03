@@ -1,20 +1,33 @@
 package com.smartdatainc.ui.fragments;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.androidquery.AQuery;
 import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.call.CNMessage;
+import com.smartdatainc.dataobject.User;
+import com.smartdatainc.interfaces.ServiceRedirection;
+import com.smartdatainc.managers.UserProfileManager;
 import com.smartdatainc.toGo.R;
+import com.smartdatainc.utils.CircularImageView;
+import com.smartdatainc.utils.Constants;
+import com.smartdatainc.utils.Utility;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by anjanikumar on 11/1/16.
  */
 
-public class CustomerDashboardFragment extends BaseFragment implements View.OnClickListener, ooVooSdkSampleShowApp.CallNegotiationListener {
+public class CustomerDashboardFragment extends BaseFragment implements ooVooSdkSampleShowApp.CallNegotiationListener, ServiceRedirection, View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,7 +36,13 @@ public class CustomerDashboardFragment extends BaseFragment implements View.OnCl
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private TextView managemyprofile, mOrderInterpretatoinTextView;
+    private TextView mUserNameTextView, mNickNameTextView, mAboutUserTextView, mLanguageTextView, mEmailIDTextView;
+    private Utility utilObj;
+    UserProfileManager userProfileManager;
+    private View mRootView;
+    AQuery mAQuery;
+    private CircularImageView mProfileImageView;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,8 +78,104 @@ public class CustomerDashboardFragment extends BaseFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.customer_dashboard_fragment, container, false);
+        // Inflate the country_list_item for this fragment
+        mRootView = inflater.inflate(R.layout.customer_dashboard_fragment, container, false);
+
+        bindView();
+        bindListener();
+        utilObj = new Utility(getActivity());
+        userProfileManager = new UserProfileManager(getActivity(), this);
+        String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
+        if (isNetworkAvailable(getActivity())) {
+            utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+            User userObj = new User();
+            userObj.Authorization = token;
+            userProfileManager.customerProfile(userObj);
+        } else {
+            utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
+        }
+        return mRootView;
+    }
+
+    private void bindView() {
+        managemyprofile = (TextView) mRootView.findViewById(R.id.managemyprofile);
+        mProfileImageView = (CircularImageView) mRootView.findViewById(R.id.profileimageview);
+        mUserNameTextView = (TextView) mRootView.findViewById(R.id.user_name_text_view);
+        mNickNameTextView = (TextView) mRootView.findViewById(R.id.nick_name_text_view);
+        mAboutUserTextView = (TextView) mRootView.findViewById(R.id.about_user_text_view);
+        mLanguageTextView = (TextView) mRootView.findViewById(R.id.customer_language_text_view);
+        mEmailIDTextView = (TextView) mRootView.findViewById(R.id.customer_email_text_view);
+        mOrderInterpretatoinTextView = (TextView) mRootView.findViewById(R.id.order_interpretation_text_view);
+
+    }
+
+    public void bindListener() {
+        managemyprofile.setOnClickListener(onClickListener);
+        mOrderInterpretatoinTextView.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID) {
+        if (utilObj != null) {
+            utilObj.stopLoader();
+        }
+
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID, String jsonData) {
+        if (utilObj != null) {
+            utilObj.stopLoader();
+        }
+        //if (taskID == Constants.TaskID.USER_PROFILE_TASK_ID) {
+        try {
+            JSONObject jsonObj = new JSONObject(jsonData);
+            JSONObject jsonObjUser = jsonObj.getJSONObject("user");
+            String languageName = jsonObj.optString("languageName");
+            JSONObject jsonObjName = jsonObjUser.optJSONObject("name");
+            try {
+                if (jsonObjName != null) {
+                    mUserNameTextView.setText(jsonObjName.optString("first_name") + " " + jsonObjName.optString("last_name"));
+                }
+                mNickNameTextView.setText(jsonObjUser.optString("nickname"));
+                mAboutUserTextView.setText(jsonObjUser.optString("about_user"));
+                mLanguageTextView.setText(jsonObj.optString("languageName"));
+                mEmailIDTextView.setText(jsonObjUser.optString("email"));
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            JSONObject jsonObjProfileImage = jsonObjUser.getJSONObject("profile_img");
+            mAQuery = new AQuery(getActivity());
+            mAQuery.id(R.id.profileimageview).image(jsonObjProfileImage.optString("url"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // }
+    }
+
+    @Override
+    public void onFailureRedirection(String errorMessage) {
+        if (utilObj != null) {
+            utilObj.stopLoader();
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.order_interpretation_text_view:
+                Fragment fragment = new InterpretationFragment();
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.host_activity, fragment)
+                        .commit();
+                break;
+        }
     }
 
 // TODO: Rename method, update argument and hook method into UI event
@@ -121,10 +236,37 @@ public class CustomerDashboardFragment extends BaseFragment implements View.OnCl
         }*/
     }
 
-    @Override
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.managemyprofile:
+                    Fragment fragment = new UpdateCustomerProfileFragment();
+                    //Bundle args = new Bundle();
+                    //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+                    //fragment.setArguments(args);
+
+                    // Insert the fragment by replacing any existing fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.host_activity, fragment)
+                            .commit();
+
+                    //Do what you want for select_contact
+                    break;
+
+                default:
+                    break;
+            }
+
+
+        }
+    };
+  /*  @Override
     public void onClick(View v) {
 
-        /*callDialogBuilder.hide();
+        *//*callDialogBuilder.hide();
 
         switch (v.getId()) {
             case R.id.cancel_button:
@@ -135,6 +277,6 @@ public class CustomerDashboardFragment extends BaseFragment implements View.OnCl
 
             default:
                 break;
-        }*/
-    }
+        }*//*
+    }*/
 }

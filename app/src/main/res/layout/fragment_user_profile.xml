@@ -1,62 +1,64 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <!-- TODO: Update blank fragment country_list_item -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        >
+    <View style="@style/view_five_pixel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/dashboard"
+        android:textColor="@color/tw__solid_white"
+        android:textSize="@dimen/profiletextsize"></TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <View style="@style/view_10" />
-            <TextView
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@color/orange"
-                android:padding="10dp"
-                android:textSize="@dimen/profiletextsize"
-                android:text="Dashboard"
-                android:gravity="center"
-                android:textColor="@color/tw__solid_white"
-                >
-            </TextView>
+            android:orientation="vertical">
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <com.smartdatainc.utils.CircularImageView
                         android:id="@+id/profileimageview"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:src="@drawable/profile_icon"></com.smartdatainc.utils.CircularImageView>
 
-                        android:background="@drawable/profile_icon"
-                        >
-                    </com.smartdatainc.utils.CircularImageView>
                     <TextView
                         android:id="@+id/profilename"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textSize="@dimen/heading"
                         android:paddingBottom="@dimen/tendp"
                         android:textColor="@color/profiletextcolor"
-                        android:text=""
-                        >
-                    </TextView>
+                        android:textSize="@dimen/heading"></TextView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,97 +69,103 @@
                     android:orientation="vertical">
 
                     <View style="@style/view_10" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="No.OF CALL"
                         android:textColor="@color/text_field_color"
-                        android:textSize="@dimen/profiletextsize"
-                        android:text="No.OF CALL">
-                    </TextView>
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/profiletextsize"
                         android:text="13"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/profiletextsize"
-                        android:textColor="@color/text_field_color"
-                        android:text="CALL MINUTES">
-                    </TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/profiletextsize"
                         android:textColor="@color/orange"
+                        android:textSize="@dimen/profiletextsize" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CALL MINUTES"
+                        android:textColor="@color/text_field_color"
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="86"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_field_color"
-                        android:text="CALL YTD EARNINGS">
-                    </TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:textColor="@color/orange"
-                        android:textSize="@dimen/profiletextsize"
-                        android:text="98 120"
-                        />
+                        android:textSize="@dimen/profiletextsize" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/profiletextsize"
+                        android:text="CALL YTD EARNINGS"
+                        android:textColor="@color/text_field_color"></TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="98 120"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/profiletextsize" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="STATUS"
                         android:textColor="@color/text_field_color"
-                        android:text="STATUS">
-                    </TextView>
+                        android:textSize="@dimen/profiletextsize"></TextView>
+
                     <ToggleButton
                         android:id="@+id/avaiblitytoggle"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:button="@drawable/toggleselector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@null"
-                        android:checked="false" />
+                        android:button="@drawable/toggleselector"
+
+
+                        />
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                >
+                android:orientation="vertical"
+                android:padding="20dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text = "@string/dummy"
-                    android:textSize="@dimen/normaltextsize"
-                    >
-                </TextView>
+                    android:text="@string/dummy"
+                    android:textSize="@dimen/normaltextsize"></TextView>
+
                 <View style="@style/view_20" />
+
                 <Button
                     android:id="@+id/manageprofile"
-                    android:background="@drawable/button"
                     android:layout_width="match_parent"
-                    android:textColor="@color/tw__solid_white"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/block_btn1"
                     android:text="PROFILE MANAGEMENT"
-                    android:layout_height="wrap_content">
-                </Button>
+                    android:textColor="@color/tw__solid_white"
+                    android:textSize="@dimen/twenty_two_sp"></Button>
+
                 <View style="@style/view_20" />
+
                 <Button
                     android:id="@+id/customerfeedback"
-                    android:background="@drawable/button"
                     android:layout_width="match_parent"
-                    android:textColor="@color/tw__solid_white"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/block_btn2"
                     android:text="CUSTOMER FEEDBACK"
-                    android:layout_height="wrap_content">
-                </Button>
+                    android:textColor="@color/tw__solid_white"
+                    android:textSize="@dimen/twenty_two_sp"></Button>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    </LinearLayout>
 </FrameLayout>

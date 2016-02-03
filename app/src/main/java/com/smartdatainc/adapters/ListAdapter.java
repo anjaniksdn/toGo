@@ -29,7 +29,7 @@ public class ListAdapter extends ArrayAdapter<String> {
      * Constructor
      *
      * @param context  The current context.
-     * @param resource The resource ID for a layout file containing a TextView to use when
+     * @param resource The resource ID for a country_list_item file containing a TextView to use when
      */
     public ListAdapter(Context context, int resource, ArrayList<String> objects) {
         super(context, resource, objects);

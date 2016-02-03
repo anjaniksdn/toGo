@@ -1,9 +1,11 @@
 package com.smartdatainc.ui.fragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -31,7 +34,7 @@ import java.util.List;
 public class CallNegotiationFragment extends BaseFragment implements View.OnClickListener, ooVooSdkSampleShowApp.CallNegotiationListener {
 
 	private static final String KEY_ADAPTER_STATE = "com.oovoo.sdk.fragmentstate.KEY_ADAPTER_STATE";
-	private static final int MAX_CALL_RECEIVERS = 4;
+	private static final int MAX_CALL_RECEIVERS = 1;
 	private ListView callReceiversList = null;
 	private CallReceiverAdapter callReceiverAdapter = null;
 	private AlertDialog callDialogBuilder = null;
@@ -62,7 +65,7 @@ public class CallNegotiationFragment extends BaseFragment implements View.OnClic
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		//View view = inflater.inflate(R.layout.call_negotiation_fragment, container, false);
+		//View view = inflater.inflate(R.country_list_item.call_negotiation_fragment, container, false);
 		View view = inflater.inflate(R.layout.call_negotiation_fragment, container, false);
 
 		callReceiverAdapter = new CallReceiverAdapter();
@@ -79,13 +82,14 @@ public class CallNegotiationFragment extends BaseFragment implements View.OnClic
 		callReceiversList.setDivider(null);
 		callReceiversList.setDividerHeight(0);
 
-		/*callReceiverAdapter.addItem("sumitk");
-		callReceiverAdapter.addItem("deshbandhu");
-		callReceiverAdapter.addItem("vishwanath123");*/
+		callReceiverAdapter.addItem("sumit1234");
+		callReceiverAdapter.addItem("amit1234");
+		callReceiverAdapter.addItem("babul123");
+		callReceiverAdapter.addItem("abc123");
 		callReceiversList.setAdapter(callReceiverAdapter);
 
 
-		/*Button addButton = (Button) view.findViewById(R.id.add_to_call_button);
+		Button addButton = (Button) view.findViewById(R.id.add_to_call_button);
 		addButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -116,7 +120,7 @@ public class CallNegotiationFragment extends BaseFragment implements View.OnClic
 				callReceiverDialog.show();
 			}
 		});
-*/
+
 		Button callButton = (Button) view.findViewById(R.id.start_call_button);
 		callButton.setOnClickListener(new OnClickListener() {
 
