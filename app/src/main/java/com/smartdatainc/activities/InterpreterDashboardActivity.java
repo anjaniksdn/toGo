@@ -45,17 +45,22 @@ import com.smartdatainc.app.ooVooSdkSampleShowApp.CallNegotiationListener;
 import com.smartdatainc.app.ooVooSdkSampleShowApp.Operation;
 import com.smartdatainc.app.ooVooSdkSampleShowApp.OperationChangeListener;
 import com.smartdatainc.call.CNMessage;
+import com.smartdatainc.dataobject.InterpreterCallStatus;
+import com.smartdatainc.interfaces.ServiceRedirection;
+import com.smartdatainc.managers.LoginManager;
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.ui.SignalBar;
 import com.smartdatainc.ui.fragments.AVChatLoginFragment;
 import com.smartdatainc.ui.fragments.AVChatSessionFragment;
 import com.smartdatainc.ui.fragments.BaseFragment;
+import com.smartdatainc.ui.fragments.ChatDetailsFragment;
 import com.smartdatainc.ui.fragments.InformationFragment;
+import com.smartdatainc.ui.fragments.InterpreterSettingFragment;
+import com.smartdatainc.ui.fragments.InterprterDashBoardFragment;
 import com.smartdatainc.ui.fragments.PushNotificationFragment;
 import com.smartdatainc.ui.fragments.ReautorizeFragment;
 import com.smartdatainc.ui.fragments.SettingsFragment;
 import com.smartdatainc.ui.fragments.UpdateInterpreterProfile;
-import com.smartdatainc.ui.fragments.UserProfileFragment;
 import com.smartdatainc.ui.fragments.WaitingFragment;
 import com.smartdatainc.utils.Constants;
 import com.smartdatainc.utils.Utility;
@@ -64,7 +69,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class InterpreterDashboardActivity extends AppActivity implements OperationChangeListener, CallNegotiationListener {
+public class InterpreterDashboardActivity extends AppActivity implements ServiceRedirection,OperationChangeListener, CallNegotiationListener {
 
 
     private static final String TAG = InterpreterDashboardActivity.class.getSimpleName();
@@ -87,6 +92,9 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
     private ActionBarDrawerToggle mDrawerToggle;
     private Utility utilObj;
     private String mCompletion;
+    private CNMessage cnMessage;
+    Context context;
+    LoginManager loginManagerObj;
     public static ArrayList<String> toList = new ArrayList<String>();
 
     @Override
@@ -101,12 +109,12 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         //setRequestedOrientation(application.getDeviceDefaultOrientation());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         setContentView(R.layout.host_activity);
-
+        context = this;
         application.addOperationChangeListener(this);
         application.addCallNegotiationListener(this);
 
         createDrawer();
-
+         loginManagerObj = new LoginManager(this, this);
 
         if (savedInstanceState != null) {
             current_fragment = (BaseFragment) getFragmentManager().getFragment(savedInstanceState, STATE_FRAGMENT);
@@ -118,7 +126,7 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
             mCompletion = utilObj.readDataInSharedPreferences("Users", 0, "completion");
             if (mCompletion != null) {
                 if (mCompletion.equalsIgnoreCase("true")) {
-                    Fragment newFragment = new UserProfileFragment();
+                    Fragment newFragment = new InterprterDashBoardFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.add(R.id.host_activity, newFragment).commit();
                 } else {
@@ -151,7 +159,15 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
             }
         }
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        try {
+            getFragmentManager().putFragment(savedInstanceState, STATE_FRAGMENT, current_fragment);
+        } catch( Exception e) {
+            Log.e( TAG, "onSaveInstanceState exception: ", e);
+        }
+        super.onSaveInstanceState(savedInstanceState);
+    }
     public void createDrawer() {
         mPlanetTitles = new ArrayList<String>();
         mPlanetTitles.add("DASHBOARD");
@@ -190,6 +206,21 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         mDrawerList.setAdapter(new DrawerCustomAdapter(this, R.layout.custom_drawer_adpter, mPlanetTitles));
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID) {
+
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID, String jsonData) {
+
+    }
+
+    @Override
+    public void onFailureRedirection(String errorMessage) {
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -333,6 +364,10 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 //Toast.makeText(getApplication(),"Hi",Toast.LENGTH_LONG).show();
+
+                Intent userTypeIntent = new Intent(InterpreterDashboardActivity.this,UserTypeActivity.class);
+                userTypeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(userTypeIntent);
                 onBackPressed();
             /*	SettingsFragment settings  = new SettingsFragment();
                 settings.setBackFragment(current_fragment);
@@ -405,7 +440,7 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
                     String completion = utilObj.readDataInSharedPreferences("Users", 0, "completion");
                     if (completion != null) {
                         if (completion.equalsIgnoreCase("true")) {
-                            current_fragment = new UserProfileFragment();
+                            current_fragment = new InterprterDashBoardFragment();
                         } else {
                             current_fragment = new UpdateInterpreterProfile();
                         }
@@ -488,6 +523,7 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         }
     }
 
+
     public static interface MenuList {
         public void fill(View view, ContextMenu menu);
     }
@@ -534,19 +570,20 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         if (application.getUniqueId().equals(cnMessage.getUniqueId())) {
             return;
         }
+        // cnMessage= cnMessage;
         //app().sendCNMessage(toList, type, completionHandler);
         if (cnMessage.getMessageType() == CNMessage.CNMessageType.AnswerAccept) {
             String accepteduserName = cnMessage.getDisplayName();
             Iterator<String> toListIterartor =  toList.iterator();
-            ArrayList<String> discoonectuselList =  new ArrayList<String>();
+            ArrayList<String> discoonectuserlList =  new ArrayList<String>();
             while(toListIterartor.hasNext())
             {
                 String calledUserName = toListIterartor.next();
                 if(!calledUserName.equalsIgnoreCase(accepteduserName)) {
-                    discoonectuselList.add(calledUserName);
+                    discoonectuserlList.add(calledUserName);
                 }
             }
-            application.sendCNMessage(discoonectuselList, CNMessage.CNMessageType.Cancel, null);
+            application.sendCNMessage(discoonectuserlList, CNMessage.CNMessageType.Cancel, null);
         }
         if (cnMessage.getMessageType() == CNMessage.CNMessageType.Calling) {
 
@@ -555,11 +592,44 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
                 return;
             }
 
+
+
+        /*    NotificationCompat.Builder b = new NotificationCompat.Builder(application.getContext());
+
+            Intent intent = new Intent(this, InterpreterDashboardActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            b.setContentIntent(pendingIntent);
+
+            Intent actioncallIntent = new Intent(this, InterpreterDashboardActivity.class);
+            PendingIntent actionPendingCallIntent = PendingIntent.getActivity(this, 0, actioncallIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            b.addAction(android.R.drawable.ic_btn_speak_now, "Answer", actionPendingCallIntent);
+
+            Intent actionIntent = new Intent(this, InterpreterDashboardActivity.class);
+            PendingIntent actionPendingIntent = PendingIntent.getActivity(this, 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            b.addAction(android.R.drawable.ic_media_pause, "Decline", actionPendingIntent);
+
+            b.setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.ic_launcher)
+                            //.setTicker(property != null ? property : from)
+                            //.setContentTitle(property != null ? property : from)
+                    .setContentText("Calling")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                            //.setContentIntent(contentIntent)
+                    .setContentInfo("Info");
+
+
+            NotificationManager notificationManager = (NotificationManager) application.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(1, b.build());*/
+
             callDialogBuilder = new AlertDialog.Builder(this).create();
             LayoutInflater inflater = getLayoutInflater();
             View incomingCallDialog = inflater.inflate(R.layout.incoming_call_dialog, null);
             incomingCallDialog.setAlpha(0.5f);
             callDialogBuilder.setView(incomingCallDialog);
+
+
 
             Button answerButton = (Button) incomingCallDialog.findViewById(R.id.answer_button);
             answerButton.setOnClickListener(new OnClickListener() {
@@ -581,14 +651,29 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
                 public void onClick(View v) {
                     application.sendCNMessage(cnMessage.getFrom(), CNMessage.CNMessageType.AnswerDecline, null);
                     callDialogBuilder.hide();
+                    InterpreterCallStatus interpreterCallStatus = new InterpreterCallStatus();
+                    String userid = utilObj.readDataInSharedPreferences("Users", 0, "id");
+                    String email = utilObj.readDataInSharedPreferences("Users", 0, "email");
+                    interpreterCallStatus.callstatus="0";
+                    interpreterCallStatus.id = userid;
+                    interpreterCallStatus.emailid = email;
+
+
+                    loginManagerObj.updateInterpreterCalls(interpreterCallStatus);
+
+
+
                 }
             });
 
             callDialogBuilder.setCancelable(false);
-            callDialogBuilder.show();
+            if(!callDialogBuilder.isShowing()) {
+                callDialogBuilder.show();
+            }
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.Cancel) {
             callDialogBuilder.hide();
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.EndCall) {
+            application.onEndOfCall();
             if (application.leave()) {
                 int count = getFragmentManager().getBackStackEntryCount();
                 String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
@@ -626,7 +711,7 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
             if (mCompletion.equalsIgnoreCase("true")) {
                 // Create a new fragment and specify the planet to show based on position
                 if (position == 0) {
-                    Fragment newFragment = new UserProfileFragment();
+                    Fragment newFragment = new InterprterDashBoardFragment();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.host_activity, newFragment)
@@ -648,6 +733,36 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
                     mDrawerList.setItemChecked(position, true);
                     mDrawerLayout.closeDrawer(mDrawerList);
                 }
+                else if (position == 2)
+
+                {
+                    Fragment fragment = new ChatDetailsFragment();
+
+                    // Insert the fragment by replacing any existing fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.host_activity, fragment)
+                            .commit();
+                    // Highlight the selected item, update the title, and close the drawer
+                    mDrawerList.setItemChecked(position, true);
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+                else if (position == 5)
+
+                {
+                    Fragment fragment = new InterpreterSettingFragment();
+
+                    // Insert the fragment by replacing any existing fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.host_activity, fragment)
+                            .commit();
+                    // Highlight the selected item, update the title, and close the drawer
+                    mDrawerList.setItemChecked(position, true);
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+
+
             } else {
                 confirmationDialog();
             }
@@ -674,8 +789,9 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
         cancelTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDrawerLayout.closeDrawer(mDrawerList);
-                dialog.dismiss();
+                //mDrawerLayout.closeDrawer(mDrawerList);
+                // dialog.dismiss();
+                finish();
             }
         });
         confirmTextView.setOnClickListener(new View.OnClickListener() {
@@ -686,6 +802,43 @@ public class InterpreterDashboardActivity extends AppActivity implements Operati
             }
         });
         dialog.show();
+    }
+    public void callingWindow()
+    {
+        callDialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = getLayoutInflater();
+        View incomingCallDialog = inflater.inflate(R.layout.incoming_call_dialog, null);
+        incomingCallDialog.setAlpha(0.5f);
+        callDialogBuilder.setView(incomingCallDialog);
+
+
+
+        Button answerButton = (Button) incomingCallDialog.findViewById(R.id.answer_button);
+        answerButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                application.setConferenceId(cnMessage.getConferenceId());
+                application.sendCNMessage(cnMessage.getFrom(), CNMessage.CNMessageType.AnswerAccept, null);
+                callDialogBuilder.hide();
+
+                application.join(application.getConferenceId(), true);
+            }
+        });
+
+        Button declineButton = (Button) incomingCallDialog.findViewById(R.id.decline_button);
+        declineButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                application.sendCNMessage(cnMessage.getFrom(), CNMessage.CNMessageType.AnswerDecline, null);
+                callDialogBuilder.hide();
+            }
+        });
+
+        callDialogBuilder.setCancelable(false);
+        callDialogBuilder.show();
+
     }
 
 

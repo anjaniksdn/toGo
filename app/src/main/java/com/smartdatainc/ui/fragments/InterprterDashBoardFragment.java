@@ -34,6 +34,7 @@ import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.call.CNMessage;
 import com.smartdatainc.call.CNMessage.CNMessageType;
 import com.smartdatainc.dataobject.InterepreterdashBoard;
+import com.smartdatainc.dataobject.InterprterDashBoardRequest;
 import com.smartdatainc.dataobject.Language;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.dataobject.UserProfile;
@@ -45,6 +46,7 @@ import com.smartdatainc.utils.Constants;
 import com.smartdatainc.utils.ExifUtil;
 import com.smartdatainc.utils.Utility;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,10 +59,10 @@ import java.util.ArrayList;
  * Activities that contain this fragment must implement the
  * <p/>
  * to handle interaction events.
- * Use the {@link UserProfileFragment#newInstance} factory method to
+ * Use the {@link InterprterDashBoardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserProfileFragment extends BaseFragment implements ServiceRedirection,ooVooSdkSampleShowApp.CallNegotiationListener {
+public class InterprterDashBoardFragment extends BaseFragment implements ServiceRedirection,ooVooSdkSampleShowApp.CallNegotiationListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -71,7 +73,7 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
     private String mParam1;
     private String mParam2;
     UserProfileManager userProfileManager;
-    TextView profilename;
+    TextView profilename,callEarnings,totalCall,callMinutes;
     private AlertDialog callDialogBuilder = null;
     private AlertDialog callReceiverDialog = null;
     ArrayList<Language> totallist = new ArrayList<>();
@@ -84,6 +86,7 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
     private AQuery aq;
     String email = "";
     String id = "";
+    String token="";
     Uri mImageUri;
     String mProfilePic;
     Bitmap mBitmap;
@@ -96,11 +99,11 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UserProfileFragment.
+     * @return A new instance of fragment InterprterDashBoardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserProfileFragment newInstance(String param1, String param2) {
-        UserProfileFragment fragment = new UserProfileFragment();
+    public static InterprterDashBoardFragment newInstance(String param1, String param2) {
+        InterprterDashBoardFragment fragment = new InterprterDashBoardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,7 +111,7 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
         return fragment;
     }
 
-    public UserProfileFragment() {
+    public InterprterDashBoardFragment() {
         // Required empty public constructor
     }
 
@@ -127,6 +130,9 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
         // Inflate the country_list_item for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         profilename = (TextView) view.findViewById(R.id.profilename);
+        callEarnings = (TextView) view.findViewById(R.id.callEarnings);
+        totalCall = (TextView) view.findViewById(R.id.totalCall);
+        callMinutes= (TextView) view.findViewById(R.id.callMinutes);
         profileimageview = (CircularImageView) view.findViewById(R.id.profileimageview);
         avaiblitytoggle = (ToggleButton) view.findViewById(R.id.avaiblitytoggle);
 
@@ -166,15 +172,20 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
             }
         });*/
 
-        String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
-        if (isNetworkAvailable(getActivity())) {
+        token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
+        id = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "id");
+        email= utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "email");
+
+       /* if (isNetworkAvailable(getActivity())) {
             utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
-            User userObj = new User();
-            userObj.Authorization = token;
-            userProfileManager.interpreterProfile(userObj);
+            InterprterDashBoardRequest interprterDashBoardRequest = new InterprterDashBoardRequest();
+            interprterDashBoardRequest.Authorization = token;
+            interprterDashBoardRequest.id =id;
+            interprterDashBoardRequest.type  ="interpreter";
+            userProfileManager.interpreterDashBoard(interprterDashBoardRequest);
         } else {
             utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
-        }
+        }*/
 
         return view;
     }
@@ -196,6 +207,29 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
 
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (isNetworkAvailable(getActivity())) {
+            try {
+                //Thread.sleep(3000);
+                utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+                InterprterDashBoardRequest interprterDashBoardRequest = new InterprterDashBoardRequest();
+                interprterDashBoardRequest.Authorization = token;
+                interprterDashBoardRequest.id =id;
+                interprterDashBoardRequest.type  ="interpreter";
+                userProfileManager.interpreterDashBoard(interprterDashBoardRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
+        }
 
     }
 
@@ -267,7 +301,7 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
                     //setProfilePicDialog();
                     break;
                 case R.id.customerfeedback:
-                   // callUser();
+                    // callUser();
                     break;
                 default:
                     break;
@@ -354,7 +388,7 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
                 String ein_taxId = jsonobjUser.optString("ein_taxId");
                 String nickname = jsonobjUser.optString("nickname");
                 String useruid = jsonobjUser.optString("uid");
-              //  String status = jsonobjUser.optString("status");
+                //  String status = jsonobjUser.optString("status");
                 interpreter_availability = jsonobjUser.optBoolean("interpreter_availability");
                 //String imageurl = jsonobj.getJSONObject("profile_img").getString("url");
                 String first_name = jsonobjUser.getJSONObject("name").optString("first_name");
@@ -389,6 +423,46 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
         if (taskID == Constants.TaskID.UPDATE_AVAILAIBLITY_TASK_ID) {
 
         }
+
+        if (taskID == Constants.TaskID.GET_INTERPRETE_DASHBOARD_TASK_ID) {
+            try {
+                JSONObject jsonObj = new JSONObject(data);
+                JSONArray getProfileInfojsonArray =jsonObj.optJSONArray("getProfileInfo");
+                JSONObject profileArray = getProfileInfojsonArray.optJSONObject(0);
+                JSONObject profile_imgObj = profileArray.optJSONObject("profile_img");
+                String url = profile_imgObj.getString("url");
+                boolean interpreter_availability = profileArray.optBoolean("interpreter_availability");
+                String  nickname= profileArray.optString("interpreter_availability");
+                //String imageurl = jsonobj.getJSONObject("profile_img").getString("url");
+                String first_name = profileArray.getJSONObject("name").optString("first_name");
+                String last_name = profileArray.getJSONObject("name").optString("last_name");
+
+
+                //       getProfileInfojsonArray.optString()
+                String  totalNoCalls = jsonObj.optString("totalNoCalls");
+                String  totalCallMinutes = jsonObj.optString("totalCallMinutes");
+                String  totalCallAmount = jsonObj.optString("totalCallAmount");
+                profilename.setText(first_name +" "+last_name);
+                callEarnings.setText(totalCallAmount);
+                callMinutes.setText(totalCallMinutes);
+                totalCall.setText(totalNoCalls);
+                if (interpreter_availability) {
+                    avaiblitytoggle.setChecked(true);
+                    //avaiblitytoggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_on));
+                } else {
+                    avaiblitytoggle.setChecked(false);
+                    // avaiblitytoggle.setBackgroundDrawable(getResources().getDrawable(R.drawable.toggle_off));
+                }
+                if (url != null && url.length() > 0) {
+                    aq.id(R.id.profileimageview).image(url);
+                }
+
+            } catch(Exception e)
+            {
+
+            }
+        }
+
     }
 
     @Override
@@ -556,31 +630,31 @@ public class UserProfileFragment extends BaseFragment implements ServiceRedirect
         });
         dialog.show();
     }
-public void callUser()
-{
-    boolean showDialog = sendCNMessage(CNMessage.CNMessageType.Calling, new ooVooSdkSampleShowApp.MessageCompletionHandler() {
-        @Override
-        public void onHandle(boolean state) {
+    public void callUser()
+    {
+        boolean showDialog = sendCNMessage(CNMessage.CNMessageType.Calling, new ooVooSdkSampleShowApp.MessageCompletionHandler() {
+            @Override
+            public void onHandle(boolean state) {
 
 
 
-            if (!state) {
-                count = 0 ;
-                Toast.makeText(getActivity(), R.string.fail_to_send_message, Toast.LENGTH_LONG).show();
-                callDialogBuilder.hide();
-                return  ;
+                if (!state) {
+                    count = 0 ;
+                    Toast.makeText(getActivity(), R.string.fail_to_send_message, Toast.LENGTH_LONG).show();
+                    callDialogBuilder.hide();
+                    return  ;
+                }
+
+                count = enabledReceivesCount;
             }
+        });
 
-            count = enabledReceivesCount;
+        if (showDialog) {
+            callDialogBuilder.show();
+        } else {
+            Toast.makeText(getActivity(), R.string.no_receivers, Toast.LENGTH_LONG).show();
         }
-    });
-
-    if (showDialog) {
-        callDialogBuilder.show();
-    } else {
-        Toast.makeText(getActivity(), R.string.no_receivers, Toast.LENGTH_LONG).show();
     }
-}
 
     @Override
     public void onMessageReceived(CNMessage cnMessage) {

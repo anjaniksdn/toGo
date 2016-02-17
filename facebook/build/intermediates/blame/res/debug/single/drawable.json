@@ -12,12 +12,12 @@
         "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_top_background.xml"
     },
     {
-        "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_button_like_background.png",
-        "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_button_like_background.png"
-    },
-    {
         "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_picker_list_selector.xml",
         "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_picker_list_selector.xml"
+    },
+    {
+        "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_button_like_background.png",
+        "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_button_like_background.png"
     },
     {
         "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_button_grey_focused.9.png",
@@ -32,12 +32,12 @@
         "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_top_button.xml"
     },
     {
-        "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_picker_list_longpressed.9.png",
-        "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_picker_list_longpressed.9.png"
-    },
-    {
         "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_button_like_pressed.png",
         "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_button_like_pressed.png"
+    },
+    {
+        "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_picker_list_longpressed.9.png",
+        "source": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/res/drawable/com_facebook_picker_list_longpressed.9.png"
     },
     {
         "merged": "/home/anjanikumar/DayUsers/anjanik/Official/Projects/ToGo/Sample Project/toGo/facebook/build/intermediates/res/merged/debug/drawable/com_facebook_loginbutton_silver.xml",

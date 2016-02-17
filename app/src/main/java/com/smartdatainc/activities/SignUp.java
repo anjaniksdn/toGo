@@ -98,10 +98,10 @@ public class SignUp extends AppActivity implements ServiceRedirection {
             @Override
             public void onClick(View v) {
 
-                uname=unameObj.getText().toString();
+                uname = unameObj.getText().toString();
                 // lname=lnameObj.getText().toString();
-                password=passwordObj.getText().toString();
-                cpassword=cpasswordObj.getText().toString();
+                password = passwordObj.getText().toString();
+                cpassword = cpasswordObj.getText().toString();
                 //   dob=dobObj.getText().toString();
                 email = emailObj.getText().toString();
 
@@ -117,7 +117,7 @@ public class SignUp extends AppActivity implements ServiceRedirection {
                     // userObj.firstName = fname;
                     // userObj.lastName = lname;
                     userObj.username = uname;
-                    userObj.email= email;
+                    userObj.email = email;
                     userObj.password = password;
                     userObj.utype = usertype;
                  /*   if(selectuser.getText().toString().equalsIgnoreCase("Customer"))
@@ -128,7 +128,7 @@ public class SignUp extends AppActivity implements ServiceRedirection {
                     {
                         userObj.utype = "interpreter";
                     }*/
-                   // userObj.utype = selectuser.getText().toString();
+                    // userObj.utype = selectuser.getText().toString();
                     // userObj.cpassword=cpassword;
                     // userObj.dob=dob;
                     loginManagerObj.signUp(userObj);
@@ -147,6 +147,7 @@ public class SignUp extends AppActivity implements ServiceRedirection {
         email = emailObj.getText().toString();
         password = passwordObj.getText().toString();
         uname = unameObj.getText().toString();
+        cpassword = cpasswordObj.getText().toString();
         boolean check =  utilObj.checkEmail(email);
         //validate the content
         if(email.isEmpty()) {
@@ -179,6 +180,21 @@ public class SignUp extends AppActivity implements ServiceRedirection {
                 //utilObj.showError(this, message, textViewObj, passwordObj);
                 utilObj.showToast(this,message,0);
             }
+        }
+        else if(cpassword.isEmpty())
+        {
+            message = getResources().getString(R.string.CNPasswordErrorMessage);
+            //utilObj.showError(this, message, textViewObj, passwordObj);
+            utilObj.showToast(this,message,0);
+        }
+        else if(!cpassword.equalsIgnoreCase(password))
+        {
+
+
+                message = getResources().getString(R.string.PasswordNotMatchErrorMessage);
+                //utilObj.showError(this, message, textViewObj, passwordObj);
+                utilObj.showToast(this,message,0);
+
         }
 
         if(message.equalsIgnoreCase("") || message == null) {

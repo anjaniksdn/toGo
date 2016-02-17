@@ -97,9 +97,7 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
                 .build();
         Bundle intentBundle = getIntent().getBundleExtra("userbundle");
         //intentBundle.getString("usertype");
-        if(intentBundle!=null) {
-            usertype = intentBundle.getString("usertype");
-        }
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -116,7 +114,10 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 //hide keyboard :
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //   utilObj.hideVirtualKeyboard(SignUp.this);
-
+        if(intentBundle!=null) {
+            usertype = intentBundle.getString("usertype");
+            utilObj.saveDataInSharedPreferences("Users",MODE_PRIVATE, "usertype",usertype);
+        }
 
     }
 
@@ -298,19 +299,21 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
                     //assigning the data to the user object
                     if (usertype.equalsIgnoreCase("interpreter")) {
-                        // emailObj.setText("togo-ibq@ice-breakrr.com");
-                        //passwordObj.setTag("Int@123");
-                        email= emailObj.getText().toString();
-                        password = passwordObj.getText().toString();
-                        // email = "togo-ibq@ice-breakrr.com";
-                        //password = "Int@123";
+                        emailObj.setText("togo-ibq@ice-breakrr.com");
+                        passwordObj.setTag("Int@123");
+                        //email= emailObj.getText().toString();
+                        //password = passwordObj.getText().toString();
+                        email = "togo-ibq@ice-breakrr.com";
+                        password = "Int@123";
                     } else {
-                        // emailObj.setText("rakeshp@ice-breakrr.com");
-                        //passwordObj.setTag("Admin@123");
-                        email = emailObj.getText().toString();
-                        password = passwordObj.getText().toString();
-                        // email = "rakeshp@ice-breakrr.com";
-                        // password = "Admin@123";
+                        emailObj.setText("rakeshp@ice-breakrr.com");
+                        passwordObj.setTag("Admin@123");
+                        // email = emailObj.getText().toString();
+                        //password = passwordObj.getText().toString();
+                         //email = "testcustomer@gmail.com";
+                      //  password = "Test@123";/*
+                        email = "rakeshp@ice-breakrr.com";
+                        password = "Admin@123";
                     }
 
 

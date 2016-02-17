@@ -730,6 +730,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
                         android:editable="false"
+                        android:maxLength="4"
                         android:inputType="number"
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />

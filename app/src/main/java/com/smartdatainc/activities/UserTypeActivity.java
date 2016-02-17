@@ -1,5 +1,6 @@
 package com.smartdatainc.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.utils.Constants;
+import com.smartdatainc.utils.Utility;
 
 public class UserTypeActivity extends AppActivity implements OnClickListener {
     TextView interpreterbutton, userbutton;
-
+    private Utility utilObj;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +24,8 @@ public class UserTypeActivity extends AppActivity implements OnClickListener {
         interpreterbutton.setOnClickListener(this);
         userbutton.setOnClickListener(this);
         setActionBar(Constants.APPHEADER);
-
+        context= this;
+        utilObj = new Utility(context);
     }
 
 
@@ -34,6 +38,7 @@ public class UserTypeActivity extends AppActivity implements OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putString("usertype", "interpreter");
                 intentObj.putExtra("userbundle", bundle);
+                utilObj.saveDataInSharedPreferences("user", MODE_PRIVATE, "usertype", "" + "interpreter");
                 startActivity(intentObj);
                 //UserTypeActivity.this.finish();
                 break;

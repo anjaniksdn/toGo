@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View style="@style/view_five_pixel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/chat_history"
+        android:textColor="@color/tw__solid_white"
+        android:textSize="@dimen/profiletextsize" />
+
+    <EditText
+        style="@style/LoginEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/tendp"
+        android:contentDescription="@string/email"
+        android:gravity="left|center"
+        android:hint="@string/interpreter_hint"
+        android:singleLine="true"
+        android:textSize="@dimen/normaltextsize" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tendp"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/email"
+            android:gravity="left|center"
+            android:hint="@string/from"
+            android:singleLine="true"
+            android:textSize="@dimen/normaltextsize" />
+
+        <EditText
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/email"
+            android:gravity="left|center"
+            android:hint="@string/to"
+            android:singleLine="true"
+            android:textSize="@dimen/normaltextsize" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tendp"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/email"
+            android:gravity="left|center"
+            android:hint="@string/date"
+            android:singleLine="true"
+            android:textSize="@dimen/normaltextsize" />
+
+        <EditText
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/email"
+            android:gravity="left|center"
+            android:hint="@string/time"
+            android:singleLine="true"
+            android:textSize="@dimen/normaltextsize" />
+
+    </LinearLayout>
+
+    <EditText
+        style="@style/LoginEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/tendp"
+        android:contentDescription="@string/email"
+        android:gravity="left|center"
+        android:hint="@string/call_duration"
+        android:singleLine="true"
+        android:textSize="@dimen/normaltextsize" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tendp"
+        android:gravity="center|right"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/LoginEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/block_btn1"
+            android:contentDescription="@string/email"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/back"
+            android:textColor="@color/tw__solid_white"
+            android:textSize="@dimen/normaltextsize"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

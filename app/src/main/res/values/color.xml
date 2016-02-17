@@ -14,6 +14,8 @@
 
     <color name="backgroundcolor">#E2DFD9</color>
     <color name="grey">#A7A7A7</color>
+    <color name="revenueheader">#c7bfab</color>
+
     <color name="blue">#000099</color>
     <color name="black_overlay">#66000000</color>
     <color name="controller_grey">#EAEAEA</color>

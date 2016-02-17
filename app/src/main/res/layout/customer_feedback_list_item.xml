@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey"
+    android:orientation="horizontal"
+    android:padding="@dimen/five_dp">
+
+    <com.smartdatainc.utils.CircularNoBorderImageView
+        android:id="@+id/customerimage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/default_pic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/five_dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/customername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Robert john"
+                android:textSize="@dimen/normaltextsize" />
+
+            <TextView
+                android:id="@+id/pastdays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 day ago"
+                android:textSize="@dimen/profilenewsize" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/customerfeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/five_dp"
+            android:text="Robert john"
+            android:textSize="@dimen/normaltextsize" />
+
+        <RatingBar
+            android:id="@+id/customerrating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:max="5"
+            android:maxHeight="@dimen/fifteen_dp"
+            android:maxWidth="@dimen/fifteen_dp"
+            android:minHeight="@dimen/fifteen_dp"
+            android:minWidth="@dimen/fifteen_dp" />
+
+    </LinearLayout>
+</LinearLayout>

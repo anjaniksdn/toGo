@@ -3,10 +3,13 @@ package com.smartdatainc.managers;
 import android.content.Context;
 import android.util.Log;
 
+import com.smartdatainc.dataobject.CallDeatils;
+import com.smartdatainc.dataobject.CallEndDetails;
 import com.smartdatainc.dataobject.CountryData;
 import com.smartdatainc.dataobject.Customer;
 import com.smartdatainc.dataobject.InterepreterdashBoard;
 import com.smartdatainc.dataobject.Interpreter;
+import com.smartdatainc.dataobject.InterprterDashBoardRequest;
 import com.smartdatainc.dataobject.Upload;
 import com.smartdatainc.dataobject.User;
 import com.smartdatainc.interfaces.CallBack;
@@ -23,6 +26,7 @@ public class UserProfileManager implements CallBack {
 
     Context context;
     Utility utilObj;
+
     CommunicationManager commObj;
     ServiceRedirection serviceRedirectionObj;
     int tasksID;
@@ -52,6 +56,20 @@ public class UserProfileManager implements CallBack {
         commObj = new CommunicationManager(this.context);
         tasksID = Constants.TaskID.USER_PROFILE_TASK_ID;
         commObj.CallGetWebService(this.context, Constants.WebServices.WS_USER_PROFILE, this, userObj.Authorization, tasksID);
+    }
+    public void interpreterDashBoard(InterprterDashBoardRequest interprterDashBoardRequest) {
+        String jsonString = utilObj.convertObjectToJson(interprterDashBoardRequest);
+        Log.v("interpreter dashboard", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_INTERPRETE_DASHBOARD_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_GETDASHBOARDDATA, this, jsonString, tasksID);
+    }
+    public void chatDetails(InterprterDashBoardRequest interprterDashBoardRequest) {
+        String jsonString = utilObj.convertObjectToJson(interprterDashBoardRequest);
+        Log.v("interpreter dashboard", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_INTERPRETE_CHAT_HISTORY_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_GETCHATDETAILS, this, jsonString, tasksID);
     }
 
     public void getCountryList(User userObj) {
@@ -134,6 +152,13 @@ public class UserProfileManager implements CallBack {
         tasksID = Constants.TaskID.GET_LANGUAGE_LIST_TASK_ID;
         commObj.CallGetWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_LIST, this, userObj.Authorization, tasksID);
     }
+    public void getLanguageListForInterpretion(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_LANGUAGE_LIST_INTERPRETETION_TASK_ID;
+        commObj.CallGetWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_LIST, this, userObj.Authorization, tasksID);
+    }
 
     /**
      * Calls the Web Service of forgot password
@@ -156,7 +181,34 @@ public class UserProfileManager implements CallBack {
         tasksID = Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID;
         commObj.CallWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_PRICE, this, jsonString, tasksID);
     }
-
+    public void interpreterPoolDetails(User userObj) {
+        String jsonString = utilObj.convertObjectToJson(userObj);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.GET_INTERPRETATION_POOL_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_GET_LANGUAGE_POOL, this, jsonString, tasksID);
+    }
+    public void userCallDetail(CallDeatils callDeatils) {
+        String jsonString = utilObj.convertObjectToJson(callDeatils);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.SET_CALL_DETAILS_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_POST_CALL_DETAILS, this, jsonString, tasksID);
+    }
+    public void userCallCancel(CallDeatils callDeatils) {
+        String jsonString = utilObj.convertObjectToJson(callDeatils);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.SET_CALL_CANCEL_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_POST_CALL_DETAILS, this, jsonString, tasksID);
+    }
+    public void userCallDetailEnd(CallEndDetails callEndDeatils) {
+        String jsonString = utilObj.convertObjectToJson(callEndDeatils);
+        Log.v("interpreter request", jsonString);
+        commObj = new CommunicationManager(this.context);
+        tasksID = Constants.TaskID.SET_CALL_CDR_TASK_ID;
+        commObj.CallWebService(this.context, Constants.WebServices.WS_POST_CALL_CDR, this, jsonString, tasksID);
+    }
 
     /**
      * The interface method implemented in the java files
@@ -313,6 +365,8 @@ public class UserProfileManager implements CallBack {
                     serviceRedirectionObj.onFailureRedirection(jsonParsedData);
                 }
 
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
         } else if (tasksID == Constants.TaskID.GET_LANGUAGE_LIST_TASK_ID) {
             if (data != null) {
@@ -331,7 +385,7 @@ public class UserProfileManager implements CallBack {
             } else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
-        }else if (tasksID == Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID) {
+        } else if (tasksID == Constants.TaskID.GET_LANGUAGE_LIST_INTERPRETETION_TASK_ID) {
             if (data != null) {
                 Log.v("Json response:", data);
                 //parse your json data here
@@ -348,10 +402,129 @@ public class UserProfileManager implements CallBack {
             } else {
                 utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
             }
-        }
-        else {
-            utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
-        }
+        } else if (tasksID == Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
 
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.GET_INTERPRETATION_POOL_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    // String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+
+
+        } else if (tasksID == Constants.TaskID.SET_CALL_DETAILS_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.SET_CALL_CANCEL_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.SET_CALL_CDR_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, jsonParsedData);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        } else if (tasksID == Constants.TaskID.GET_INTERPRETE_DASHBOARD_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    //String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+        }
+        else if (tasksID == Constants.TaskID.GET_INTERPRETE_CHAT_HISTORY_TASK_ID) {
+            if (data != null) {
+                Log.v("Json response:", data);
+                //parse your json data here
+                DataParser dataParserObj = new DataParser();
+                int messageID = Integer.parseInt(dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_STATUS));
+                if (messageID == 200) {
+                    //String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onSuccessRedirection(tasksID, data);
+                } else {
+                    String jsonParsedData = dataParserObj.parseJsonString(data, Constants.JsonParsing.PARSING_JSON_FOR_MESSAGE);
+                    serviceRedirectionObj.onFailureRedirection(jsonParsedData);
+                }
+
+            } else {
+                utilObj.showToast(this.context, this.context.getResources().getString(R.string.no_data_received), 1);
+            }
+
+        }
     }
 }

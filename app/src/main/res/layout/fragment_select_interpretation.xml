@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartdatainc.ui.fragments.UserProfileFragment">
+    tools:context="com.smartdatainc.ui.fragments.InterprterDashBoardFragment">
 
     <!-- TODO: Update blank fragment country_list_item -->
     <LinearLayout
@@ -80,6 +80,7 @@
                         android:layout_marginRight="3dp"
                         android:layout_weight="1"
                         android:background="@drawable/block_btn2"
+                        android:orientation="horizontal"
                         android:padding="@dimen/fifteen_dp">
 
                         <com.smartdatainc.utils.CircularNoBorderImageView
@@ -112,6 +113,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="right|center"
+                            android:layout_weight="1"
                             android:hint="LANGUAGE"
                             android:textSize="@dimen/profilenewsize" />
 

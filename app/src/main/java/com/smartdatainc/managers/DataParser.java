@@ -68,7 +68,16 @@ public class DataParser {
                     parsedString= uid;
 
                     break;
+                case 8://return result key data
+                    String id = jsonObj.optString("id");
+                    parsedString= id;
 
+                    break;
+                case 9://return result key data
+                    String email = jsonObj.optString("email");
+                    parsedString= email;
+
+                    break;
 
 
             }

@@ -46,12 +46,15 @@ import com.smartdatainc.app.ooVooSdkSampleShowApp.CallNegotiationListener;
 import com.smartdatainc.app.ooVooSdkSampleShowApp.Operation;
 import com.smartdatainc.app.ooVooSdkSampleShowApp.OperationChangeListener;
 import com.smartdatainc.call.CNMessage;
+import com.smartdatainc.dataobject.CallEndDetails;
+import com.smartdatainc.interfaces.ServiceRedirection;
+import com.smartdatainc.managers.UserProfileManager;
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.ui.SignalBar;
 import com.smartdatainc.ui.fragments.AVChatLoginFragment;
 import com.smartdatainc.ui.fragments.AVChatSessionFragment;
 import com.smartdatainc.ui.fragments.BaseFragment;
-import com.smartdatainc.ui.fragments.CallNegotiationFragment;
+import com.smartdatainc.ui.fragments.ChatDetailsFragment;
 import com.smartdatainc.ui.fragments.CustomerDashboardFragment;
 import com.smartdatainc.ui.fragments.InformationFragment;
 import com.smartdatainc.ui.fragments.InterpretationFragment;
@@ -67,7 +70,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class CustomerDashBoardActivity extends AppActivity implements OperationChangeListener, CallNegotiationListener {
+public class CustomerDashBoardActivity extends AppActivity implements ServiceRedirection,OperationChangeListener, CallNegotiationListener {
 
 
     private static final String TAG = InterpreterDashboardActivity.class.getSimpleName();
@@ -90,6 +93,8 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
     private ActionBarDrawerToggle mDrawerToggle;
     private Utility utilObj;
     private String mCompletion;
+    UserProfileManager userProfileManager;
+    Context context;
    // public static ArrayList<String> toList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +111,9 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
 
         application.addOperationChangeListener(this);
         application.addCallNegotiationListener(this);
+        context = this;
 
-
+        userProfileManager = new UserProfileManager(context, this);
         createDrawer();
 
 
@@ -193,6 +199,26 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
+    @Override
+    public void onSuccessRedirection(int taskID) {
+
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID, String jsonData) {
+        application.onEndOfCall();
+        int count = getFragmentManager().getBackStackEntryCount();
+        String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
+        getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
+    }
+
+    @Override
+    public void onFailureRedirection(String errorMessage) {
+
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -204,38 +230,14 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         View customView = getLayoutInflater().inflate(R.layout.custom_action_bar, null);
         TextView title1 = (TextView) customView.findViewById(R.id.textViewTitle);
-        //TextView saveText = (TextView) customView.findViewById(R.id.textViewSave);
-        //ImageView menuAddButton = (ImageView) customView.findViewById(R.id.addButton);
         ImageView home = (ImageView) customView.findViewById(R.id.home);
-        //home.setVisibility(View.VISIBLE);
-        title1.setText(title);
-        // menuAddButton.setVisibility(View.VISIBLE);
-        // saveText.setVisibility(View.GONE);
-        //home.setOnTouchListener(this);
-        //menuAddButton.setOnTouchListener(this);
-        getSupportActionBar().setCustomView(customView);
-        /*home.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Refresh Clicked!",
-						Toast.LENGTH_LONG).show();
-				if (mDrawerLayout.isDrawerOpen(GravityCompat.END))
-					mDrawerLayout.closeDrawer(GravityCompat.START);
-				else
-					mDrawerLayout.openDrawer(GravityCompat.END);
-			}
-		});*/
+        title1.setText(title);
+
+        getSupportActionBar().setCustomView(customView);
+
     }
-   /* @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        try {
-            getFragmentManager().putFragment(savedInstanceState, STATE_FRAGMENT, current_fragment);
-        } catch( Exception e) {
-            Log.e(TAG, "onSaveInstanceState exception: ", e);
-        }
-        super.onSaveInstanceState(savedInstanceState);
-    }*/
+
 
     @Override
     public void onDestroy() {
@@ -356,6 +358,10 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 // Toast.makeText(getApplication(), "Hi", Toast.LENGTH_LONG).show();
+                Intent userTypeIntent = new Intent(CustomerDashBoardActivity.this,UserTypeActivity.class);
+                userTypeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(userTypeIntent);
+               // onBackPressed();
                 onBackPressed();
             /*	SettingsFragment settings  = new SettingsFragment();
                 settings.setBackFragment(current_fragment);
@@ -454,7 +460,7 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
                     break;
                 case Authorized:
                     //	current_fragment = LoginFragment.newInstance(mSettingsMenuItem);
-                    current_fragment = new CallNegotiationFragment();
+                    //current_fragment = new CallNegotiationFragment();
                     String completion = utilObj.readDataInSharedPreferences("Users", 0, "completion");
                     if (completion != null) {
                         if (completion.equalsIgnoreCase("true")) {
@@ -593,14 +599,14 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
             String accepteduserName = cnMessage.getDisplayName();
             if(InterpretationFragment.toList !=null) {
                 Iterator<String> toListIterartor = InterpretationFragment.toList.iterator();
-                ArrayList<String> discoonectuselList = new ArrayList<String>();
+                ArrayList<String> discoonectuserlList = new ArrayList<String>();
                 while (toListIterartor.hasNext()) {
                     String calledUserName = toListIterartor.next();
                     if (!calledUserName.equalsIgnoreCase(accepteduserName)) {
-                        discoonectuselList.add(calledUserName);
+                        discoonectuserlList.add(calledUserName);
                     }
                 }
-                application.sendCNMessage(discoonectuselList, CNMessage.CNMessageType.Cancel, null);
+                application.sendCNMessage(discoonectuserlList, CNMessage.CNMessageType.Cancel, null);
             }
         }
         if (cnMessage.getMessageType() == CNMessage.CNMessageType.Calling) {
@@ -644,11 +650,46 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.Cancel) {
             callDialogBuilder.hide();
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.EndCall) {
-            if (application.leave()) {
-                int count = getFragmentManager().getBackStackEntryCount();
+
+           /* if (application.leave()) {*/
+                String from = cnMessage.getFromId();
+                String to = cnMessage.getToId();
+                String callId = cnMessage.getConferenceId();
+                long timeStamp = cnMessage.getTimeStamp();
+
+                String userid = utilObj.readDataInSharedPreferences("Users", 0, "id");
+                String poolId = utilObj.readDataInSharedPreferences("Call", 0, "poolId");
+                String fromlanguageId = utilObj.readDataInSharedPreferences("Call", 0, "fromlanguageId");
+                String tolanguageId = utilObj.readDataInSharedPreferences("Call", 0, "tolanguageId");
+                String languagePrice = utilObj.readDataInSharedPreferences("Call", 0, "languagePrice");
+                String starttimeStamp = utilObj.readDataInSharedPreferences("Call", 0, "starttimeStamp");
+                String[] interpreterId = InterpretationFragment.toUserIdList.toArray(new String[InterpretationFragment.toUserIdList.size()]);
+
+                CallEndDetails callEndDeatils = new CallEndDetails();
+                callEndDeatils.poolId = poolId;
+                callEndDeatils.userId = userid;
+                callEndDeatils.callReceivedBy = from;
+                callEndDeatils.tolanguage = tolanguageId;
+                callEndDeatils.fromlanguage = fromlanguageId;
+                callEndDeatils.cost = languagePrice;
+                callEndDeatils.start_time = starttimeStamp;
+                callEndDeatils.end_time = ""+timeStamp;
+                callEndDeatils.interpreterId = interpreterId;
+                /*int count = getFragmentManager().getBackStackEntryCount();
                 String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
-                getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
+                getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);*/
+
+
+            //    callDeatils.start_time = callId;
+
+
+
+                userProfileManager.userCallDetailEnd(callEndDeatils);
+                //String sharedPrefName, int mode, String key, String value
+                // utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "from",from);
+                //  utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "to",to);
+
+           // }
         }
     }
 
@@ -719,6 +760,21 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
                     mDrawerLayout.closeDrawer(mDrawerList);
 
                 }
+                else if(position ==3)
+                {
+                    fragment = new ChatDetailsFragment();
+                    // Insert the fragment by replacing any existing fragment
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.host_activity, fragment)
+                            .commit();
+
+                    // Highlight the selected item, update the title, and close the drawer
+                    mDrawerList.setItemChecked(position, true);
+                    //setTitle(mPlanetTitles[position]);
+                    mDrawerLayout.closeDrawer(mDrawerList);
+
+                }
             } else {
                 confirmationDialog();
             }
@@ -745,8 +801,9 @@ public class CustomerDashBoardActivity extends AppActivity implements OperationC
         cancelTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDrawerLayout.closeDrawer(mDrawerList);
-                dialog.dismiss();
+                //mDrawerLayout.closeDrawer(mDrawerList);
+                //dialog.dismiss();
+                finish();
             }
         });
         confirmTextView.setOnClickListener(new View.OnClickListener() {

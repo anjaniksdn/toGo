@@ -47,8 +47,11 @@
     <string name="btn_signup">Sign Up</string>
     <string name="EmailErrorMessage">Please enter email</string>
     <string name="PasswordErrorMessage">Please enter password</string>
+    <string name="PasswordNotMatchErrorMessage">Password Mismatch</string>
+    <string name="CNPasswordErrorMessage">Please enter confirm password</string>
     <string name="invalid_email">Please enter valid email address</string>
     <string name="usernameErrormesseage">Please enter username</string>
+    <string name="newpassworderrormsg">Please enter newpassword</string>
     <string name="missing_email">Email is missing</string>
     <string name="missing_password">Password is missing</string>
     <string name="invalid_email_password">Entered email or password are not in correct format</string>
@@ -66,6 +69,10 @@
     <string name="passwordHint">Password</string>
     <string name="cpasswordHint">Confirm Password</string>
     <string name="register">REGISTER</string>
+    <string name="chnagepassword">Reset Password</string>
+    <string name="newpasswordHint">New Password</string>
+    <string name="aboutservice">Tell  us about the service( Optional )</string>
+    <string name="aboutinterpreter">Tell  us about the interpreter( Optional )</string>
 
     <!-- Network String Starts here -->
     <string name="network_service_message_title">Network Services</string>
@@ -245,6 +252,12 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
+    <string name="interpretfrom">Interpretetion From</string>
+    <string name="interpretto">Interpretetion To</string>
+    <string name="duration">Duration</string>
+    <string name="amount">Amount</string>
 
     <!--<forgot password>-->
     <string name="forgot_password_message">Please checkyour email registered to reset your password.</string>
@@ -268,6 +281,29 @@
     <string name="Expirymonth">Please enter expiry month</string>
     <string name="ExpiryYear">Please enter expiry year</string>
 
-
+    <string name="change_password">Change Password</string>
+    <string name="email_feedback">Email Feedback</string>
+    <string name="interpreter_hint">Interpreter</string>
+    <string name="revenue_title">REVENUE</string>
+    <string name="pick_date">Pick a Date Range</string>
+    <string name="rating_offer">Offer Rating</string>
+    <string name="feedback_message">Your feedback has weight! We encourage your feedback to upraise our interpretation services... Rating</string>
+    <string name="send_ratings">SEND RATINGS</string>
+    <string name="customer_feedback">CUSTOMER FEEDBACK</string>
+    <string name="call_history">CALL HISTORY</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="chat_history">CHAT HISTORY</string>
+    <string name="back">Back</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="call_duration">Call Duration</string>
+    <string name="settings">SETTINGS</string>
+    <string name="set_your_preferred_languages">Set Your Preferred Language</string>
+    <string name="application_action">Application Action</string>
+    <string name="preferred_languages">Preferred Language</string>
+    <string name="status">Status</string>
+    <string name="notification">Notification</string>
 
 </resources>

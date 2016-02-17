@@ -1,0 +1,162 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View style="@style/view_five_pixel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/revenueheader"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/pick_date"
+        android:textColor="@color/tw__solid_white"
+        android:textSize="@dimen/profiletextsize" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundcolor"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:weightSum="1"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startdate"
+            android:layout_weight=".5"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_gravity="left"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enddate"
+            android:textStyle="bold"
+            android:gravity="right"
+            android:textSize="18sp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight=".5"
+
+            />
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundcolor"
+        android:paddingBottom="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:weightSum="1"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startdate"
+            android:layout_gravity="left"
+            android:layout_weight=".5"
+            android:gravity="center|left"
+            android:background="@color/tw__solid_white"
+            android:drawableLeft="@drawable/default_pic"
+            />
+        <View android:layout_width="5dp"
+            android:layout_height="match_parent"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enddate"
+
+            android:layout_weight=".5"
+
+            android:gravity="center|left"
+            android:background="@color/tw__solid_white"
+            android:drawableLeft="@drawable/default_pic"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:weightSum="1"
+
+        android:background="@color/revenueheader"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interpretfrom"
+            android:layout_gravity="right|center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/tw__solid_white"
+            />
+        <View android:layout_width="2dp"
+            android:layout_height="70dp"
+            android:background="@color/tw__solid_white"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/interpretto"
+            android:padding="10dp"
+            android:layout_gravity="left|center"
+
+            android:textColor="@color/tw__solid_white"
+
+            />
+        <View android:layout_width="2dp"
+            android:layout_height="70dp"
+            android:background="@color/tw__solid_white"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duration"
+            android:padding="6dp"
+            android:layout_gravity="left|center"
+            android:textColor="@color/tw__solid_white"
+
+
+            />
+        <View android:layout_width="2dp"
+            android:layout_height="70dp"
+            android:background="@color/tw__solid_white"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:padding="6dp"
+            android:textColor="@color/tw__solid_white"
+            android:layout_gravity="right|center"
+
+
+
+            />
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/callList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>

@@ -12,7 +12,7 @@ public class Constants {
     public static String USER_EMAIL = "email";
     public static String TOKEN = "token";
     public static final String PREFS_NAME = "toGoPrefs";
-    public static final String APPHEADER = "TOGO";
+    public static final String APPHEADER = "toGO";
     public static final String NOINTERNET = "No Internet Connection. Please check your internet connection or try again later.";
 
 
@@ -82,6 +82,8 @@ public class Constants {
         public static String WS_UPDATE_PROFILEIMAGE = WS_BASE_URL + "/api/upload";
         public static String WS_GETCOUNTRY = WS_BASE_URL + "/getCountryList";
         public static String WS_GETSTATE = WS_BASE_URL + "/getState";
+        public static String WS_GETDASHBOARDDATA = WS_BASE_URL + "/api/getDashboardData";
+        public static String WS_GETCHATDETAILS = WS_BASE_URL + "/api/getCDRData";
 
 
         //public static String WS_USER_SIGNUP = WS_BASE_URL + "/WebServices/signUp";
@@ -100,7 +102,13 @@ public class Constants {
         public static String WS_GET_LANGUAGE_LIST = WS_BASE_URL + "/getLanguageList";
         //public static String WS_GET_LANGUAGE_PRICE = WS_BASE_URL + "/getLanguagePrice";
 
-        public static String WS_GET_LANGUAGE_PRICE = WS_BASE_URL + "/getInterpreterByLanguage";
+        public static String WS_GET_LANGUAGE_PRICE = WS_BASE_URL + "/getLanguagePrice";
+        public static String WS_GET_LANGUAGE_POOL = WS_BASE_URL + "/getInterpreterByLanguage";
+        public static String WS_POST_CALL_DETAILS = WS_BASE_URL + "/api/saveCallDetails";
+        public static String WS_POST_CALL_CDR = WS_BASE_URL + "/api/createCDR";
+        public static String WS_CHANGEPASSWORD = WS_BASE_URL + "/api/changePassword";
+
+        public static String WS_UPDATEINTERPRETERCALLS = WS_BASE_URL + "/updateInterepreterCallStatus";
     }
 
     /**
@@ -131,6 +139,16 @@ public class Constants {
         public static int GET_CUSTOMER_DASHBOARD_DETAILS_TASK_ID = 119;
         public static int GET_LANGUAGE_LIST_TASK_ID = 120;
         public static int GET_INTERPRETATION_DETAILS_TASK_ID = 121;
+        public static int GET_INTERPRETATION_POOL_TASK_ID = 122;
+        public static int SET_CALL_DETAILS_TASK_ID = 123;
+        public static int SET_CALL_CDR_TASK_ID = 124;
+        public static int SET_CALL_CANCEL_TASK_ID = 125;
+        public static int GET_LANGUAGE_LIST_INTERPRETETION_TASK_ID = 125;
+        public static int GET_INTERPRETE_DASHBOARD_TASK_ID = 126;
+        public static int GET_INTERPRETE_CHAT_HISTORY_TASK_ID = 127;
+        public static int CHANGE_PASSWORD = 128;
+        public static int INTERPRETER_CALL_STATUS_TASK_ID = 129;
+
 
     }
 

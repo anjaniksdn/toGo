@@ -37,17 +37,20 @@ import com.oovoo.sdk.interfaces.VideoDevice;
 import com.oovoo.sdk.interfaces.VideoRender;
 import com.smartdatainc.app.ApplicationSettings;
 import com.smartdatainc.app.ooVooSdkSampleShowApp;
+import com.smartdatainc.dataobject.CallEndDetails;
+import com.smartdatainc.interfaces.ServiceRedirection;
+import com.smartdatainc.managers.UserProfileManager;
 import com.smartdatainc.toGo.R;
 import com.smartdatainc.ui.CustomVideoPanel;
-import com.smartdatainc.ui.SampleActivity.MenuList;
 import com.smartdatainc.ui.SignalBar;
 import com.smartdatainc.ui.fragments.AVChatSessionFragment.VideoAdapter.VideoItem;
+import com.smartdatainc.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampleShowApp.ParticipantsListener, ooVooSdkSampleShowApp.CallControllerListener, View.OnClickListener, OnItemClickListener, ooVooSdkSampleShowApp.NetworkListener {
+public class AVChatSessionFragment extends BaseFragment implements ServiceRedirection, ooVooSdkSampleShowApp.ParticipantsListener, ooVooSdkSampleShowApp.CallControllerListener, View.OnClickListener, OnItemClickListener, ooVooSdkSampleShowApp.NetworkListener {
 
 
     public enum CameraState {
@@ -82,8 +85,10 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
     private MenuItem informationMenuItem = null;
     private CameraState cameraState = CameraState.FRONT_CAMERA;
     private ArrayList<Effect> filters = null;
-
-
+    UserProfileManager userProfileManager;
+    private VideoRender myView = null;
+    private VideoRender userView = null;
+    private Utility utilObj;
     public AVChatSessionFragment() {
     }
 
@@ -101,7 +106,13 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
     public void setSignalStrengthMenuItem(MenuItem signalStrengthMenuItem) {
         this.signalStrengthMenuItem = signalStrengthMenuItem;
     }
-
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        Object tag = v.getTag();
+        if (tag != null && tag instanceof MenuList) {
+            MenuList list = (MenuList) tag;
+            list.fill(v, menu);
+        }
+    }
     public void setSecureNetworkMenuItem(MenuItem secureNetworkMenuItem) {
         this.secureNetworkMenuItem = secureNetworkMenuItem;
     }
@@ -118,11 +129,14 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
         app().selectVideoEffect("original");
 
         initControlBar(self);
-
+        utilObj = new Utility(getActivity());
         videoGridView = (GridView) self.findViewById(R.id.video_grid_view);
         videoAdapter = new VideoAdapter(getActivity());
         videoGridView.setAdapter(videoAdapter);
         videoGridView.setOnItemClickListener(this);
+        userProfileManager = new UserProfileManager(getActivity(), this);
+        userView = (VideoPanel) self.findViewById(R.id.full_screen_custom_panel_remoteview);
+        myView  =  (VideoPanel) self.findViewById(R.id.full_screen_video_panel_remoteview);
 
         String useCustomRenderValue = settings().get(ApplicationSettings.UseCustomRender);
         if (useCustomRenderValue != null && Boolean.valueOf(useCustomRenderValue)) {
@@ -134,8 +148,10 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
         fullScreenAvatar = (ImageView) self.findViewById(R.id.full_screen_avatar_image_view);
         fullScreenLabel = (TextView) self.findViewById(R.id.full_screen_label);
         setupFullScreenViewClickListener();
+        addMyVideoPanel(ApplicationSettings.PREVIEW_ID, "Me");
+        //addParticipantVideoPanel(ApplicationSettings.PREVIEW_ID, "Me");
 
-        addParticipantVideoPanel(ApplicationSettings.PREVIEW_ID, "Me");
+
 
         app().addParticipantListener(this);
         app().setControllerListener(this);
@@ -154,7 +170,9 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
 
         return self;
     }
-
+    public static interface MenuList {
+        public void fill(View view, ContextMenu menu);
+    }
     private void initControlBar(View callbar) {
         this.callbar = callbar;
 
@@ -254,10 +272,42 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
             public void onClick(View v) {
                 app().onEndOfCall();
                 app().sendEndOfCall();
+                String usertype = utilObj.readDataInSharedPreferences("user", 0, "usertype");
+                if(usertype.equalsIgnoreCase("interpreter"))
+                {
+                    int count = getFragmentManager().getBackStackEntryCount();
+                    String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
+                    getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }else
+                {
+                    java.util.Date date= new java.util.Date();
+                    //  System.out.println(new Timestamp(date.getTime()));
+                  //  Timestamp timeStamp = new Timestamp(date.getTime());
+                    long timeStamp = System.currentTimeMillis();
+                    String userid = utilObj.readDataInSharedPreferences("Users", 0, "id");
+                    String poolId = utilObj.readDataInSharedPreferences("Call", 0, "poolId");
+                    String fromlanguageId = utilObj.readDataInSharedPreferences("Call", 0, "fromlanguageId");
+                    String tolanguageId = utilObj.readDataInSharedPreferences("Call", 0, "tolanguageId");
+                    String languagePrice = utilObj.readDataInSharedPreferences("Call", 0, "languagePrice");
+                    String starttimeStamp = utilObj.readDataInSharedPreferences("Call", 0, "starttimeStamp");
+                    String callto= utilObj.readDataInSharedPreferences("Call", 0, "callto");
+                    String[] interpreterId = InterpretationFragment.toUserIdList.toArray(new String[InterpretationFragment.toUserIdList.size()]);
 
-                int count = getFragmentManager().getBackStackEntryCount();
-                String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
-                getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    CallEndDetails callEndDeatils = new CallEndDetails();
+                    callEndDeatils.poolId = poolId;
+                    callEndDeatils.poolId = poolId;
+                    callEndDeatils.userId = userid;
+                    callEndDeatils.callReceivedBy = callto;
+                    callEndDeatils.tolanguage = tolanguageId;
+                    callEndDeatils.fromlanguage = fromlanguageId;
+                    callEndDeatils.cost = languagePrice;
+                    callEndDeatils.start_time = starttimeStamp;
+                    callEndDeatils.end_time = ""+timeStamp;
+                    callEndDeatils.interpreterId = interpreterId;
+                    userProfileManager.userCallDetailEnd(callEndDeatils);
+
+                }
+
             }
         });
 
@@ -532,6 +582,7 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
                     addParticipantVideoPanel(userId, userData);
                 }
             });
@@ -542,9 +593,16 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
 
     protected void addParticipantVideoPanel(String userId, String userData) {
         try {
+            VideoItem item = videoAdapter.new VideoItem(userId, userData);
+
+            if (item.getVideo() == null) {
+                item.setVideo(userView);
+                app().bindVideoPanel(item.getUserId(), userView);
+                // ((View)viewHolder.videoPanel).setVisibility(View.VISIBLE);
+            }
             videoAdapter.addItem(videoAdapter.new VideoItem(userId, userData));
 
-        } catch (Exception err) {
+        }catch (Exception err) {
             err.printStackTrace();
         }
     }
@@ -772,7 +830,7 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
     private void prepareButtonMenu(final Button button, MenuList list) {
         button.setOnClickListener(this);
         button.setTag(list);
-        getActivity().registerForContextMenu(button);
+        registerForContextMenu(button);
     }
 
     protected void onAudioRouteChangedEvent(AudioRoute old_route, AudioRoute new_route) {
@@ -1330,4 +1388,36 @@ public class AVChatSessionFragment extends BaseFragment implements ooVooSdkSampl
         videoAdapter.hideAvatar(userId);
     }
 
+
+    @Override
+    public void onSuccessRedirection(int taskID) {
+
+    }
+
+    @Override
+    public void onSuccessRedirection(int taskID, String jsonData) {
+        int count = getFragmentManager().getBackStackEntryCount();
+        String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
+        getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+
+    @Override
+    public void onFailureRedirection(String errorMessage) {
+
+    }
+    protected void addMyVideoPanel(String userId, String userData) {
+        try {
+            VideoItem item = videoAdapter.new VideoItem(userId, userData);
+
+            if (item.getVideo() == null) {
+                item.setVideo(myView);
+                app().bindVideoPanel(item.getUserId(), myView);
+                // ((View)viewHolder.videoPanel).setVisibility(View.VISIBLE);
+            }
+            videoAdapter.addItem(videoAdapter.new VideoItem(userId, userData));
+        } catch (Exception err) {
+            err.printStackTrace();
+        }
+    }
 }

@@ -628,6 +628,7 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 			participants.remove(participant.getID());
 			muted.remove(participant.getID());
 		}
+
 	}
 
 	@Override
@@ -1020,6 +1021,8 @@ public class ooVooSdkSampleShowApp extends Application implements VideoControlle
 	@Override
 	public void onMessageReceived(final Message message) {
 		try {
+
+
 			LogSdk.d(TAG, "onMessageReceived from: " + message.getFrom() + " body: " + message.getBody());
 
 			sdk.getMessaging().sendAcknowledgement(Messaging.MessageAcknowledgeState.Delivered, message, new ooVooSdkResultListener() {

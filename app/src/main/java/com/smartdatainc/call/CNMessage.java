@@ -45,6 +45,9 @@ public class CNMessage extends Message {
     private String displayName;
     private String extraMessage;
     private String uniqueId;
+    private String from;
+    private String to;
+    private long timestamp;
 
     private static String CNMessageTypeToString(CNMessageType type){
         switch(type){
@@ -55,7 +58,7 @@ public class CNMessage extends Message {
             case AnswerDecline:
                 return TYPE_ANS_DECLINE;
             case Cancel:
-            	return TYPE_CANCEL;
+                return TYPE_CANCEL;
             case Busy:
                 return TYPE_BUSY;
             case EndCall:
@@ -134,16 +137,25 @@ public class CNMessage extends Message {
 
     public CNMessage(Message message) throws InstantiationException {
         super(message);
+
         parseMessageBody(message);
     }
 
     public void parseMessageBody(Message message) throws InstantiationException {
         String body = message.getBody();
+
         LogSdk.d("CNMessage ", "CNMessage :: " + body);
+        LogSdk.d("from ", "from :: " + from);
+        LogSdk.d("to ", "to :: " + to);
+        LogSdk.d("timestamp ", "timestamp :: " + timestamp);
         if(body == null)
             return;
 
         try {
+           // Thread.sleep(10000);
+            from = message.getFrom();
+            to = message.getTo();
+            timestamp=  message.getTimestamp();
             //ByteArrayInputStream in = new ByteArrayInputStream(android.util.Base64.decode(body.getBytes(), Base64.DEFAULT));
             ByteArrayInputStream in = new ByteArrayInputStream(body.getBytes());
             JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -188,5 +200,14 @@ public class CNMessage extends Message {
 
     public String getUniqueId() {
         return uniqueId;
+    }
+    public String getToId() {
+        return to;
+    }
+    public String getFromId() {
+        return from;
+    }
+    public long getTimeStamp() {
+        return timestamp;
     }
 }

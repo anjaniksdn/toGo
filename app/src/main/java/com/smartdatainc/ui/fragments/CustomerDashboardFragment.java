@@ -50,7 +50,7 @@ public class CustomerDashboardFragment extends BaseFragment implements ooVooSdkS
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UserProfileFragment.
+     * @return A new instance of fragment InterprterDashBoardFragment.
      */
 // TODO: Rename and change types and number of parameters
     public static CustomerDashboardFragment newInstance(String param1, String param2) {
@@ -147,9 +147,11 @@ public class CustomerDashboardFragment extends BaseFragment implements ooVooSdkS
                 e.printStackTrace();
             }
 
-            JSONObject jsonObjProfileImage = jsonObjUser.getJSONObject("profile_img");
+            JSONObject jsonObjProfileImage = jsonObjUser.optJSONObject("profile_img");
             mAQuery = new AQuery(getActivity());
-            mAQuery.id(R.id.profileimageview).image(jsonObjProfileImage.optString("url"));
+            if(jsonObjProfileImage!=null) {
+                mAQuery.id(R.id.profileimageview).image(jsonObjProfileImage.optString("url"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

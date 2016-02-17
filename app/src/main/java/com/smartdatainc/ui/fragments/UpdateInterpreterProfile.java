@@ -322,6 +322,8 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
         mSelectedItems.remove(position);
         mSelectedLanguageList.remove(position);
         languageListAdapter.notifyDataSetChanged();
+
+        updateProfile();
     }
 
     @Override
@@ -392,12 +394,14 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             profilephone.setEnabled(true);
+                            profilephone.setFocusable(true);
+                            profilephone.requestFocus();
                             phoneedtitable = true;
                             makeEditable = false;
                             profilephoneedit.setBackgroundResource(R.drawable.tick_green);
                         }
                         else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -412,11 +416,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             firstname.setEnabled(true);
+                            firstname.requestFocus();
                             firstnameeditable = true;
                             makeEditable = false;
                             editfirstname.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -431,11 +436,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             lastname.setEnabled(true);
+                            lastname.requestFocus();
                             lastnameeditable = true;
                             makeEditable = false;
                             editlastname.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                             validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -450,16 +456,17 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             addresstext.setEnabled(true);
+                            addresstext.requestFocus();
                             addresseditable = true;
                             makeEditable = false;
                             editaddress.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                 case R.id.editnickname:
                     if (nicknameeditable) {
-                        addresstext.setEnabled(false);
+                        usernickname.setEnabled(false);
                         nicknameeditable = false;
                         makeEditable = true;
                         updateProfile();
@@ -467,11 +474,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             usernickname.setEnabled(true);
+                            usernickname.requestFocus();
                             nicknameeditable = true;
                             makeEditable = false;
                             editnickname.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -486,11 +494,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             zipcodeedit.setEnabled(true);
+                            zipcodeedit.requestFocus();
                             zipeditable = true;
                             makeEditable = false;
                             editzip.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -505,11 +514,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             cityedit.setEnabled(true);
+                            cityedit.requestFocus();
                             cityeditable = true;
                             makeEditable = false;
                             editcity.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -524,11 +534,12 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                     } else {
                         if (makeEditable) {
                             certificate.setEnabled(true);
+                            certificate.requestFocus();
                             certificateseditable = true;
                             makeEditable = false;
                             certificatesedit.setBackgroundResource(R.drawable.tick_green);
                         } else{
-                            String msg = validateEditatble();
+                            validateEditatble();
                         }
                     }
                     // inflateView("test");
@@ -851,7 +862,7 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
     public void onFailureRedirection(String errorMessage) {
         utilObj.stopLoader();
         // utilObj.showError(this, errorMessage, textViewObj, null);
-        // utilObj.showToast(getActivity(), errorMessage, 0);
+        utilObj.showToast(getActivity(), errorMessage, 0);
 
     }
 
@@ -933,8 +944,6 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                         options.inSampleSize = 2;
                         mBitmap = BitmapFactory.decodeFile(mFile.getAbsolutePath(), options);
                         mProfilePic = getEncodedImage(mBitmap);
-                        //mProfilePic = mProfilePic;
-                        //Log.v("Gallery Picbase64", mProfilePic);
                         profileimageview.setImageBitmap(mBitmap);
                         uploadImage();
                     }
@@ -993,42 +1002,7 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
             address = addresstext.getText().toString();
             phone_number = profilephone.getText().toString();
             String selectedlanguageId[] = mylanguage.split(",");
-           // ArrayList<Language> languageList =  languageListAdapter.getLanguageList();
-            /*Iterator<Language> languageItr = mSelectedLanguageList.iterator();
-            {
-                int i=0;
-                while(languageItr.hasNext())
-                {
-                    Language lang = languageItr.next();
-                    //selectedlanguageId = lang.getLanguageId();
-                    if (i == 0) {
-                        selectedlanguageId =lang.getLanguageId();
-                    } else {
-                        selectedlanguageId = selectedlanguageId + "," + lang.getLanguageId();
-                    }
-                }
-            }
-*/
-            // mylanguage = languageSpinner.getSelectedItemsAsString().toString().trim().replaceAll("\\[|\\]", "");
-           /* String selectedlanguages[] = mylanguage.split(",");
-            for (String key : languageidmap.keySet()) {
-                if (selectedlanguages != null) {
 
-                    for (int l = 0; l < selectedlanguages.length; l++) {
-
-                        String language = selectedlanguages[l];
-                        if (language.equalsIgnoreCase(languageidmap.get(key))) {
-                            if (l == 0) {
-                                selectedlanguageId = key;
-                            } else {
-                                selectedlanguageId = selectedlanguageId + "," + key;
-                            }
-                        }
-
-                    }
-
-                }
-            }*/
             Log.v("languages", selectedlanguageId.toString());
 
             Name name = new Name();
@@ -1114,53 +1088,6 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
 
     }
 
-    /* public void multiSelectList() {
-         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-         //dialog.setTitle(getResources().getString(R.string.job_function_list));
-         final ArrayList<String> jobFunctionList = new ArrayList<String>();
-         final ArrayList<String> jobFunctionId = new ArrayList<String>();
-         mSelectedItems = new ArrayList();
-         final ArrayList<String> mSelectedItemID = new ArrayList();
-         for (int i = 0; i < mLanguageArrayList.size(); i++) {
-             jobFunctionList.add(mLanguageArrayList.get(i).getLanguage());
-             jobFunctionId.add(mLanguageArrayList.get(i).getLanguageId());
-         }
-         element = jobFunctionList.toArray(new String[jobFunctionList.size()]);
-         dialog.setMultiChoiceItems(element, null, new DialogInterface.OnMultiChoiceClickListener() {
-             @Override
-             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                 if (isChecked) {
-                     // If the user checked the item, build an array containing the selected items _id's.
-                     mSelectedItems.add(jobFunctionList.get(which));
-                     mSelectedItemID.add(jobFunctionId.get(which));
-                 } else if (mSelectedItems.contains(jobFunctionId.get(which))) {
-                     // Else, if the user changes his mind and de-selects an item, remove it
-                     mSelectedItems.remove(jobFunctionList.get(which));
-                     mSelectedItemID.remove(jobFunctionId.get(which));
-                 }
-             }
-         });
-         dialog.setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
-             @Override
-             public void onClick(DialogInterface dialog, int which) {
-
-                 // mJobFunctions = TextUtils.join(",", mSelectedItems);
-                 //Log.e("mJobFunctions", mJobFunctions);
-                 //  mJobID = TextUtils.join(",", mSelectedItemID);
-                 //Log.e("mJobFunctions", mJobID);
-                 languageListAdapter = new LanguageListAdapter(getActivity(), mSelectedItems, UpdateInterpreterProfile.this);
-                 mLanguageListView.setAdapter(languageListAdapter);
-
-             }
-         });
-         dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-             @Override
-             public void onClick(DialogInterface dialogInterface, int i) {
-                 dialogInterface.dismiss();
-             }
-         });
-         dialog.show();
-     }*/
     public void multiSelectLanguageDialog()
 
     {
@@ -1187,6 +1114,7 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
                 if (mSelectedItemImage.size() > 1) {
                     LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams((int) (800), (int) (350));
                     mLanguageListView.setLayoutParams(mParam);
+                    updateProfile();
                 } else {
                     LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams((int) (800), LinearLayout.LayoutParams.WRAP_CONTENT);
                     mLanguageListView.setLayoutParams(mParam);
@@ -1199,7 +1127,7 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
         dialog.show();
     }
 
-    public String validateEditatble()
+    public  void validateEditatble()
     {
         String message="";
 
@@ -1207,51 +1135,61 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
         {
             message = getResources().getString(R.string.EmailErrorMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(firstnameeditable)
         {
             message = getResources().getString(R.string.FirstnameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(lastnameeditable)
         {
             message = getResources().getString(R.string.lastnameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(addresseditable)
         {
             message = getResources().getString(R.string.AddressMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(zipeditable)
         {
             message = getResources().getString(R.string.ZipcodeMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(cityeditable)
         {
             message = getResources().getString(R.string.CityMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
         if(certificateseditable)
         {
             message = getResources().getString(R.string.CertificatesMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
+
+            
 
         }
         if(nicknameeditable)
         {
             message = getResources().getString(R.string.NicknameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return;
 
         }
-        return  message;
+       
 
     }
 }

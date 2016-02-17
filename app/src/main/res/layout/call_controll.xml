@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/controller_grey">
+    android:background="@color/tw__solid_white">
    
     <LinearLayout
         android:id="@+id/devicesControlLayout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/vc_controller_height"
-        android:background="@color/controller_grey"
+        android:background="@color/tw__solid_white"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
@@ -17,6 +17,7 @@
             android:id="@+id/microphoneButton"
             android:layout_width="@dimen/vc_controller_button_size"
             android:layout_height="@dimen/vc_controller_button_size"
+            android:layout_marginRight="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="2dp"
             android:background="@drawable/microphone_selector" />
@@ -26,35 +27,38 @@
             android:layout_width="@dimen/vc_controller_button_size"
             android:layout_height="@dimen/vc_controller_button_size"
             android:layout_gravity="center_vertical"
-
+android:visibility="gone"
             android:background="@drawable/speakers_selector" />
 
-        <Button
-            android:id="@+id/cameraButton"
-            android:layout_width="@dimen/vc_controller_button_size"
-            android:layout_height="@dimen/vc_controller_button_size"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/camera_selector" />
-
-        <Button
-            android:id="@+id/endOfCallButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/controller_hangup_selector" 
-        	android:layout_gravity="center_vertical"        
-       	 	android:cropToPadding="true"
-       	 	android:keepScreenOn="true" />
         <Button
             android:id="@+id/effectButton"
             android:layout_width="@dimen/vc_controller_button_size"
             android:layout_height="@dimen/vc_controller_button_size"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/effect_selector" />
+            android:visibility="gone"
+            android:background="@drawable/camera_selector" />
+
+        <Button
+            android:id="@+id/endOfCallButton"
+            android:layout_width="@dimen/vc_controller_button_size"
+            android:layout_height="@dimen/vc_controller_button_size"
+            android:background="@drawable/phone1"
+            android:layout_gravity="center_vertical"
+       	 	android:cropToPadding="true"
+       	 	android:keepScreenOn="true" />
+        <Button
+            android:id="@+id/cameraButton"
+            android:layout_width="@dimen/vc_controller_button_size"
+            android:layout_height="@dimen/vc_controller_button_size"
+            android:layout_gravity="center_vertical"
+           android:layout_marginLeft="20dp"
+            android:background="@drawable/camera_selector" />
         
         <Button
             android:id="@+id/videoResolution"
             android:layout_width="@dimen/vc_controller_button_size"
             android:layout_height="@dimen/vc_controller_button_size"
+            android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:background="@drawable/resolution_selector" />
         
@@ -64,6 +68,7 @@
             android:layout_height="@dimen/vc_controller_button_size"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="2dp"
+            android:visibility="gone"
             android:background="@drawable/speakers_selector" />
 
     </LinearLayout>

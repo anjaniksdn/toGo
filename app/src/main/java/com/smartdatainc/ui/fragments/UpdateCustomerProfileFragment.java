@@ -168,23 +168,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
     private boolean mCheckedList = false;
     private ArrayList<Language> mSelectedLanguageList;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpdateInterpreterProfile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UpdateInterpreterProfile newInstance(String param1, String param2) {
-        UpdateInterpreterProfile fragment = new UpdateInterpreterProfile();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     public UpdateCustomerProfileFragment() {
         // Required empty public constructor
@@ -433,6 +417,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
         //  mSelectedItems.remove(position);
         mSelectedLanguageList.remove(position);
         languageListAdapter.notifyDataSetChanged();
+        updateProfile();
     }
 
     @Override
@@ -818,6 +803,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     if (phoneedtitable) {
                         updateProfile();
                         profilephone.setEnabled(false);
+                        profilephone.setFocusable(false);
                         phoneedtitable = false;
                         makeEditable = true;
                         profilephoneedit.setBackgroundResource(R.drawable.edit_black);
@@ -826,6 +812,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                         if (makeEditable) {
                             profilephone.setEnabled(true);
                             profilephone.setFocusable(true);
+                            profilephone.requestFocus();
                             phoneedtitable = true;
                             makeEditable = false;
                             profilephoneedit.setBackgroundResource(R.drawable.tick_green);
@@ -867,6 +854,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             lastname.setEnabled(true);
+                            lastname.requestFocus();
                             lastnameeditable = true;
                             makeEditable = false;
                             editlastname.setBackgroundResource(R.drawable.tick_green);
@@ -887,6 +875,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             addresstext.setEnabled(true);
+                            addresstext.requestFocus();
                             addresseditable = true;
                             makeEditable = false;
                             editaddress.setBackgroundResource(R.drawable.tick_green);
@@ -906,6 +895,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             usernickname.setEnabled(true);
+                            usernickname.requestFocus();
                             nicknameeditable = true;
                             makeEditable = false;
                             editnickname.setBackgroundResource(R.drawable.tick_green);
@@ -926,6 +916,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             zipcodeedit.setEnabled(true);
+                            zipcodeedit.requestFocus();
                             zipeditable = true;
                             makeEditable = false;
                             editzip.setBackgroundResource(R.drawable.tick_green);
@@ -946,6 +937,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             cityedit.setEnabled(true);
+                            cityedit.requestFocus();
                             cityeditable = true;
                             makeEditable = false;
                             editcity.setBackgroundResource(R.drawable.tick_green);
@@ -982,6 +974,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             cardnumber.setEnabled(true);
+                            cardnumber.requestFocus();
                             cardnumbereditable = true;
                             makeEditable = false;
                             cardnumberedit.setBackgroundResource(R.drawable.tick_green);
@@ -1017,6 +1010,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                 case R.id.expirymonthedit:
                     if (expirymontheditable) {
                         expirymonthspinner.setClickable(false);
+                        expirymonthspinner.setEnabled(false);
                         expirymontheditable = false;
                         makeEditable = true;
                         updateProfile();
@@ -1024,6 +1018,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             expirymonthspinner.setClickable(true);
+                            expirymonthspinner.setEnabled(true);
                             expirymontheditable = true;
                             makeEditable = false;
                             expirymonthedit.setBackgroundResource(R.drawable.tick_green);
@@ -1044,6 +1039,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             cvvtext.setEnabled(true);
+                            cvvtext.requestFocus();
                             cvvediteditable = true;
                             makeEditable = false;
                             cvvedit.setBackgroundResource(R.drawable.tick_green);
@@ -1052,6 +1048,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                             validateEditatble();
                         }
                     }
+                    break;
                 case R.id.descriptionedit:
                     if (profiledescriptioneditable) {
                         profiledescription.setEnabled(false);
@@ -1062,6 +1059,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                     } else {
                         if (makeEditable) {
                             profiledescription.setEnabled(true);
+                            profiledescription.requestFocus();
                             profiledescriptioneditable = true;
                             makeEditable = false;
                             descriptionedit.setBackgroundResource(R.drawable.tick_green);
@@ -1588,6 +1586,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                 if (mSelectedItemImage.size() > 1) {
                     LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams((int) (800), (int) (350));
                     mLanguageListView.setLayoutParams(mParam);
+                    updateProfile();
                 } else {
                     LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams((int) (800), LinearLayout.LayoutParams.WRAP_CONTENT);
                     mLanguageListView.setLayoutParams(mParam);
@@ -1699,7 +1698,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
         }
 
     }
-    public String validateEditatble()
+    public void validateEditatble()
     {
         String message="";
 
@@ -1707,71 +1706,81 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
         {
             message = getResources().getString(R.string.EmailErrorMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(firstnameeditable)
         {
             message = getResources().getString(R.string.FirstnameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(lastnameeditable)
         {
             message = getResources().getString(R.string.lastnameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(addresseditable)
         {
             message = getResources().getString(R.string.AddressMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(zipeditable)
         {
             message = getResources().getString(R.string.ZipcodeMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(cityeditable)
         {
             message = getResources().getString(R.string.CityMessage);
             utilObj.showToast(getActivity(), message, 0);
-
+            return ;
         }
 
         if(nicknameeditable)
         {
             message = getResources().getString(R.string.NicknameMessage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(cvvediteditable)
         {
             message = getResources().getString(R.string.CVVmesseage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(cardnumbereditable)
         {
             message = getResources().getString(R.string.Cardnumbermesseage);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(expirymontheditable)
         {
             message = getResources().getString(R.string.Expirymonth);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
         if(expiryyeareditable)
         {
             message = getResources().getString(R.string.ExpiryYear);
             utilObj.showToast(getActivity(), message, 0);
+            return ;
 
         }
 
-        return  message;
+
 
     }
 }
