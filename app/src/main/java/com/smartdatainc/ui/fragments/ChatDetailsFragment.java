@@ -166,12 +166,15 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
 
                     if(callObj!=null) {
                         JSONObject profile_imgObj = callObj.optJSONObject("profile_img");
-                        String url = profile_imgObj.getString("url");
+                        if(profile_imgObj!=null) {
+                            String url = profile_imgObj.optString("url");
+                            chatDetails.setImageurl(url);
+                        }
                         JSONObject nameObj = callObj.optJSONObject("name");
                         String first_name = nameObj.optString("first_name");
                         String last_name = nameObj.optString("last_name");
                         String nickname = callObj.optString("nickname");
-                        chatDetails.setImageurl(url);
+
                         chatDetails.setInterpreterNickname(nickname);
                     }
                     chatDetails.setCallDuration(""+totalMinutes);

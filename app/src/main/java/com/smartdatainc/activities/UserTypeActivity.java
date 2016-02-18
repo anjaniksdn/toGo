@@ -47,6 +47,7 @@ public class UserTypeActivity extends AppActivity implements OnClickListener {
                 Bundle userbundle = new Bundle();
                 userbundle.putString("usertype", "user");
                 intentObjuser.putExtra("userbundle", userbundle);
+                utilObj.saveDataInSharedPreferences("user", MODE_PRIVATE, "usertype", "" + "user");
                 startActivity(intentObjuser);
                 //UserTypeActivity.this.finish();
                 break;

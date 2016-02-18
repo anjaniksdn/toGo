@@ -652,9 +652,9 @@ public class InterpreterDashboardActivity extends AppActivity implements Service
                     application.sendCNMessage(cnMessage.getFrom(), CNMessage.CNMessageType.AnswerDecline, null);
                     callDialogBuilder.hide();
                     InterpreterCallStatus interpreterCallStatus = new InterpreterCallStatus();
-                    String userid = utilObj.readDataInSharedPreferences("Users", 0, "id");
+                    String userid = utilObj.readDataInSharedPreferences("Users", 0, "uid");
                     String email = utilObj.readDataInSharedPreferences("Users", 0, "email");
-                    interpreterCallStatus.callstatus="0";
+                    interpreterCallStatus.callstatus = 0;
                     interpreterCallStatus.id = userid;
                     interpreterCallStatus.emailid = email;
 
@@ -674,11 +674,11 @@ public class InterpreterDashboardActivity extends AppActivity implements Service
             callDialogBuilder.hide();
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.EndCall) {
             application.onEndOfCall();
-            if (application.leave()) {
+           // if (application.leave()) {
                 int count = getFragmentManager().getBackStackEntryCount();
                 String name = getFragmentManager().getBackStackEntryAt(count - 2).getName();
                 getFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
+          //  }
         }
     }
 

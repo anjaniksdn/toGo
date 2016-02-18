@@ -7,5 +7,5 @@ public class InterpreterCallStatus {
 
     public String id;
     public String emailid;
-    public String callstatus;
+    public int callstatus;
 }

@@ -322,6 +322,24 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
         mSelectedItems.remove(position);
         mSelectedLanguageList.remove(position);
         languageListAdapter.notifyDataSetChanged();
+        String selectedlanguageId="";
+        Iterator<Language> languageItr = mSelectedLanguageList.iterator();
+        {
+            int i=0;
+            while(languageItr.hasNext())
+            {
+                Language lang = languageItr.next();
+                //selectedlanguageId = lang.getLanguageId();
+                if (i == 0) {
+                    selectedlanguageId =lang.getLanguageId();
+                } else {
+                    selectedlanguageId = selectedlanguageId + "," + lang.getLanguageId();
+                }
+                i++;
+            }
+        }
+        mylanguage = selectedlanguageId;
+
 
         updateProfile();
     }

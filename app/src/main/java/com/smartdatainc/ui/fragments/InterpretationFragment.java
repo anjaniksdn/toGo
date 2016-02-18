@@ -229,24 +229,26 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    // TODO Auto-generated method stub
 
                 }
 
                 @Override
                 public void onFinish() {
-                    // TODO Auto-generated method stub
+
                     if(callDialogBuilder.isShowing()) {
                         callDialogBuilder.dismiss();
                         sendCNMessage(CNMessage.CNMessageType.Cancel, null);
                         if(!checkcallStatus) {
                             dismissCall();
+                        }else
+                        {
+                            Log.v("Elsetag","Else");
                         }
                     }
                 }
             }.start();
         } else {
-            Toast.makeText(getActivity(), R.string.no_receivers, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(getActivity(), R.string.no_receivers, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -301,127 +303,127 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                 e.printStackTrace();
             }
         }
-         else   if (taskID == Constants.TaskID.GET_LANGUAGE_LIST_INTERPRETETION_TASK_ID) {
-                utilObj.stopLoader();
-                try {
-                    JSONObject jsonObj = new JSONObject(data);
-                    JSONArray jsonObjArray = jsonObj.optJSONArray("data");
-                    mLanguageArrayList = new ArrayList<>();
-                    if (jsonObjArray != null) {
-                        for (int c = 0; c < jsonObjArray.length(); c++) {
-                            Language languageDataModel = new Language();
-                            JSONObject languageJsonObj = jsonObjArray.getJSONObject(c);
-                            String id = languageJsonObj.optString("id");
-                            String createdAt = languageJsonObj.optString("createdAt");
-                            String icon = languageJsonObj.optString("icon");
-                            String languageId = languageJsonObj.optString("languageId");
-                            String language = languageJsonObj.optString("language");
+        else   if (taskID == Constants.TaskID.GET_LANGUAGE_LIST_INTERPRETETION_TASK_ID) {
+            utilObj.stopLoader();
+            try {
+                JSONObject jsonObj = new JSONObject(data);
+                JSONArray jsonObjArray = jsonObj.optJSONArray("data");
+                mLanguageArrayList = new ArrayList<>();
+                if (jsonObjArray != null) {
+                    for (int c = 0; c < jsonObjArray.length(); c++) {
+                        Language languageDataModel = new Language();
+                        JSONObject languageJsonObj = jsonObjArray.getJSONObject(c);
+                        String id = languageJsonObj.optString("id");
+                        String createdAt = languageJsonObj.optString("createdAt");
+                        String icon = languageJsonObj.optString("icon");
+                        String languageId = languageJsonObj.optString("languageId");
+                        String language = languageJsonObj.optString("language");
 
-                            languageDataModel.setId(id);
-                            languageDataModel.setCreatedAt(createdAt);
-                            languageDataModel.setIcon(icon);
-                            languageDataModel.setLanguageId(id);
-                            languageDataModel.setLanguage(language);
-                            mLanguageArrayList.add(languageDataModel);
-                        }
-                        //multiSelectLanguageDialog();
-                        Iterator<Language> languageListitr = mLanguageArrayList.iterator();
-                        String selectedLangugeArray[] = mylanguage.split(",");
-                        while (languageListitr.hasNext()) {
-                            Language languaeitemObj = languageListitr.next();
-                            if (selectedLangugeArray != null) {
-                                for (int l = 0; l < selectedLangugeArray.length; l++) {
+                        languageDataModel.setId(id);
+                        languageDataModel.setCreatedAt(createdAt);
+                        languageDataModel.setIcon(icon);
+                        languageDataModel.setLanguageId(id);
+                        languageDataModel.setLanguage(language);
+                        mLanguageArrayList.add(languageDataModel);
+                    }
+                    //multiSelectLanguageDialog();
+                    Iterator<Language> languageListitr = mLanguageArrayList.iterator();
+                    String selectedLangugeArray[] = mylanguage.split(",");
+                    while (languageListitr.hasNext()) {
+                        Language languaeitemObj = languageListitr.next();
+                        if (selectedLangugeArray != null) {
+                            for (int l = 0; l < selectedLangugeArray.length; l++) {
 
-                                    if (selectedLangugeArray[l].equalsIgnoreCase(languaeitemObj.getLanguageId())) {
-                                        //languageCheckBox.setChecked(true);
-                                        //  mSelectedLanguageList.add(languaeitemObj);
-                                        String url = languaeitemObj.getIcon();
-                                        url = url.replace("<img src='", "");
-                                        url = url.replace("'  />", "");
-                                        languaeitemObj.getIcon();
-                                        languaeitemObj.getLanguage();
-                                        mFromLanguageTextView.setText(languaeitemObj.getLanguage());
-                                        fromlanguageId = languaeitemObj.getId();
-                                        mAQuery.id(R.id.from_language_image_view).image(Constants.WebServices.WS_BASE_URL + url);
-                                    }
-
+                                if (selectedLangugeArray[l].equalsIgnoreCase(languaeitemObj.getLanguageId())) {
+                                    //languageCheckBox.setChecked(true);
+                                    //  mSelectedLanguageList.add(languaeitemObj);
+                                    String url = languaeitemObj.getIcon();
+                                    url = url.replace("<img src='", "");
+                                    url = url.replace("'  />", "");
+                                    languaeitemObj.getIcon();
+                                    languaeitemObj.getLanguage();
+                                    mFromLanguageTextView.setText(languaeitemObj.getLanguage());
+                                    fromlanguageId = languaeitemObj.getId();
+                                    mAQuery.id(R.id.from_language_image_view).image(Constants.WebServices.WS_BASE_URL + url);
                                 }
+
                             }
                         }
-
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
-            } else if (taskID == Constants.TaskID.CUSTOMER_PROFILE_TASK_ID) {
-                UserProfile userProfile = new UserProfile();
-                try {
-                    JSONObject jsonObj = new JSONObject(data);
-                    JSONObject jsonobjUser = jsonObj.getJSONObject("user");
-                    JSONArray mylanguageArray = jsonobjUser.optJSONArray("mylanguage");
-                    if (mylanguageArray != null) {
-                        for (int length = 0; length < mylanguageArray.length(); length++) {
-                            String language = (String) mylanguageArray.get(length);
-                            if (length == 0) {
-                                mylanguage = language;
-                            } else {
-                                mylanguage = mylanguage + "," + language;
-                            }
-                            Log.v("Lang", language);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (taskID == Constants.TaskID.CUSTOMER_PROFILE_TASK_ID) {
+            UserProfile userProfile = new UserProfile();
+            try {
+                JSONObject jsonObj = new JSONObject(data);
+                JSONObject jsonobjUser = jsonObj.getJSONObject("user");
+                JSONArray mylanguageArray = jsonobjUser.optJSONArray("mylanguage");
+                if (mylanguageArray != null) {
+                    for (int length = 0; length < mylanguageArray.length(); length++) {
+                        String language = (String) mylanguageArray.get(length);
+                        if (length == 0) {
+                            mylanguage = language;
+                        } else {
+                            mylanguage = mylanguage + "," + language;
                         }
+                        Log.v("Lang", language);
                     }
-                    if (isNetworkAvailable(getActivity())) {
-                        String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
-                        utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
-                        User userObj = new User();
-                        userObj.Authorization = token;
-                        userProfileManager.getLanguageListForInterpretion(userObj);
-                    } else {
-                        utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
-                    }
-                } catch (JSONException je) {
-                    je.printStackTrace();
                 }
-            } else if (taskID == Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID) {
-                String languagePrice = "";
-                try {
-                    JSONObject jsonObj = new JSONObject(data);
-                    JSONArray calluserArrayObj = jsonObj.optJSONArray("data");
-
-                    if (calluserArrayObj != null) {
-                        for (int c = 0; c < calluserArrayObj.length(); c++) {
-                            JSONObject languageJsonObj = calluserArrayObj.getJSONObject(c);
-                            languagePrice = languageJsonObj.optString("languagePrice");
-                        }
-                    }
-                    utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "languagePrice", "" + languagePrice);
-
-                    mAmountTextView.setText(getResources().getString(R.string.interpreter_charge_amount) + " $" + languagePrice + ".00" + " per min.");
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (isNetworkAvailable(getActivity())) {
+                    String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
+                    utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+                    User userObj = new User();
+                    userObj.Authorization = token;
+                    userProfileManager.getLanguageListForInterpretion(userObj);
+                } else {
+                    utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
                 }
+            } catch (JSONException je) {
+                je.printStackTrace();
+            }
+        } else if (taskID == Constants.TaskID.GET_INTERPRETATION_DETAILS_TASK_ID) {
+            String languagePrice = "";
+            try {
+                JSONObject jsonObj = new JSONObject(data);
+                JSONArray calluserArrayObj = jsonObj.optJSONArray("data");
 
-
-            } else if (taskID == Constants.TaskID.GET_INTERPRETATION_POOL_TASK_ID) {
-                String languagePrice = "";
-                try {
-                    JSONObject jsonObj = new JSONObject(data);
-                    JSONArray calluserArrayObj = jsonObj.optJSONArray("data");
-                    toList = new ArrayList<String>();
-                    toUserIdList = new ArrayList<String>();
-                    for (int languageArray = 0; languageArray < calluserArrayObj.length(); languageArray++) {
-                        JSONObject languageJsonObj = calluserArrayObj.getJSONObject(languageArray);
-                        String uid = languageJsonObj.get("uid").toString();
-                        String id = languageJsonObj.get("id").toString();
-                        toList.add(uid);
-                        toUserIdList.add(id);
-
+                if (calluserArrayObj != null) {
+                    for (int c = 0; c < calluserArrayObj.length(); c++) {
+                        JSONObject languageJsonObj = calluserArrayObj.getJSONObject(c);
+                        languagePrice = languageJsonObj.optString("languagePrice");
                     }
-                    String poolId = jsonObj.optString("poolId");
+                }
+                utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "languagePrice", "" + languagePrice);
+
+                mAmountTextView.setText(getResources().getString(R.string.interpreter_charge_amount) + " $" + languagePrice + ".00" + " per min.");
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        } else if (taskID == Constants.TaskID.GET_INTERPRETATION_POOL_TASK_ID) {
+            String languagePrice = "";
+            try {
+                JSONObject jsonObj = new JSONObject(data);
+                JSONArray calluserArrayObj = jsonObj.optJSONArray("data");
+                toList = new ArrayList<String>();
+                toUserIdList = new ArrayList<String>();
+                for (int languageArray = 0; languageArray < calluserArrayObj.length(); languageArray++) {
+                    JSONObject languageJsonObj = calluserArrayObj.getJSONObject(languageArray);
+                    String uid = languageJsonObj.get("uid").toString();
+                    String id = languageJsonObj.get("id").toString();
+                    toList.add(uid);
+                    toUserIdList.add(id);
+
+                }
+                String poolId = jsonObj.optString("poolId");
 
                /* if (data.contains("price")) {
                     JSONArray jsonObjArray = jsonObj.optJSONArray("price");
@@ -436,34 +438,34 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                     // mAmountTextView.setText(jsonObj.getString("message"));
                 }*/
 
-                    utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "tolanguageId", tolanguageId);
-                    utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "fromlanguageId", fromlanguageId);
-                    utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "poolId", poolId);
-                    callUser();
+                utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "tolanguageId", tolanguageId);
+                utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "fromlanguageId", fromlanguageId);
+                utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "poolId", poolId);
+                callUser();
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            } else if (taskID == Constants.TaskID.SET_CALL_DETAILS_TASK_ID) {
-                if (data != null) {
-
-                    //utilObj.showToast(getActivity(), data, 1);
-                    app().join(app().getConferenceId(), true);
-
-
-                }
-            } else if (taskID == Constants.TaskID.SET_CALL_CANCEL_TASK_ID) {
-                if (data != null) {
-
-                    //utilObj.showToast(getActivity(), data, 1);
-                    //  app().join(app().getConferenceId(), true);
-                    sendCNMessage(CNMessage.CNMessageType.Cancel, null);
-
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+
+        } else if (taskID == Constants.TaskID.SET_CALL_DETAILS_TASK_ID) {
+            if (data != null) {
+
+                //utilObj.showToast(getActivity(), data, 1);
+                app().join(app().getConferenceId(), true);
+
+
+            }
+        } else if (taskID == Constants.TaskID.SET_CALL_CANCEL_TASK_ID) {
+            if (data != null) {
+
+                //utilObj.showToast(getActivity(), data, 1);
+                //  app().join(app().getConferenceId(), true);
+                sendCNMessage(CNMessage.CNMessageType.Cancel, null);
+
+            }
+        }
 
 
     }
@@ -489,6 +491,9 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
             case R.id.confirmCall:
 
                 if (isNetworkAvailable(getActivity())) {
+                    if(toList!=null) {
+                        toList.clear();
+                    }
                     String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
                     utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
                     User userObj = new User();
@@ -654,20 +659,20 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
         if (app().getUniqueId().equals(cnMessage.getUniqueId())) {
             return;
         }
-        checkcallStatus = true;
+
 
         if (cnMessage.getMessageType() == CNMessage.CNMessageType.AnswerAccept) {
             callDialogBuilder.hide();
 
 
-
+            checkcallStatus = true;
 
             String from = cnMessage.getFromId();
             String to = cnMessage.getToId();
             String callId = cnMessage.getConferenceId();
             long timeStamp = cnMessage.getTimeStamp();
 
-          //  String date = utilObj.getDateCurrentTimeZone(timeStamp);
+            //  String date = utilObj.getDateCurrentTimeZone(timeStamp);
           /*  Timestamp timestamp = new Timestamp(timeStamp);
             Date date = new Date(timestamp.getTime());*/
             String[] interpreterId = toUserIdList.toArray(new String[toUserIdList.size()]);
@@ -693,7 +698,7 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
         } else if (cnMessage.getMessageType() == CNMessage.CNMessageType.AnswerDecline) {
             count--;
             if (count <= 0) {
-                callDialogBuilder.hide();
+                //callDialogBuilder.hide();
             }
         }  else if (cnMessage.getMessageType() == CNMessage.CNMessageType.Busy) {
             count--;
