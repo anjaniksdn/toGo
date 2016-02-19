@@ -299,21 +299,21 @@ public class LoginActivity extends AppActivity implements ServiceRedirection, Fa
 
                     //assigning the data to the user object
                     if (usertype.equalsIgnoreCase("interpreter")) {
-                       // emailObj.setText("togo-ibq@ice-breakrr.com");
-                       // passwordObj.setTag("Int@123");
+                        // emailObj.setText("togo-ibq@ice-breakrr.com");
+                        // passwordObj.setTag("Int@123");
                         email= emailObj.getText().toString();
                         password = passwordObj.getText().toString();
-                        email = "togo-ibq@ice-breakrr.com";
-                        password = "Int@123";
+                       // email = "togo-ibq@ice-breakrr.com";
+                       // password = "Int@123";
                     } else {
                         //emailObj.setText("rakeshp@ice-breakrr.com");
                         //passwordObj.setTag("Admin@123");
-                         email = emailObj.getText().toString();
+                        email = emailObj.getText().toString();
                         password = passwordObj.getText().toString();
-                         //email = "testcustomer@gmail.com";
-                      //  password = "Test@123";/*
-                        email = "rakeshp@ice-breakrr.com";
-                        password = "Admin@123";
+                        //email = "testcustomer@gmail.com";
+                        //  password = "Test@123";/*
+                     //  email = "rakeshp@ice-breakrr.com";
+                       // password = "Admin@123";
                     }
 
 

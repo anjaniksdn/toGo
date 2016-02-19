@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/email"
-                android:hint="@string/userid"
+                android:hint="@string/emailid"
                 android:inputType="textEmailAddress"
                 style="@style/LoginEditTextStyle"
                 android:singleLine="true"></EditText>

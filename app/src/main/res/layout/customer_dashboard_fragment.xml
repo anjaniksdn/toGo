@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundcolor"
     tools:context="com.smartdatainc.ui.fragments.InterprterDashBoardFragment">
 
-    <!-- TODO: Update blank fragment country_list_item -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <View style="@style/view_five_pixel" />
 

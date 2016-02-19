@@ -188,7 +188,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
                              Bundle savedInstanceState) {
 
         // Inflate the country_list_item for this fragment
-
+        container.removeAllViews();
         View view = inflater.inflate(R.layout.fragment_updatecustomer_profile, container, false);
         profilename = (TextView) view.findViewById(R.id.profilename);
         profileemail = (TextView) view.findViewById(R.id.profileemail);
@@ -1702,13 +1702,7 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
     {
         String message="";
 
-        if(phoneedtitable)
-        {
-            message = getResources().getString(R.string.EmailErrorMessage);
-            utilObj.showToast(getActivity(), message, 0);
-            return ;
 
-        }
         if(firstnameeditable)
         {
             message = getResources().getString(R.string.FirstnameMessage);
@@ -1726,6 +1720,13 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
         if(addresseditable)
         {
             message = getResources().getString(R.string.AddressMessage);
+            utilObj.showToast(getActivity(), message, 0);
+            return ;
+
+        }
+        if(phoneedtitable)
+        {
+            message = getResources().getString(R.string.EmailErrorMessage);
             utilObj.showToast(getActivity(), message, 0);
             return ;
 
@@ -1751,16 +1752,17 @@ public class UpdateCustomerProfileFragment extends BaseFragment implements Servi
             return ;
 
         }
-        if(cvvediteditable)
+
+        if(cardnumbereditable)
         {
-            message = getResources().getString(R.string.CVVmesseage);
+            message = getResources().getString(R.string.Cardnumbermesseage);
             utilObj.showToast(getActivity(), message, 0);
             return ;
 
         }
-        if(cardnumbereditable)
+        if(cvvediteditable)
         {
-            message = getResources().getString(R.string.Cardnumbermesseage);
+            message = getResources().getString(R.string.CVVmesseage);
             utilObj.showToast(getActivity(), message, 0);
             return ;
 

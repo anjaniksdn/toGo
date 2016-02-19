@@ -63,7 +63,7 @@ public class GetWebServiceData extends AsyncTask <String, Void, String>{
      */
     @Override
     protected void onPreExecute() {
-        // TODO Auto-generated method stub
+
         super.onPreExecute();
 
     }

@@ -26,9 +26,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.androidquery.AQuery;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.smartdatainc.activities.InterpreterDashboardActivity;
 import com.smartdatainc.app.ooVooSdkSampleShowApp;
 import com.smartdatainc.call.CNMessage;
@@ -67,8 +64,8 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private ImageLoader mImageLoader;
-    private DisplayImageOptions options;
+   // private ImageLoader mImageLoader;
+   // private DisplayImageOptions options;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -128,6 +125,7 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the country_list_item for this fragment
+        container.removeAllViews();
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         profilename = (TextView) view.findViewById(R.id.profilename);
         callEarnings = (TextView) view.findViewById(R.id.callEarnings);
@@ -143,7 +141,7 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
         avaiblitytoggle.setOnClickListener(onClickListener);
         profileimageview.setOnClickListener(onClickListener);
         callDialogBuilder = new AlertDialog.Builder(getActivity()).create();
-
+        initdata();
         View outgoingCallDialog = inflater.inflate(R.layout.outgoing_call_dialog, null);
         outgoingCallDialog.setAlpha(0.5f);
         callDialogBuilder.setView(outgoingCallDialog);
@@ -154,66 +152,10 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
         callDialogBuilder.setCancelable(false);
 
         app().addCallNegotiationListener(this);
-        initdata();
-
-
-        /*avaiblitytoggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
-                    String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
-                    User userObj = new User();
-                    userObj.Authorization = token;
-                    userProfileManager.updateAviblity(userObj);
-                    // The toggle is enabled
-                } else {
-                    // The toggle is disabled
-                }
-            }
-        });*/
 
         token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
         id = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "id");
         email= utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "email");
-
-       /* if (isNetworkAvailable(getActivity())) {
-            utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
-            InterprterDashBoardRequest interprterDashBoardRequest = new InterprterDashBoardRequest();
-            interprterDashBoardRequest.Authorization = token;
-            interprterDashBoardRequest.id =id;
-            interprterDashBoardRequest.type  ="interpreter";
-            userProfileManager.interpreterDashBoard(interprterDashBoardRequest);
-        } else {
-            utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
-        }*/
-
-        return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-
-
-    public void initdata() {
-        utilObj = new Utility(getActivity());
-        userProfileManager = new UserProfileManager(getActivity(), this);
-        aq = new AQuery(getActivity());
-        mImageLoader = ImageLoader.getInstance();
-        mImageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-        options = new DisplayImageOptions.Builder()
-                //.showImageOnLoading(R.drawable.no_image)
-                .showImageForEmptyUri(R.drawable.profile_icon)
-                .showImageOnFail(R.drawable.profile_icon).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
-
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         if (isNetworkAvailable(getActivity())) {
             try {
                 //Thread.sleep(3000);
@@ -230,6 +172,43 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
         } else {
             utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
         }
+
+        return view;
+    }
+
+
+
+
+    public void initdata() {
+        utilObj = new Utility(getActivity());
+        userProfileManager = new UserProfileManager(getActivity(), this);
+        aq = new AQuery(getActivity());
+
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+      /*  if (isNetworkAvailable(getActivity())) {
+            try {
+                //Thread.sleep(3000);
+                utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+                InterprterDashBoardRequest interprterDashBoardRequest = new InterprterDashBoardRequest();
+                interprterDashBoardRequest.Authorization = token;
+                interprterDashBoardRequest.id =id;
+                interprterDashBoardRequest.type  ="interpreter";
+                userProfileManager.interpreterDashBoard(interprterDashBoardRequest);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            utilObj.showToast(getActivity(), Constants.NOINTERNET, 0);
+        }*/
 
     }
 
@@ -310,44 +289,7 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
 
         }
     };
-    /*@Override
-    public void onClick(View v) {
 
-        //callDialogBuilder.hide();
-        Toast.makeText(getActivity(),"Hi",Toast.LENGTH_LONG).show();
-        switch (v.getId()) {
-            case R.id.cancel_button:
-            {
-                sendCNMessage(CNMessage.CNMessageType.Cancel, null);
-            }
-            break;
-            case R.id.manageprofile:
-                Fragment fragment = new UpdateInterpreterProfile();
-                //Bundle args = new Bundle();
-                //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-                //fragment.setArguments(args);
-
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.host_activity, fragment)
-                        .commit();
-
-                break;
-         *//*   case R.id.avaiblitytoggle:
-                if(avaiblitytoggle.isChecked())
-                {
-                    String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
-                    User userObj = new User();
-                    userObj.Authorization = token;
-                    ///userProfileManager.updateAviblity(userObj);
-                }
-                break;*//*
-
-            default:
-                break;
-        }
-    }*/
 
     @Override
     public void onSuccessRedirection(int taskID) {
@@ -416,6 +358,7 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
             }
 
             if (url != null && url.length() > 0) {
+                aq = new AQuery(getActivity());
                 aq.id(R.id.profileimageview).image(url);
             }
 
@@ -434,8 +377,8 @@ public class InterprterDashBoardFragment extends BaseFragment implements Service
                 boolean interpreter_availability = profileArray.optBoolean("interpreter_availability");
                 String  nickname= profileArray.optString("interpreter_availability");
                 //String imageurl = jsonobj.getJSONObject("profile_img").getString("url");
-                String first_name = profileArray.getJSONObject("name").optString("first_name");
-                String last_name = profileArray.getJSONObject("name").optString("last_name");
+                String first_name = profileArray.optJSONObject("name").optString("first_name");
+                String last_name = profileArray.optJSONObject("name").optString("last_name");
 
 
                 //       getProfileInfojsonArray.optString()

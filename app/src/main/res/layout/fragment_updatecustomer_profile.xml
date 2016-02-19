@@ -160,7 +160,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
-
+                        android:maxLength="13"
+                        android:inputType="text"
                         android:enabled="false"
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />
@@ -195,7 +196,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
                         android:enabled="false"
-
+                        android:maxLength="13"
+                        android:inputType="text"
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />
 
@@ -228,7 +230,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
                         android:enabled="false"
-
+                        android:maxLength="10"
+                        android:inputType="text"
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />
 
@@ -333,6 +336,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
                         android:text=""
+                        android:inputType="phone"
                         android:maxLength="12"
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />
@@ -532,7 +536,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundcolor"
-
+                        android:inputType="text|number"
                         android:text=""
                         android:textColor="@drawable/textselector"
                         android:textSize="@dimen/profilenewsize" />

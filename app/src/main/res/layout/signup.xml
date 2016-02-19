@@ -16,8 +16,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/default_pic"
                 android:paddingTop="30dp"
                 android:paddingBottom="10dp"
@@ -63,7 +63,7 @@
                         android:contentDescription="@string/email"
                         android:hint="@string/unameHint"
 
-
+android:maxLength="10"
                         style="@style/LoginEditTextStyle"
                         android:singleLine="true"></EditText>
                 </LinearLayout>
@@ -116,7 +116,7 @@
                         android:contentDescription="@string/email"
                         android:hint="@string/emailHint"
                         android:inputType="textEmailAddress"
-
+                        android:maxLength="20"
                         style="@style/LoginEditTextStyle"
                         android:singleLine="true"></EditText>
                 </LinearLayout>
@@ -194,42 +194,42 @@
                     android:maxLength="10"/>-->
 
                 <View style="@style/view_20" />
-         <!--       <View style="@style/view_20" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="@color/registercolor"
-                    android:text="Register As"
-                    />
-                <View style="@style/view_20" />
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
+                <!--       <View style="@style/view_20" />
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center"
+                           android:textSize="20sp"
+                           android:textColor="@color/registercolor"
+                           android:text="Register As"
+                           />
+                       <View style="@style/view_20" />
+                       <RadioGroup
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center"
+                           android:orientation="horizontal"
 
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/selectusertype">
-                    <RadioButton
-                        android:id="@+id/interpreterradio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/interpreter"
-                        >
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/userradio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user"
-                        >
-                    </RadioButton>
+                           android:layout_alignParentLeft="true"
+                           android:layout_alignParentStart="true"
+                           android:layout_marginTop="10dp"
+                           android:id="@+id/selectusertype">
+                           <RadioButton
+                               android:id="@+id/interpreterradio"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/interpreter"
+                               >
+                           </RadioButton>
+                           <RadioButton
+                               android:id="@+id/userradio"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/user"
+                               >
+                           </RadioButton>
 
-                </RadioGroup>-->
+                       </RadioGroup>-->
 
                 <Button
                     android:id="@+id/btnRegister"

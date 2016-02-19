@@ -17,6 +17,7 @@ public class InterpreterSettingFragment extends BaseFragment implements  View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         mRootView = inflater.inflate(R.layout.fragment_interprener_setting, container, false);
         changepassword = (TextView)mRootView.findViewById(R.id.changepassword);
         changepassword.setOnClickListener(this);

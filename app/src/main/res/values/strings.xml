@@ -258,6 +258,7 @@
     <string name="interpretto">Interpretetion To</string>
     <string name="duration">Duration</string>
     <string name="amount">Amount</string>
+    <string name="emailid">Email ID</string>
 
     <!--<forgot password>-->
     <string name="forgot_password_message">Please checkyour email registered to reset your password.</string>

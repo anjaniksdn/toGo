@@ -126,7 +126,7 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the country_list_item for this fragment
+        container.removeAllViews();
         mRootView = inflater.inflate(R.layout.fragment_select_interpretation, container, false);
         application = (ooVooSdkSampleShowApp) getActivity().getApplication();
         application.setContext(getActivity());
@@ -214,7 +214,7 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
 
                 if (!state) {
                     // count = 0 ;
-                    Toast.makeText(getActivity(), R.string.fail_to_send_message, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), R.string.fail_to_send_message, Toast.LENGTH_LONG).show();
                     callDialogBuilder.hide();
                     return  ;
                 }
@@ -238,11 +238,14 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                     if(callDialogBuilder.isShowing()) {
                         callDialogBuilder.dismiss();
                         sendCNMessage(CNMessage.CNMessageType.Cancel, null);
+                        Log.v("Inside timer","onfinshCall");
                         if(!checkcallStatus) {
+                            Log.v("Inside timer","dismissCall");
                             dismissCall();
                         }else
                         {
-                            Log.v("Elsetag","Else");
+
+                            Log.v("Inside timer","ElseCall");
                         }
                     }
                 }
@@ -400,7 +403,13 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                 }
                 utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "languagePrice", "" + languagePrice);
 
-                mAmountTextView.setText(getResources().getString(R.string.interpreter_charge_amount) + " $" + languagePrice + ".00" + " per min.");
+            if(languagePrice!=null && languagePrice.length()>0)
+            {
+            mAmountTextView.setText(getResources().getString(R.string.interpreter_charge_amount) + " $" + languagePrice + ".00" + " per min.");
+        } else {
+             mAmountTextView.setText(jsonObj.optString("message"));
+        }
+               // mAmountTextView.setText(getResources().getString(R.string.interpreter_charge_amount) + " $" + languagePrice + ".00" + " per min.");
 
 
             } catch (Exception e) {
@@ -415,13 +424,15 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                 JSONArray calluserArrayObj = jsonObj.optJSONArray("data");
                 toList = new ArrayList<String>();
                 toUserIdList = new ArrayList<String>();
-                for (int languageArray = 0; languageArray < calluserArrayObj.length(); languageArray++) {
-                    JSONObject languageJsonObj = calluserArrayObj.getJSONObject(languageArray);
-                    String uid = languageJsonObj.get("uid").toString();
-                    String id = languageJsonObj.get("id").toString();
-                    toList.add(uid);
-                    toUserIdList.add(id);
+                if(calluserArrayObj!=null) {
+                    for (int languageArray = 0; languageArray < calluserArrayObj.length(); languageArray++) {
+                        JSONObject languageJsonObj = calluserArrayObj.getJSONObject(languageArray);
+                        String uid = languageJsonObj.get("uid").toString();
+                        String id = languageJsonObj.get("id").toString();
+                        toList.add(uid);
+                        toUserIdList.add(id);
 
+                    }
                 }
                 String poolId = jsonObj.optString("poolId");
 
@@ -441,7 +452,14 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                 utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "tolanguageId", tolanguageId);
                 utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "fromlanguageId", fromlanguageId);
                 utilObj.saveDataInSharedPreferences("Call", getActivity().MODE_PRIVATE, "poolId", poolId);
-                callUser();
+                if(toList!=null && toList.size()>0) {
+                    if(poolId!=null) {
+                        callUser();
+                    }
+                }else
+                {
+                    Log.v("Calling","No Pool");
+                }
 
 
             } catch (Exception e) {
@@ -495,16 +513,23 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                         toList.clear();
                     }
                     String token = utilObj.readDataInSharedPreferences("Users", getActivity().MODE_PRIVATE, "_token");
-                    utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+
                     User userObj = new User();
                     //userObj.Authorization = token;
 
                     // language.getLanguageId();
                     // userObj.fromLanguage = mFromLanguageTextView.getText().toString();
                     //userObj.toLanguage = mToLanguageTextView.getText().toString();
-                    userObj.fromLanguage = fromlanguageId;
-                    userObj.toLanguage = tolanguageId;
-                    userProfileManager.interpreterPoolDetails(userObj);
+                    String toLanguage = mToLanguageTextView.getText().toString();
+                    if(toLanguage!=null && toLanguage.length()>0) {
+                        utilObj.startLoader(getActivity(), R.drawable.image_for_rotation);
+                        userObj.fromLanguage = fromlanguageId;
+                        userObj.toLanguage = tolanguageId;
+                        userProfileManager.interpreterPoolDetails(userObj);
+                    }else
+                    {
+                        Toast.makeText(getActivity(),"Please select to language",Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 //callUser();
@@ -542,6 +567,12 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
                 break;
 
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void multiSelectLanguageDialog()
@@ -720,6 +751,7 @@ public class InterpretationFragment extends BaseFragment implements ServiceRedir
     }
     public void dismissCall()
     {
+        Log.v("dismiss","dismiss called");
         long timeStamp = System.currentTimeMillis();
         String[] interpreterId = toUserIdList.toArray(new String[toUserIdList.size()]);
         String userid = utilObj.readDataInSharedPreferences("Users", 0, "id");

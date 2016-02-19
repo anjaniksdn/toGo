@@ -176,7 +176,7 @@ public class UpdateInterpreterProfile extends BaseFragment implements ServiceRed
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        container.removeAllViews();
         // Inflate the country_list_item for this fragment
 
         View view = inflater.inflate(R.layout.fragment_update_user_profile, container, false);

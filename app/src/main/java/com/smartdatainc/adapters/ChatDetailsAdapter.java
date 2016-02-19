@@ -64,7 +64,7 @@ public class ChatDetailsAdapter extends ArrayAdapter<ChatDetails> {
         interpreterNickname.setText(chatDetailsList.get(position).getInterpreterNickname());
         toLanguage.setText(chatDetailsList.get(position).getToLanguage());
         fromLanguage.setText(chatDetailsList.get(position).getFromLanguage());
-        callDuration.setText(chatDetailsList.get(position).getCallDuration()+"m");
+        callDuration.setText(chatDetailsList.get(position).getCallDuration());
        /* if(chatDetailsList.get(position).getFav().equalsIgnoreCase("true"))
         {
             fav.setBackgroundResource(R.drawable.fav_interpreter_icon);

@@ -83,6 +83,7 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_details, container, false);
         feedbackdetails = (ListView)view.findViewById(R.id.feedbackdetails);
@@ -103,7 +104,7 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -140,11 +141,20 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
                     ChatDetails chatDetails = new ChatDetails();
                     JSONObject jsonObj = (JSONObject) cDRDatajsonArray.get(j);
                     int callDuration = jsonObj.optInt("duration");
+                    String calldurationFinal = "";
                     int totalMinutes= callDuration/60;
                     long totalSecs = callDuration%60;
-                    if(totalSecs>1)
+                    if(totalSecs > 1)
                     {
-                        totalMinutes =  totalMinutes+1;
+                        totalMinutes =  totalMinutes + 1;
+                    }
+                    if(totalMinutes == 1)
+                    {
+                        calldurationFinal = totalMinutes + "m";
+                    }
+                    else if(totalMinutes > 1)
+                    {
+                        calldurationFinal = totalMinutes + "ms";
                     }
 
                     JSONObject fromlanguageobj = jsonObj.optJSONObject("fromlanguage");
@@ -163,7 +173,6 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
                         callObj = jsonObj.optJSONObject("call_to");
                     }
 
-
                     if(callObj!=null) {
                         JSONObject profile_imgObj = callObj.optJSONObject("profile_img");
                         if(profile_imgObj!=null) {
@@ -174,10 +183,9 @@ public class ChatDetailsFragment extends BaseFragment implements ServiceRedirect
                         String first_name = nameObj.optString("first_name");
                         String last_name = nameObj.optString("last_name");
                         String nickname = callObj.optString("nickname");
-
                         chatDetails.setInterpreterNickname(nickname);
                     }
-                    chatDetails.setCallDuration(""+totalMinutes);
+                    chatDetails.setCallDuration(""+calldurationFinal);
                     chatDetails.setFromLanguage(fromlanguage);
                     chatDetails.setToLanguage(tolanguage);
                     chatDetailsList.add(chatDetails);
